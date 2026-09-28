@@ -229,7 +229,7 @@ F: هل `final` بيخلي الـobject immutable؟ ← لأ. `final` بيمنع
 T: `var x;` من غير قيمة بيتعامل كأنه `dynamic`. الغلطة دي بتعدّي على ناس كتير.
 
 ### j | dart | hot
-Q: اشرح Null Safety والـoperators: ? و! و?? و??= و?. وlate
+Q: اشرح Null Safety والـoperators: `?` و`!` و`??` و`??=` و`?.` و`late`
 A:
 - `String?` معناها إن القيمة ممكن تبقى null. أما `String` لوحدها فمستحيل تبقى null، والـcompiler بيضمن ده.
 - `a?.length`: لو `a` بـnull النتيجة null ومفيش crash.
