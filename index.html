@@ -142,6 +142,17 @@ details.panel[open]>summary::after{content:"－"}
 .note.f{background:var(--accent-soft)} .note.f b{color:var(--accent)}
 .note.t{background:var(--hot-soft)} .note.t b{color:var(--hot)}
 .empty{padding:40px 10px;text-align:center;color:var(--muted)}
+.viewseg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface);flex:0 0 auto}
+.viewseg button{border:0;background:transparent;padding:8px 11px;font-size:14px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.viewseg button+button{border-inline-start:1px solid var(--line)}
+.viewseg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.viewseg svg{width:16px;height:16px;fill:currentColor}
+.btn:disabled{opacity:.45;cursor:default}
+.pager{position:sticky;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:4;margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:8px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
+.pager .btn{padding:10px 12px;font-weight:600}
+.pager #nextQ{justify-self:end}
+.pg-mid{display:grid;gap:4px;justify-items:center;min-width:90px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pg-mid .bar{width:100%}
 
 /* footer */
 .foot{margin-top:40px;display:grid;gap:12px;font-size:13.5px;color:var(--muted)}
@@ -217,6 +228,10 @@ details.panel[open]>summary::after{content:"－"}
   .ans pre,.mans pre{font-size:12px;padding:10px}
   .note{padding:9px 10px;font-size:14px}
   .fab-top{display:none}
+  .viewseg .vl{display:none}
+  .viewseg button{padding:7px 10px}
+  .pager{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+  .pager .btn{padding:10px 8px;font-size:14px}
   .bottombar{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;inset-inline:0;bottom:0;z-index:8;background:var(--surface);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
   .bottombar button{background:none;border:0;display:grid;justify-items:center;gap:1px;font-size:11.5px;color:var(--muted);padding:4px 0}
   .bottombar button b{font-size:19px;line-height:1.2;color:var(--ink);font-weight:400}
@@ -258,7 +273,7 @@ details.panel[open]>summary::after{content:"－"}
           <div><b>الأسبوع 2: Mid</b><span>الـlifecycle والـkeys والـstate management والـarchitecture والـtesting. اكتب كود الأسئلة بإيدك من غير AI.</span></div>
           <div><b>الأسبوع 3: Senior + محاكاة</b><span>Performance وSecurity وSystem Design، وجهّز 4 قصص behavioral، ومحاكاة إنترفيو كل يوم.</span></div>
         </div>
-        <div style="color:var(--muted);font-size:13px">اختصارات الكيبورد: <code>/</code> للبحث · <code>R</code> لسؤال عشوائي · <code>M</code> للمحاكاة</div>
+        <div style="color:var(--muted);font-size:13px">اختصارات الكيبورد: <code>/</code> للبحث · <code>R</code> لسؤال عشوائي · <code>M</code> للمحاكاة · <code>V</code> تبديل العرض · <code>←</code> <code>→</code> التالي والسابق في وضع سؤال سؤال</div>
       </div>
     </details>
   </header>
@@ -267,6 +282,10 @@ details.panel[open]>summary::after{content:"－"}
     <div class="row">
       <input class="search" id="search" type="search" placeholder="دوّر في الأسئلة والإجابات… (مثلاً: keys أو isolate)" aria-label="بحث">
       <button class="btn desk-only" id="random2">🎲 عشوائي</button>
+      <div class="viewseg" role="group" aria-label="طريقة العرض">
+        <button type="button" data-view="list" aria-pressed="true" title="كل الأسئلة في قائمة"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="2" width="14" height="3" rx="1"/><rect x="1" y="6.5" width="14" height="3" rx="1"/><rect x="1" y="11" width="14" height="3" rx="1"/></svg><span class="vl">قائمة</span></button>
+        <button type="button" data-view="single" aria-pressed="false" title="سؤال سؤال"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="1" width="6" height="6" rx="1.2"/><rect x="9" y="1" width="6" height="6" rx="1.2"/><rect x="1" y="9" width="6" height="6" rx="1.2"/><rect x="9" y="9" width="6" height="6" rx="1.2"/></svg><span class="vl">سؤال سؤال</span></button>
+      </div>
     </div>
     <div class="scroller"><div class="row tools-row2">
       <button class="btn" id="expand">اعرض كل الإجابات</button>
@@ -2945,7 +2964,9 @@ const isDue=id=>ratings[id]==='again'||(ratings[id]==='ok'&&Date.now()-(times[id
 let scale=store.get('flutter-ladder-scale',1);
 function applyScale(){document.documentElement.style.setProperty('--scale',scale)}
 applyScale();
-const ui={level:null,topic:null,filter:'all',q:''};
+const ui={level:null,topic:null,filter:'all',q:'',view:'list',idx:0,curId:null};
+ui.view=store.get('flutter-ladder-view','list')==='single'?'single':'list';
+ui.curId=store.get('flutter-ladder-cur',null);
 const open=new Set();
 const $=id=>document.getElementById(id);
 const main=$('main');
@@ -3017,7 +3038,9 @@ function render(){
   renderLadder();renderTopics();
   const v=visible();
   $('resultCount').textContent=v.length===Q.length?`${Q.length} سؤال`:`${v.length} من ${Q.length} سؤال`;
+  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.view===ui.view));
   if(!v.length){main.innerHTML='<div class="empty">مفيش أسئلة بالفلتر ده. جرّب تغيّر البحث أو الفلتر.</div>';return}
+  if(ui.view==='single'){renderSingle(v);return}
   let html='';
   for(const k of LV_ORDER){
     const items=v.filter(x=>x.lv===k);if(!items.length)continue;
@@ -3038,7 +3061,45 @@ function rate(id,v,toggle=true){
   document.querySelectorAll(`[data-rate="${id}"]`).forEach(b=>b.setAttribute('aria-pressed',ratings[id]===b.dataset.v));
   renderLadder();
 }
+function renderSingle(v){
+  let i=v.findIndex(x=>x.id===ui.curId);
+  if(i<0)i=Math.min(Math.max(ui.idx,0),v.length-1);
+  ui.idx=i;const x=v[i];ui.curId=x.id;store.set('flutter-ladder-cur',x.id);
+  main.innerHTML=`<section style="${cssVars(x.lv)}"><div class="sec-head"><h2>${LEVELS[x.lv].name}</h2><p>${TOPICS[x.tp]||x.tp}</p></div>
+    <div class="list">${cardHTML(x)}</div>
+    <nav class="pager" aria-label="التنقل بين الأسئلة">
+      <button class="btn" id="prevQ" ${i===0?'disabled':''}>→ السابق</button>
+      <div class="pg-mid"><span>${i+1} من ${v.length}</span><span class="bar" style="--c:var(--accent)"><i style="width:${(i+1)/v.length*100}%"></i></span></div>
+      <button class="btn primary" id="nextQ" ${i===v.length-1?'disabled':''}>التالي ←</button>
+    </nav></section>`;
+  $('prevQ').onclick=()=>step(-1);$('nextQ').onclick=()=>step(1);
+}
+function step(d){
+  if(ui.view!=='single')return;
+  const v=visible();const i=v.findIndex(x=>x.id===ui.curId);
+  const n=Math.min(Math.max((i<0?0:i)+d,0),v.length-1);
+  if(n===i)return;
+  ui.idx=n;ui.curId=v[n].id;render();
+  if(main.getBoundingClientRect().top<0)main.scrollIntoView({block:'start'});
+}
+function setView(vw){
+  if(ui.view===vw)return;
+  const firstVisible=[...document.querySelectorAll('.card')].find(c=>c.getBoundingClientRect().bottom>90);
+  if(vw==='single'&&firstVisible)ui.curId=firstVisible.id;
+  const keep=ui.curId;
+  ui.view=vw;store.set('flutter-ladder-view',vw);render();
+  if(vw==='list'&&keep&&$(keep))$(keep).scrollIntoView({block:'start'});
+  else if(main.getBoundingClientRect().top<0)main.scrollIntoView({block:'start'});
+}
 function goTo(id,{openIt=false}={}){
+  if(ui.view==='single'){
+    if(!visible().some(x=>x.id===id)){ui.level=null;ui.topic=null;ui.filter='all';ui.q='';$('search').value='';syncFilterChips()}
+    ui.curId=id;render();
+    if(openIt)setOpen(id,true);
+    main.scrollIntoView({behavior:'smooth',block:'start'});
+    const c=$(id);if(c){c.classList.remove('flash');void c.offsetWidth;c.classList.add('flash')}
+    return;
+  }
   let el=$(id);
   if(!el){ui.level=null;ui.topic=null;ui.filter='all';ui.q='';$('search').value='';syncFilterChips();render();el=$(id)}
   if(!el)return;
@@ -3066,6 +3127,7 @@ document.addEventListener('click',e=>{
     (navigator.clipboard?navigator.clipboard.writeText(url):Promise.reject()).then(()=>toast('اتنسخ لينك السؤال'),()=>toast('اللينك في شريط العنوان'));
     return;
   }
+  if(t.dataset.view){setView(t.dataset.view);return}
   if(t.dataset.lv){ui.level=ui.level===t.dataset.lv?null:t.dataset.lv;ui.topic=null;render();return}
   if(t.dataset.tp!==undefined&&t.closest('#topics')){ui.topic=t.dataset.tp||null;render();return}
   if(t.dataset.f){ui.filter=t.dataset.f;syncFilterChips();render();return}
@@ -3214,6 +3276,9 @@ document.addEventListener('keydown',e=>{
   if(!$('mock').hidden){if(e.key==='Escape')closeMock();return}
   if(e.target.matches('input,textarea,select')||e.metaKey||e.ctrlKey||e.altKey)return;
   if(e.key==='/'){e.preventDefault();$('search').focus()}
+  else if(ui.view==='single'&&e.key==='ArrowLeft'){e.preventDefault();step(1)}
+  else if(ui.view==='single'&&e.key==='ArrowRight'){e.preventDefault();step(-1)}
+  else if(e.key==='v'||e.key==='V'||e.key==='ر'){setView(ui.view==='list'?'single':'list')}
   else if(e.key==='r'||e.key==='R'||e.key==='ق'){randomQ()}
   else if(e.key==='m'||e.key==='M'||e.key==='ة'){openMock()}
 });
