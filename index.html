@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="137 سؤال Flutter وDart للإنترفيوهات من Junior لـSenior، مع إجابات بتتعرض وتختفي.">
+<meta name="description" content="193 سؤال Flutter وDart للإنترفيوهات من Junior لـSenior، مع إجابات بتتعرض وتختفي، ومحاكاة إنترفيو بتايمر.">
+<meta name="theme-color" content="#0b131d">
 <title>Flutter Interview Ladder</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,46 +12,51 @@
 <style>
 :root{
   --bg:#f3f6f9; --surface:#ffffff; --surface-2:#eaf0f5; --ink:#0f1c2b; --muted:#5a6878; --line:#d6dee7;
-  --accent:#0a6f93; --accent-soft:#dff0f6;
+  --accent:#0a6f93; --accent-soft:#dff0f6; --on-accent:#ffffff;
   --j:#1f8a58; --j-soft:#e2f4ea; --m:#b86e05; --m-soft:#fbefdc; --s:#5b43c9; --s-soft:#ece8fb; --u:#0a6f93; --u-soft:#dff0f6;
-  --hot:#c2410c; --hot-soft:#fdeadf; --good:#1f8a58; --warn:#b86e05;
+  --hot:#c2410c; --hot-soft:#fdeadf; --good:#1f8a58; --warn:#b86e05; --bad:#c0392b; --bad-soft:#fbe4e1;
   --code-bg:#0f1b2a; --code-ink:#dbe6f2; --code-kw:#7cc7ff; --code-str:#b5e38a; --code-com:#7d8da1; --code-num:#f5b86c;
   --shadow:0 1px 2px rgba(15,28,43,.06),0 4px 14px rgba(15,28,43,.05);
+  --scrim:rgba(8,16,26,.55);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   color-scheme:dark;
   --bg:#0b131d; --surface:#121d2a; --surface-2:#18263a; --ink:#e4ecf4; --muted:#93a3b6; --line:#243449;
-  --accent:#4cb8e0; --accent-soft:#12303f;
+  --accent:#4cb8e0; --accent-soft:#12303f; --on-accent:#04121a;
   --j:#4fcb8c; --j-soft:#123124; --m:#f0a741; --m-soft:#33250f; --s:#a592ff; --s-soft:#231d45; --u:#4cb8e0; --u-soft:#12303f;
-  --hot:#ff8a4c; --hot-soft:#3a1d10; --good:#4fcb8c; --warn:#f0a741;
-  --code-bg:#08111b; --shadow:0 1px 2px rgba(0,0,0,.3);
+  --hot:#ff8a4c; --hot-soft:#3a1d10; --good:#4fcb8c; --warn:#f0a741; --bad:#ff7a6b; --bad-soft:#3a1714;
+  --code-bg:#08111b; --shadow:0 1px 2px rgba(0,0,0,.3); --scrim:rgba(0,0,0,.65);
 }}
 :root[data-theme="dark"]{
   color-scheme:dark;
   --bg:#0b131d; --surface:#121d2a; --surface-2:#18263a; --ink:#e4ecf4; --muted:#93a3b6; --line:#243449;
-  --accent:#4cb8e0; --accent-soft:#12303f;
+  --accent:#4cb8e0; --accent-soft:#12303f; --on-accent:#04121a;
   --j:#4fcb8c; --j-soft:#123124; --m:#f0a741; --m-soft:#33250f; --s:#a592ff; --s-soft:#231d45; --u:#4cb8e0; --u-soft:#12303f;
-  --hot:#ff8a4c; --hot-soft:#3a1d10; --good:#4fcb8c; --warn:#f0a741;
-  --code-bg:#08111b; --shadow:0 1px 2px rgba(0,0,0,.3);
+  --hot:#ff8a4c; --hot-soft:#3a1d10; --good:#4fcb8c; --warn:#f0a741; --bad:#ff7a6b; --bad-soft:#3a1714;
+  --code-bg:#08111b; --shadow:0 1px 2px rgba(0,0,0,.3); --scrim:rgba(0,0,0,.65);
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:80px}
 img{max-width:100%}
-body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;font-size:16px;line-height:1.75;margin:0;padding-inline:16px;padding-block:0 80px}
+body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;font-size:16px;line-height:1.75;margin:0;padding-inline:16px;padding-block:0 90px}
+body.modal-open{overflow:hidden}
 .wrap{max-width:880px;margin-inline:auto}
 h1,h2,h3{font-family:"Readex Pro","IBM Plex Sans Arabic",sans-serif;text-wrap:balance;line-height:1.35}
-code,pre{font-family:"JetBrains Mono",ui-monospace,monospace}
-button{font:inherit;color:inherit;cursor:pointer}
-button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+code,pre{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-ligatures:none}
+button,select{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* hero */
-.hero{padding-block:36px 20px;display:grid;gap:14px}
-.eyebrow{font-size:13px;letter-spacing:.06em;color:var(--accent);font-weight:600;direction:ltr;text-align:right}
-.hero h1{font-size:clamp(28px,5vw,42px);margin:0}
+.hero{padding-block:30px 18px;display:grid;gap:14px}
+.topline{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.eyebrow{font-size:13px;letter-spacing:.06em;color:var(--accent);font-weight:600;direction:ltr}
+.icon-btn{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:5px 10px;font-size:13px;white-space:nowrap}
+.icon-btn:hover{border-color:var(--accent)}
+.hero h1{font-size:clamp(26px,5vw,42px);margin:0}
 .hero h1 span{color:var(--accent)}
-.hero p{margin:0;color:var(--muted);max-width:62ch}
-.ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px}
+.lead{margin:0;color:var(--muted);max-width:64ch}
+.ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .rung{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:6px;text-align:start;transition:border-color .15s,transform .15s}
 .rung:hover{transform:translateY(-1px)}
 .rung[aria-pressed="true"]{border-color:var(--c);box-shadow:inset 0 0 0 1px var(--c)}
@@ -59,8 +65,18 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .bar{height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--c);width:0;transition:width .3s}
 .rung .cnt{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-.how{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--muted)}
-.how b{color:var(--ink);font-weight:600}
+.hero-actions{display:flex;flex-wrap:wrap;gap:8px}
+details.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+details.panel>summary{cursor:pointer;padding:10px 14px;font-weight:600;font-size:14.5px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px}
+details.panel>summary::-webkit-details-marker{display:none}
+details.panel>summary::after{content:"＋";color:var(--muted);font-weight:400}
+details.panel[open]>summary::after{content:"－"}
+.panel-body{padding:0 14px 14px;display:grid;gap:10px;font-size:14.5px}
+.panel-body ol,.panel-body ul{margin:0;padding-inline-start:20px;display:grid;gap:4px}
+.plan{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.plan div{background:var(--surface-2);border-radius:10px;padding:10px 12px;display:grid;gap:4px}
+.plan b{font-family:"Readex Pro",sans-serif;font-size:14px}
+.plan span{font-size:13.5px;color:var(--muted);line-height:1.6}
 
 /* toolbar */
 .tools{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;display:grid;gap:10px;border-bottom:1px solid var(--line)}
@@ -68,33 +84,37 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .search{flex:1 1 220px;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font:inherit;color:var(--ink)}
 .btn{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14px;white-space:nowrap}
 .btn:hover{border-color:var(--accent)}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-:root[data-theme="dark"] .btn.primary{color:#04121a}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.primary{color:#04121a}}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600}
+.btn.ghost{background:transparent}
 .chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
 .chips::-webkit-scrollbar{display:none}
-.chip{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:4px 11px;font-size:13px;white-space:nowrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:4px 11px;font-size:13px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.chip{display:inline-flex;align-items:center;gap:6px}
 .chip .n{opacity:.6;font-variant-numeric:tabular-nums;font-size:12px}
 .tools-row2{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
 .tools-row2::-webkit-scrollbar{display:none}
 .tools-row2 .chips{overflow:visible}
+.tools{grid-template-columns:minmax(0,1fr)}
+.scroller{position:relative;min-width:0}
+.scroller::after{content:"";position:absolute;inset-block:0;left:0;width:28px;background:linear-gradient(to right,var(--bg),transparent);pointer-events:none}
+.result-count{font-size:13px;color:var(--muted)}
 
 /* sections & cards */
 .sec-head{margin-block:30px 12px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
 .sec-head h2{margin:0;font-size:22px;color:var(--c)}
 .sec-head p{margin:0;color:var(--muted);font-size:14px}
-.list{display:grid;gap:10px}
+.list{display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;border-inline-start:4px solid var(--c)}
-.card.flash{animation:flash 1.2s ease}
+.card.flash{animation:flash 1.4s ease}
 @keyframes flash{0%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:var(--shadow)}}
 .q{padding:14px 16px 12px;display:grid;gap:8px}
 .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px}
 .tag{padding:1px 8px;border-radius:99px;background:var(--surface-2);color:var(--muted)}
 .tag.lv{background:var(--cs);color:var(--c);font-weight:600}
 .tag.hot{background:var(--hot-soft);color:var(--hot);font-weight:600}
-.num{color:var(--muted);font-variant-numeric:tabular-nums;margin-inline-end:auto;font-family:"JetBrains Mono",monospace;font-size:12px}
+.num{color:var(--muted);font-variant-numeric:tabular-nums;margin-inline-end:auto;font-family:"JetBrains Mono",monospace;font-size:12px;display:inline-flex;align-items:center;gap:6px}
+.link-btn{background:none;border:0;padding:0 4px;color:var(--muted);font-size:13px;border-radius:6px}
+.link-btn:hover{color:var(--accent)}
 .q h3{margin:0;font-size:17px;font-weight:600}
 .actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .toggle{background:var(--cs);color:var(--c);border:0;border-radius:9px;padding:7px 14px;font-weight:600;font-size:14px}
@@ -102,32 +122,75 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .rate button{border:1px solid var(--line);background:transparent;border-radius:9px;padding:5px 10px;font-size:13px;color:var(--muted)}
 .rate button[aria-pressed="true"][data-v="ok"]{background:var(--j-soft);border-color:var(--good);color:var(--good)}
 .rate button[aria-pressed="true"][data-v="again"]{background:var(--m-soft);border-color:var(--warn);color:var(--warn)}
-.ans{border-top:1px dashed var(--line);padding:14px 16px 16px;display:grid;gap:10px;background:linear-gradient(var(--surface),var(--surface))}
-.ans p{margin:0}
-.ans ul{margin:0;padding-inline-start:20px;display:grid;gap:4px}
-.ans code{background:var(--surface-2);padding:1px 6px;border-radius:5px;font-size:.86em;direction:ltr;unicode-bidi:isolate}
-.ans pre{margin:0;background:var(--code-bg);color:var(--code-ink);border-radius:10px;padding:12px 14px;overflow-x:auto;direction:ltr;text-align:left;font-size:13px;line-height:1.6}
-.ans pre code{background:none;padding:0;font-size:inherit}
+.ans{border-top:1px dashed var(--line);padding:14px 16px 16px;display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+.ans p,.mans p{margin:0}
+.ans ul,.mans ul{margin:0;padding-inline-start:20px;display:grid;gap:4px}
+.ans code,.mans code,.mq code,.q h3 code,.missed code{background:var(--surface-2);padding:1px 6px;border-radius:5px;font-size:.86em;direction:ltr;unicode-bidi:isolate}
+.ans pre,.mans pre{margin:0;background:var(--code-bg);color:var(--code-ink);border-radius:10px;padding:12px 14px;overflow-x:auto;direction:ltr;text-align:left;font-size:13px;line-height:1.6}
+.ans pre code,.mans pre code{background:none;padding:0;font-size:inherit}
 .k{color:var(--code-kw)}.st{color:var(--code-str)}.cm{color:var(--code-com);font-style:italic}.nm{color:var(--code-num)}
 .note{border-radius:10px;padding:10px 12px;font-size:14.5px;display:grid;gap:2px}
 .note b{font-size:12.5px;letter-spacing:.02em}
-.note.f{background:var(--accent-soft)}
-.note.f b{color:var(--accent)}
-.note.t{background:var(--hot-soft)}
-.note.t b{color:var(--hot)}
+.note.f{background:var(--accent-soft)} .note.f b{color:var(--accent)}
+.note.t{background:var(--hot-soft)} .note.t b{color:var(--hot)}
 .empty{padding:40px 10px;text-align:center;color:var(--muted)}
-.foot{margin-top:40px;font-size:13px;color:var(--muted);display:grid;gap:6px}
+
+/* footer */
+.foot{margin-top:40px;display:grid;gap:12px;font-size:13.5px;color:var(--muted)}
 .foot a{color:var(--accent)}
+.sync{display:grid;gap:8px}
+.sync textarea{width:100%;min-height:64px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:12px/1.5 "JetBrains Mono",monospace;direction:ltr;resize:vertical}
+.msg{font-size:13px;color:var(--good);min-height:1em}
+
+/* floating & bottom bar */
+.fab-top{position:fixed;inset-inline-start:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:6;width:44px;height:44px;border-radius:50%;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);font-size:18px}
+.bottombar{display:none}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(80px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:14px;z-index:30;pointer-events:none}
+
+/* mock interview modal */
+.modal{position:fixed;inset:0;z-index:20;background:var(--scrim);display:grid;place-items:center;padding:16px}
+.sheet{background:var(--surface);border-radius:16px;width:min(720px,100%);max-height:calc(100dvh - 32px);overflow:auto;display:grid;grid-template-rows:auto 1fr;grid-template-columns:minmax(0,1fr);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.sheet-head{position:sticky;top:0;background:var(--surface);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;align-items:center;gap:10px;z-index:1}
+.sheet-head h2{margin:0;font-size:18px;margin-inline-end:auto}
+.sheet-body{padding:16px;display:grid;gap:14px;grid-template-columns:minmax(0,1fr);min-width:0}
+.field{display:grid;gap:6px}
+.field>span{font-weight:600;font-size:14px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:5px 12px;font-size:13.5px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.check{display:flex;align-items:center;gap:8px;font-size:14px}
+.mstat{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mstat .bar{flex:1}
+.timer{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:600;color:var(--ink);background:var(--surface-2);border-radius:8px;padding:2px 8px}
+.timer.low{color:var(--bad);background:var(--bad-soft)}
+.mq{font-family:"Readex Pro",sans-serif;font-size:19px;font-weight:600;margin:0;line-height:1.5}
+.mans{border:1px dashed var(--line);border-radius:12px;padding:12px;display:grid;gap:10px;min-width:0;grid-template-columns:minmax(0,1fr)}
+.mrate{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mrate button{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 6px;font-weight:600;font-size:14px}
+.mrate .g{color:var(--good)} .mrate .w{color:var(--warn)} .mrate .b{color:var(--bad)}
+.score{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.score div{background:var(--surface-2);border-radius:12px;padding:12px 6px;display:grid}
+.score b{font-family:"Readex Pro",sans-serif;font-size:26px;font-variant-numeric:tabular-nums}
+.score span{font-size:12.5px;color:var(--muted)}
+.missed{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.missed button{width:100%;text-align:start;background:var(--surface-2);border:0;border-radius:10px;padding:8px 12px;font-size:14px}
+
+@media (max-width:760px){
+  .plan{grid-template-columns:1fr}
+}
 @media (max-width:640px){
-  body{font-size:15px;padding-inline:12px}
-  .hero{padding-block:22px 12px;gap:10px}
-  .hero p{font-size:14.5px}
-  .how{display:grid;gap:2px;font-size:13.5px}
+  body{font-size:15px;padding-inline:12px;padding-block:0 96px}
+  .hero{padding-block:18px 12px;gap:10px}
+  .lead{font-size:13.5px;line-height:1.65}
+  .eyebrow{font-size:10.5px;letter-spacing:.04em}
+  .hero-actions{display:none}
+  .rung .cnt{font-size:11.5px}
   .ladder{grid-template-columns:repeat(2,1fr);gap:6px}
-  .rung{padding:10px;gap:4px}
-  .rung .sub{font-size:11.5px}
-  .tools{gap:8px;padding-block:8px}
+  .rung{padding:9px 10px;gap:3px}
+  .rung .sub{display:none}
+  .tools{position:static;gap:8px;padding-block:8px}
   .search{flex-basis:0;padding:8px 10px;font-size:14px}
+  .desk-only{display:none!important}
   .btn{padding:7px 10px;font-size:13px}
   .chip{padding:4px 10px;font-size:12.5px}
   .sec-head{margin-block:22px 10px}
@@ -141,36 +204,60 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
   .rate button{flex:1;padding:7px 8px}
   .ans{padding:12px}
   .ans ul{padding-inline-start:16px}
-  .ans pre{font-size:12px;padding:10px;margin-inline:-4px}
+  .ans pre,.mans pre{font-size:12px;padding:10px}
   .note{padding:9px 10px;font-size:14px}
+  .fab-top{display:none}
+  .bottombar{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;inset-inline:0;bottom:0;z-index:8;background:var(--surface);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
+  .bottombar button{background:none;border:0;display:grid;justify-items:center;gap:1px;font-size:11.5px;color:var(--muted);padding:4px 0}
+  .bottombar button b{font-size:19px;line-height:1.2;color:var(--ink);font-weight:400}
+  .modal{padding:0;place-items:end stretch}
+  .sheet{border-radius:16px 16px 0 0;max-height:94dvh;width:100%}
+  .mq{font-size:17px}
+  .mrate button{font-size:13px;padding:10px 4px}
 }
-@media (max-width:640px) and (max-height:900px){
-  .tools{position:static}
-}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
 
 </head>
 <body>
 <div class="wrap" dir="rtl" lang="ar">
   <header class="hero">
-    <div class="eyebrow">FLUTTER · DART · 2026 INTERVIEW PREP</div>
-    <h1>من الأساسيات لحد <span>Senior</span>، سؤال سؤال</h1>
-    <p>بنك أسئلة مرتب من الأسهل للأصعب: ابدأ بالـJunior علشان ترجّع الأساسيات، بعدها Mid، بعدها Senior. وفي الآخر "اللي فاتك"، وده ملخص اللي اتغير في Flutter وDart من 2024 لحد 2026. الأسئلة اللي عليها علامة 🔥 هي اللي بتتكرر في الإنترفيوهات.</p>
-    <div class="how">
-      <span><b>١.</b> اقرأ السؤال وجاوب بصوت عالي الأول</span>
-      <span><b>٢.</b> اضغط "اعرض الإجابة" وقارن</span>
-      <span><b>٣.</b> قيّم نفسك: عارفها أو محتاج أراجع</span>
+    <div class="topline">
+      <div class="eyebrow">FLUTTER · DART · 2026 INTERVIEW PREP</div>
+      <button class="icon-btn" id="themeBtn" aria-label="تغيير الثيم">🌓 تلقائي</button>
     </div>
+    <h1>من الأساسيات لحد <span>Senior</span>، سؤال سؤال</h1>
+    <p class="lead" id="lead">أسئلة Flutter وDart مرتبة من الأسهل للأصعب: Junior ثم Mid ثم Senior، وفي الآخر "اللي فاتك" عن الجديد من 2024 لحد 2026. العلامة 🔥 معناها إن السؤال بيتكرر كتير في الإنترفيوهات.</p>
     <div class="ladder" id="ladder"></div>
+    <div class="hero-actions">
+      <button class="btn primary" id="mockBtn">🎤 ابدأ محاكاة إنترفيو</button>
+      <button class="btn" id="random">🎲 سؤال عشوائي</button>
+    </div>
+    <details class="panel" id="howPanel">
+      <summary>إزاي تذاكر من الصفحة دي، وخطة 3 أسابيع</summary>
+      <div class="panel-body">
+        <ol>
+          <li>اقرأ السؤال وجاوب <b>بصوت عالي</b> الأول، كأنك قدام المحاور.</li>
+          <li>اضغط "اعرض الإجابة" وقارن. ركّز على "سؤال متابعة متوقع" و"نصيحة / فخ".</li>
+          <li>قيّم نفسك: <b>✓ عارفها</b> أو <b>↻ محتاج أراجع</b>، وبعدين فلتر على "محتاج أراجع" وارجعلهم تاني.</li>
+          <li>كل كام يوم اعمل <b>محاكاة إنترفيو</b> بتايمر علشان تتعود على الضغط.</li>
+        </ol>
+        <div class="plan">
+          <div><b>الأسبوع 1: Junior + اللي فاتك</b><span>كل Junior حتى لو شايفه سهل، وProblem Solving كل يوم مسألتين، وبعدها "اللي فاتك" علشان تحدّث معلوماتك.</span></div>
+          <div><b>الأسبوع 2: Mid</b><span>الـlifecycle والـkeys والـstate management والـarchitecture والـtesting. اكتب كود الأسئلة بإيدك من غير AI.</span></div>
+          <div><b>الأسبوع 3: Senior + محاكاة</b><span>Performance وSecurity وSystem Design، وجهّز 4 قصص behavioral، ومحاكاة إنترفيو كل يوم.</span></div>
+        </div>
+        <div style="color:var(--muted);font-size:13px">اختصارات الكيبورد: <code>/</code> للبحث · <code>R</code> لسؤال عشوائي · <code>M</code> للمحاكاة</div>
+      </div>
+    </details>
   </header>
 
-  <div class="tools">
+  <div class="tools" id="tools">
     <div class="row">
       <input class="search" id="search" type="search" placeholder="دوّر في الأسئلة والإجابات… (مثلاً: keys أو isolate)" aria-label="بحث">
-      <button class="btn primary" id="random">🎲 سؤال عشوائي</button>
+      <button class="btn desk-only" id="random2">🎲 عشوائي</button>
     </div>
-    <div class="row tools-row2">
+    <div class="scroller"><div class="row tools-row2">
       <button class="btn" id="expand">اعرض كل الإجابات</button>
       <button class="btn" id="collapse">اخفي كل الإجابات</button>
       <div class="chips" id="filters" role="group" aria-label="فلتر">
@@ -178,18 +265,45 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
         <button class="chip" data-f="hot" aria-pressed="false">🔥 الأكتر تكرارًا</button>
         <button class="chip" data-f="todo" aria-pressed="false">لسه متقيّمتش</button>
         <button class="chip" data-f="again" aria-pressed="false">محتاج أراجع</button>
+        <button class="chip" data-f="ok" aria-pressed="false">عارفها</button>
       </div>
-    </div>
-    <div class="chips" id="topics" role="group" aria-label="المواضيع"></div>
+    </div></div>
+    <div class="scroller"><div class="chips" id="topics" role="group" aria-label="المواضيع"></div></div>
+    <div class="result-count" id="resultCount"></div>
   </div>
 
   <main id="main"></main>
 
   <footer class="foot">
-    <div>التقييم بتاعك متسجل في المتصفح ده بس. <button class="btn" id="reset" style="padding:3px 10px;font-size:12px">امسح التقييم</button> <span id="resetMsg"></span></div>
+    <details class="panel">
+      <summary>انقل تقدّمك لجهاز تاني</summary>
+      <div class="panel-body sync">
+        <span>التقييم متسجل في المتصفح ده بس. انسخ الكود، وافتح الصفحة على الجهاز التاني، وحطه هناك.</span>
+        <div class="row"><button class="btn" id="copyProgress">انسخ كود التقدّم</button><button class="btn" id="importProgress">استورد</button><button class="btn ghost" id="reset">امسح التقييم</button></div>
+        <label for="progressCode" class="result-count">حط الكود هنا علشان تستورده:</label>
+        <textarea id="progressCode" spellcheck="false"></textarea>
+        <div class="msg" id="syncMsg" role="status"></div>
+      </div>
+    </details>
     <div>المراجع: <a href="https://docs.flutter.dev/app-architecture" target="_blank" rel="noopener">Flutter Architecture</a> · <a href="https://dart.dev/resources/whats-new" target="_blank" rel="noopener">Dart What's new</a> · <a href="https://docs.flutter.dev/release/release-notes" target="_blank" rel="noopener">Flutter release notes</a> · <a href="https://docs.flutter.dev/perf/ui-performance" target="_blank" rel="noopener">Flutter Performance</a></div>
   </footer>
 </div>
+
+<button class="fab-top" id="fabTop" aria-label="لأعلى" hidden>↑</button>
+<nav class="bottombar" aria-label="أدوات سريعة" dir="rtl">
+  <button id="bbSearch"><b>⌕</b>بحث</button>
+  <button id="bbRandom"><b>🎲</b>عشوائي</button>
+  <button id="bbMock"><b>🎤</b>محاكاة</button>
+  <button id="bbTop"><b>↑</b>لفوق</button>
+</nav>
+
+<div class="modal" id="mock" role="dialog" aria-modal="true" aria-labelledby="mockTitle" dir="rtl" hidden>
+  <div class="sheet">
+    <div class="sheet-head"><h2 id="mockTitle">🎤 محاكاة إنترفيو</h2><button class="icon-btn" id="mockClose" aria-label="اقفل">✕ اقفل</button></div>
+    <div class="sheet-body" id="mockBody"></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
 
 <script type="text/plain" id="data">
 ### j | dart | hot
@@ -1758,21 +1872,683 @@ A:
 - **GenUI SDK** (مبني على A2UI protocol): الـAI agent بيبني شاشات بـwidgets حقيقية من catalog إنت محدده.
 - **Genkit Dart**: framework لبناء AI features وagents بـDart.
 T: لو اتسألت "عملت أي حاجة بالـAI؟"، احكي عن feature حقيقية، أو عن إزاي بتستخدم الـAI في الـworkflow بشكل منضبط.
+
+### j | dart
+Q: الـcascade operator (..) و(?..) بيعملوا إيه؟
+A:
+بيخليك تنفذ أكتر من عملية على نفس الـobject من غير ما تكرر اسمه، والنتيجة النهائية بتبقى الـobject نفسه:
+~~~dart
+final paint = Paint()
+  ..color = Colors.red
+  ..strokeWidth = 4
+  ..style = PaintingStyle.stroke;
+
+controller?..addListener(onChange)..forward();   // لو null مش هيعمل حاجة
+~~~
+
+### j | dart
+Q: typedef والـfunction types، وإزاي تبعت function كـparameter
+A:
+~~~dart
+typedef OnSelect = void Function(int index);
+typedef Json = Map<String, dynamic>;
+
+class Picker extends StatelessWidget {
+  const Picker({super.key, required this.onSelect});
+  final OnSelect onSelect;
+  ...
+}
+~~~
+- في Dart الـfunctions هي first-class objects، يعني تقدر تحطها في متغير، وتبعتها، وترجّعها من function تانية.
+- `VoidCallback` و`ValueChanged<T>` و`ValueGetter<T>` موجودين جاهزين في Flutter.
+
+### j | async
+Q: الـGenerators: sync* وasync* وyield
+A:
+~~~dart
+Iterable<int> evens(int max) sync* {
+  for (var i = 0; i <= max; i += 2) yield i;   // lazy
+}
+
+Stream<int> countdown(int from) async* {
+  for (var i = from; i >= 0; i--) {
+    await Future.delayed(const Duration(seconds: 1));
+    yield i;
+  }
+}
+~~~
+- `sync*` بيرجّع Iterable lazy، و`async*` بيرجّع Stream.
+- `yield*` بيطلّع كل عناصر Iterable أو Stream تاني.
+- الـBLoC القديم كان بيستخدم `async*` في `mapEventToState`، وبعدين اتشال واتبدل بـ`on<Event>` مع `emit`.
+
+### j | state | hot
+Q: ValueNotifier وValueListenableBuilder، وChangeNotifier مع Provider
+A:
+~~~dart
+final counter = ValueNotifier<int>(0);
+ValueListenableBuilder<int>(
+  valueListenable: counter,
+  builder: (_, value, child) => Text('$value'),
+);
+counter.value++;   // بيعمل rebuild للـbuilder ده بس
+~~~
+- **ValueNotifier**: قيمة واحدة، وأخف حل لـstate بسيط مشترك.
+- **ChangeNotifier**: class فيها كذا قيمة، وبتنادي `notifyListeners()`. مع Provider بتستخدم `ChangeNotifierProvider` و`context.watch` و`context.read`.
+- لازم `dispose()` لو إنت اللي عامله.
+T: دليل Flutter الرسمي بيستخدم ChangeNotifier وListenableBuilder في أمثلة الـMVVM، فماتقللش منه في الإنترفيو.
+
+### j | widgets
+Q: GestureDetector وInkWell: إيه الفرق؟
+A:
+- `InkWell`: بيعمل ripple effect بتاع Material، ولازم يكون فوقه `Material` في الشجرة.
+- `GestureDetector`: من غير أي شكل. بيدعم gestures أكتر: drag وscale وlong press وdouble tap.
+- للأزرار استخدم Buttons الجاهزة، لأنها فيها focus وsemantics وripple.
+- `behavior: HitTestBehavior.opaque` علشان المساحة الفاضية كمان تلقط الضغطة.
+
+### j | widgets
+Q: Dialog وBottomSheet وSnackBar: إزاي تعرضهم، وإزاي ترجع منهم نتيجة؟
+A:
+~~~dart
+final ok = await showDialog<bool>(
+  context: context,
+  builder: (ctx) => AlertDialog(
+    title: const Text('متأكد؟'),
+    actions: [
+      TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('لأ')),
+      FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('أيوه')),
+    ],
+  ),
+);
+ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('اتحفظ')));
+~~~
+- `showModalBottomSheet` بيرجّع Future بنفس الطريقة.
+- استخدم الـ`ctx` بتاع الـbuilder جوه الـdialog.
+
+### j | widgets
+Q: الـassets والصور: Image.asset وImage.network وcached_network_image
+A:
+- الـassets لازم تتسجل في `pubspec.yaml` تحت `flutter: assets:`.
+- `Image.asset('assets/logo.png')`. وممكن تعمل نسخ `2.0x` و`3.0x` علشان الشاشات المختلفة.
+- `Image.network` بيعمل cache في الذاكرة بس. أما `cached_network_image` فبيحفظ على الـdisk، وفيه placeholder وerrorWidget.
+- للـicons والـlogos استخدم SVG عن طريق `flutter_svg`.
+- ماتنساش `errorBuilder` للصور اللي جاية من النت.
+
+### j | widgets
+Q: الفرق بين package وplugin
+A:
+- **Package**: كود Dart بس، زي `intl` و`equatable` و`dio`.
+- **Plugin**: package فيه كود native (Kotlin أو Swift) بيتكلم معاه عن طريق platform channels، زي `camera` و`geolocator`.
+- إضافة plugin جديد محتاجة full rebuild. الـhot reload مش هيكفي.
+
+### j | layout
+Q: Wrap وGridView وFittedBox وAspectRatio: إمتى أستخدم كل واحد؟
+A:
+- `Wrap`: زي Row، بس لو المساحة خلصت بينزل سطر جديد. مناسب للـchips والـtags.
+- `GridView.builder`: شبكة lazy. `SliverGridDelegateWithMaxCrossAxisExtent` بيخلي عدد الأعمدة يتغير حسب عرض الشاشة.
+- `FittedBox`: بيصغّر الـchild علشان يدخل في المساحة، مفيد للأرقام الكبيرة.
+- `AspectRatio`: بيثبت النسبة بين العرض والطول، زي 16:9 للفيديو.
+
+### j | dart
+Q: assert: إمتى أستخدمه؟
+A:
+- `assert(capacity > 0, 'capacity لازم تبقى أكبر من صفر')` بيشتغل في **debug بس**، وفي الـrelease بيتشال.
+- استخدمه علشان تمسك الأخطاء بتاعة المبرمج نفسه بدري، مش علشان تعمل validation لـinput المستخدم أو للبيانات اللي جاية من الـAPI.
+
+### j | ps | hot
+Q: [Problem Solving] FizzBuzz، وعكس string، وتشوف الكلمة palindrome ولا لأ
+A:
+~~~dart
+void fizzBuzz(int n) {
+  for (var i = 1; i <= n; i++) {
+    print(i % 15 == 0 ? 'FizzBuzz' : i % 3 == 0 ? 'Fizz' : i % 5 == 0 ? 'Buzz' : i);
+  }
+}
+
+String reverse(String s) => String.fromCharCodes(s.runes.toList().reversed);
+
+bool isPalindrome(String s) {
+  final clean = s.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]'), '');
+  var i = 0, j = clean.length - 1;
+  while (i < j) {
+    if (clean[i++] != clean[j--]) return false;
+  }
+  return true;
+}
+~~~
+- استخدمت `runes` بدل `split('')` علشان الـemoji والحروف اللي بتاخد أكتر من code unit.
+- الـpalindrome بـtwo pointers، وده O(n) وقت وO(1) ذاكرة إضافية، من غير ما نحسب الـclean string.
+
+### j | ps | hot
+Q: [Problem Solving] Two Sum: لاقي index عنصرين مجموعهم = target
+A:
+~~~dart
+List<int>? twoSum(List<int> nums, int target) {
+  final seen = <int, int>{};             // القيمة → الـindex
+  for (var i = 0; i < nums.length; i++) {
+    final need = target - nums[i];
+    final j = seen[need];
+    if (j != null) return [j, i];
+    seen[nums[i]] = i;
+  }
+  return null;
+}
+~~~
+- الحل الأولاني (loop جوه loop) بيبقى O(n²). بالـMap بيبقى O(n) وقت وO(n) ذاكرة.
+- قول الحل البطيء الأول، وبعدين حسّنه. المحاور عاوز يشوف إزاي بتفكر.
+
+### j | ps
+Q: [Problem Solving] شيل التكرار مع الحفاظ على الترتيب، وعدّ تكرار كل حرف
+A:
+~~~dart
+List<T> unique<T>(List<T> items) => items.toSet().toList(); // Set في Dart بيحافظ على الترتيب
+
+Map<String, int> charCount(String s) {
+  final counts = <String, int>{};
+  for (final ch in s.split('')) {
+    counts.update(ch, (c) => c + 1, ifAbsent: () => 1);
+  }
+  return counts;
+}
+~~~
+- الـ`Set` والـ`Map` الافتراضيين في Dart (LinkedHashSet وLinkedHashMap) بيحافظوا على ترتيب الإضافة.
+
+### j | ps
+Q: [Problem Solving] هل الكلمتين anagram لبعض؟ وإيه هو الرقم الناقص من 0 لـn؟
+A:
+~~~dart
+bool isAnagram(String a, String b) {
+  if (a.length != b.length) return false;
+  final c = <int, int>{};
+  for (final r in a.runes) c[r] = (c[r] ?? 0) + 1;
+  for (final r in b.runes) {
+    final v = (c[r] ?? 0) - 1;
+    if (v < 0) return false;
+    c[r] = v;
+  }
+  return true;
+}
+
+int missingNumber(List<int> nums) {
+  final n = nums.length;
+  final expected = n * (n + 1) ~/ 2;
+  return expected - nums.fold(0, (a, b) => a + b);
+}
+~~~
+- الـanagram بالعدّ O(n). لو رتبت الحروف وقارنت هيبقى O(n log n).
+- الرقم الناقص بمجموع المتتالية O(n). وممكن كمان بـXOR.
+
+### m | ps | hot
+Q: [Problem Solving] الأقواس متوازنة؟ (Valid Parentheses)
+A:
+~~~dart
+bool isBalanced(String s) {
+  const pairs = {')': '(', ']': '[', '}': '{'};
+  final stack = <String>[];
+  for (final ch in s.split('')) {
+    if (pairs.containsValue(ch)) {
+      stack.add(ch);
+    } else if (pairs.containsKey(ch)) {
+      if (stack.isEmpty || stack.removeLast() != pairs[ch]) return false;
+    }
+  }
+  return stack.isEmpty;
+}
+~~~
+- Stack، والحل O(n). الـedge cases: string فاضي، أو قوس قافل في الأول، أو فاضل حاجة في الـstack في الآخر.
+
+### m | ps | hot
+Q: [Problem Solving] Binary Search، وFibonacci بالـmemoization
+A:
+~~~dart
+int binarySearch(List<int> sorted, int target) {
+  var lo = 0, hi = sorted.length - 1;
+  while (lo <= hi) {
+    final mid = lo + ((hi - lo) >> 1);
+    if (sorted[mid] == target) return mid;
+    if (sorted[mid] < target) lo = mid + 1; else hi = mid - 1;
+  }
+  return -1;
+}
+
+int fib(int n, [Map<int, int>? memo]) {
+  memo ??= {};
+  if (n < 2) return n;
+  return memo[n] ??= fib(n - 1, memo) + fib(n - 2, memo);
+}
+~~~
+- الـbinary search بـO(log n)، وشرطه إن الـlist تكون مترتبة.
+- الـfibonacci العادي بالـrecursion O(2ⁿ). بالـmemo بيبقى O(n)، وممكن كمان loop بمتغيرين بس.
+
+### m | ps
+Q: [Problem Solving] أطول substring من غير حروف متكررة (Sliding Window)
+A:
+~~~dart
+int longestUnique(String s) {
+  final last = <String, int>{};
+  var start = 0, best = 0;
+  for (var i = 0; i < s.length; i++) {
+    final ch = s[i];
+    final prev = last[ch];
+    if (prev != null && prev >= start) start = prev + 1;
+    last[ch] = i;
+    best = i - start + 1 > best ? i - start + 1 : best;
+  }
+  return best;
+}
+~~~
+- Sliding window بـO(n). الـpattern ده بيحل مسائل كتير، زي أصغر subarray مجموعها أكبر من أو يساوي k.
+
+### m | ps
+Q: [Problem Solving] Group Anagrams وFlatten لـlist متداخلة
+A:
+~~~dart
+List<List<String>> groupAnagrams(List<String> words) {
+  final groups = <String, List<String>>{};
+  for (final w in words) {
+    final key = (w.split('')..sort()).join();
+    groups.putIfAbsent(key, () => []).add(w);
+  }
+  return groups.values.toList();
+}
+
+List<Object?> flatten(List<Object?> input) => [
+  for (final e in input)
+    if (e is List<Object?>) ...flatten(e) else e,
+];
+~~~
+
+### m | dart
+Q: Extension types (Dart 3.3): إيه هي، وإمتى أستخدمها؟
+A:
+~~~dart
+extension type UserId(int value) {
+  bool get isValid => value > 0;
+}
+void load(UserId id) {}
+load(UserId(5));   // مينفعش تبعت int عادي بالغلط
+~~~
+- wrapper بيتشال وقت الـcompile، يعني **مالوش أي تكلفة وقت الـruntime**، وبيديك type safety، علشان متخلطش UserId مع OrderId.
+- مستخدمة جامد في `dart:js_interop`.
+- **خد بالك**: وقت الـruntime القيمة لسه int عادي، فالـ`is` والـ`as` مش بيحموك.
+
+### m | dart
+Q: Object وdynamic وObject? وNever: قارن بينهم
+A:
+- `dynamic`: بيقفل الـtype checking. أي method بتناديها بيعدّي الـcompile، والغلط يظهر وقت الـruntime.
+- `Object`: أي قيمة **مش null**، بس مش هتقدر تنادي غير methods الـObject (`toString` و`==`) لحد ما تعمل `is` check.
+- `Object?`: أي قيمة **وكمان null**. ده الـtop type.
+- `Never`: مالوش قيمة. دالة بترمي exception دايمًا، أو مش بترجع خالص: `Never fail(String m) => throw StateError(m);`
+- الأفضل تستخدم `Object?` بدل `dynamic` لو مش عارف النوع، علشان الـcompiler يجبرك تعمل check.
+
+### m | async
+Q: Completer: إيه هو، وإمتى تحتاجه؟
+A:
+~~~dart
+Future<Position> getOnce() {
+  final c = Completer<Position>();
+  late StreamSubscription sub;
+  sub = locationStream.listen((p) { sub.cancel(); c.complete(p); },
+      onError: c.completeError);
+  return c.future;
+}
+~~~
+- بيحوّل API مبني على callbacks لـFuture.
+- بيستخدم كـlock مشترك، زي refresh token الـsingle-flight.
+- وفي الـtests بيتحكم إمتى الـFuture يخلص.
+- `complete` مينفعش تتنده مرتين. استخدم `isCompleted` تتأكد.
+
+### m | async | hot
+Q: التعامل مع الأخطاء على مستوى الـapp كله: runZonedGuarded وFlutterError.onError وPlatformDispatcher
+A:
+~~~dart
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  FlutterError.onError = (d) => crash.recordFlutterError(d);    // أخطاء الـframework
+  PlatformDispatcher.instance.onError = (e, st) {                // الـasync اللي محدش عمله catch
+    crash.recordError(e, st, fatal: true);
+    return true;
+  };
+  ErrorWidget.builder = (d) => const FriendlyErrorWidget();      // بدل الشاشة الحمرا
+  runApp(const App());
+}
+~~~
+- `runZonedGuarded` لسه شغال، لكن `PlatformDispatcher.onError` هو اللي بيتنصح بيه دلوقتي.
+
+### m | async
+Q: Stream transformations: map وwhere وasyncExpand، وrxdart
+A:
+- `stream.map(...)` و`where(...)` و`distinct()` و`take(n)` و`asyncMap(...)` (لو محتاج await على كل عنصر).
+- **rxdart**: `debounceTime` و`switchMap` (بيلغي الـrequest القديم) و`combineLatest` و`BehaviorSubject` (بيحفظ آخر قيمة).
+~~~dart
+queryStream
+  .debounceTime(const Duration(milliseconds: 300))
+  .distinct()
+  .switchMap((q) => Stream.fromFuture(repo.search(q)))
+  .listen(show);
+~~~
+- `switchMap` هو الحل الـreactive لمشكلة الـstale responses.
+
+### m | widgets
+Q: CustomPainter: إزاي ترسم بنفسك، وإيه لازمة shouldRepaint؟
+A:
+~~~dart
+class RingPainter extends CustomPainter {
+  RingPainter(this.progress);
+  final double progress;
+  @override
+  void paint(Canvas canvas, Size size) {
+    final p = Paint()..style = PaintingStyle.stroke..strokeWidth = 8;
+    canvas.drawArc(Offset.zero & size, -pi / 2, 2 * pi * progress, false, p);
+  }
+  @override
+  bool shouldRepaint(RingPainter old) => old.progress != progress;
+}
+~~~
+- `shouldRepaint` بترجع true بس لو الرسمة اتغيرت فعلًا. ولو رجّعت true دايمًا هتضيّع أداء.
+- لو الرسمة بتتحرك: ابعت الـAnimation للـ`repaint:` في الـconstructor، علشان يعمل repaint من غير rebuild.
+
+### m | widgets
+Q: ScrollController وNotificationListener
+A:
+- `ScrollController`: بتتحكم في الـscroll (`animateTo` و`jumpTo`)، وبتسمع للـposition علشان تعمل pagination أو تظهر زرار "لأعلى". لازم dispose.
+- `NotificationListener<ScrollNotification>`: بتسمع للـscroll من غير controller، ومفيد لو الـcontroller مش بتاعك.
+- `controller.position.extentAfter < 300` معناها إنك قربت من آخر القائمة.
+
+### m | nav | hot
+Q: Bottom navigation بيحافظ على state كل tab: StatefulShellRoute
+A:
+~~~dart
+StatefulShellRoute.indexedStack(
+  builder: (c, s, shell) => ScaffoldWithNav(shell: shell),
+  branches: [
+    StatefulShellBranch(routes: [GoRoute(path: '/home', builder: ...)]),
+    StatefulShellBranch(routes: [GoRoute(path: '/profile', builder: ...)]),
+  ],
+);
+// التنقل:
+shell.goBranch(index);
+~~~
+- كل tab ليه navigation stack منفصل، والـstate بتاعه بيفضل موجود. هو نفسه `IndexedStack` بس جوه go_router.
+- من غير go_router: `IndexedStack` مع Navigator منفصل لكل tab.
+
+### m | nav | hot
+Q: Deep links: App Links على Android وUniversal Links على iOS
+A:
+- **Android**: `intent-filter` بـ`autoVerify="true"` في الـManifest، وملف `/.well-known/assetlinks.json` على الدومين فيه الـSHA-256 بتاع الـsigning key.
+- **iOS**: `Associated Domains` (`applinks:example.com`)، وملف `apple-app-site-association` على الدومين.
+- go_router بيستقبل الـpath لوحده. حط `redirect` علشان لو المستخدم مش عامل login يروح للـlogin، وبعدها يرجع للشاشة اللي كان رايحها.
+- اختبر 3 حالات: الـapp مقفول (cold start)، والـapp في الخلفية، ولينك مش صحيح.
+T: أشهر مشكلة: الـSHA في assetlinks بتاع الـdebug، وده غير الـSHA بتاع Play App Signing.
+
+### m | net
+Q: WebSockets: إزاي تعمل connection مستقر؟
+A:
+- `web_socket_channel`، والـmessages بتيجي كـStream.
+- **Reconnect** بـexponential backoff، وبيتوقف لما الـapp يروح الخلفية ويرجع لما يرجع.
+- **Heartbeat** (ping/pong) علشان تكتشف إن الـconnection مات.
+- بعد الـreconnect: اعمل **resync** من آخر sequence أو timestamp عندك، علشان الرسايل اللي فاتتك.
+- الـmessages المتكررة بتتشال بالـid (dedupe)، والترتيب بيبقى بـsequence السيرفر.
+
+### m | net
+Q: Firebase: Auth وFirestore وSecurity Rules
+A:
+- **Auth**: `authStateChanges()` stream، وعلى أساسه الـrouter يعمل redirect.
+- **Firestore**: `snapshots()` للـrealtime، وعنده offline persistence built-in، والـqueries بتحتاج indexes.
+- **Security Rules أهم حاجة**: الـclient مش مكان للحماية. مثال: `allow read, write: if request.auth.uid == userId;`
+- الـlogic الحساس (دفع أو points) يتعمل في Cloud Functions، مش في الـapp.
+T: قاعدة `allow read, write: if true` في production دي ثغرة أمنية كبيرة.
+
+### m | platform
+Q: الـPermissions: الكاميرا والـlocation والـnotifications
+A:
+- `permission_handler`: الحالات هي granted وdenied وpermanentlyDenied وlimited (زي صور iOS) وrestricted.
+- اطلب الـpermission **في وقت له معنى** مع شرح بسيط قبلها (pre-prompt)، مش أول ما الـapp يفتح.
+- في حالة permanentlyDenied: `openAppSettings()`.
+- لازم الـkeys في `Info.plist` (زي `NSCameraUsageDescription`)، وإلا Apple هتعمل crash أو ترفض الـapp. وفي Android لازم تتسجل في الـManifest.
+- Android 13 وأحدث بيحتاج permission صريح للـnotifications (`POST_NOTIFICATIONS`).
+
+### m | platform
+Q: الشغل في الخلفية: workmanager والـbackground fetch وحدود iOS
+A:
+- **Android**: `workmanager` للمهام الدورية أو المؤجلة، وبيحترم الـbattery والـDoze. والـforeground service للحاجات المستمرة زي تتبع الموقع.
+- **iOS محدود جدًا**: BGTaskScheduler، والنظام هو اللي بيقرر إمتى يشغل المهمة. مفيش ضمان إنها تشتغل في وقت معين.
+- الـbackground handler بيشتغل في isolate منفصل، فمفيش UI ولا state من الـapp الأساسي.
+- للـsync: الأحسن تعتمد على push من السيرفر بدل polling.
+
+### m | dart | hot
+Q: Code generation: build_runner وfreezed وjson_serializable
+A:
+~~~dart
+@freezed
+abstract class User with _$User {
+  const factory User({required int id, required String name}) = _User;
+  factory User.fromJson(Map<String, dynamic> j) => _$UserFromJson(j);
+}
+~~~
+- `dart run build_runner build --delete-conflicting-outputs`، وفي التطوير `watch`.
+- freezed بيولّد: `==` و`hashCode` و`copyWith` و`toString`، وsealed unions.
+- الملفات المتولدة (`.g.dart` و`.freezed.dart`) فيه فرق بين الـteams: فيه اللي بيعملها commit وفيه اللي بيولّدها في الـCI. المهم الفريق كله يمشي على نفس القرار.
+T: في freezed 3 بقى لازم تكتب `abstract` أو `sealed` قبل الـclass، والـpattern matching بدل `when` و`map`.
+
+### m | platform
+Q: الـAccessibility: Semantics وtext scaling وحجم أماكن الضغط
+A:
+- `Semantics(label: 'حذف المنتج', button: true, child: ...)` علشان TalkBack وVoiceOver.
+- الـ`IconButton` محتاج `tooltip`، والصور محتاجة `semanticLabel`، أو `excludeFromSemantics` لو الصورة للزينة بس.
+- مكان الضغط لا يقل عن **48×48**، والـcontrast لا يقل عن 4.5:1.
+- جرّب بـtext scale 200%، ومع screen reader حقيقي.
+- `flutter test` فيه `meetsGuideline(androidTapTargetGuideline)` وغيرها.
+
+### m | state
+Q: State restoration: إزاي الـapp يرجع زي ما كان بعد ما النظام يقفله؟
+A:
+- Android وiOS ممكن يقفلوا الـapp وهو في الخلفية علشان الذاكرة، والمستخدم متوقع يرجع يلاقيه زي ما سابه.
+- `restorationScopeId` في MaterialApp، و`RestorationMixin`، و`RestorableInt` و`RestorableTextEditingController`.
+- go_router وNavigator بيدعموا restoration للـroutes.
+- البديل البسيط: تحفظ الـdrafts المهمة في local storage.
+
+### m | test
+Q: اختبار Riverpod: ProviderContainer والـoverrides
+A:
+~~~dart
+final container = ProviderContainer(overrides: [
+  authRepoProvider.overrideWithValue(FakeAuthRepo()),
+]);
+addTearDown(container.dispose);
+expect(await container.read(userProvider.future), isA<User>());
+
+// في widget test:
+await tester.pumpWidget(ProviderScope(overrides: [...], child: const App()));
+~~~
+- الـoverrides هي الـDI بتاعة Riverpod في الـtests. مش محتاج get_it.
+
+### m | release | hot
+Q: الـversioning في Flutter: version: 1.4.2+37 معناها إيه؟
+A:
+- `1.4.2` هو الـ**versionName** أو **CFBundleShortVersionString**، وده اللي المستخدم بيشوفه.
+- `37` هو الـ**versionCode** أو **CFBundleVersion**، ولازم **يزيد** مع كل رفع على الـstore.
+- ممكن تغيّرهم وقت الـbuild: `--build-name=1.4.2 --build-number=37`، وفي الـCI بيبقى رقم الـbuild مثلًا.
+- استخدم semver: major للتغييرات الكبيرة، وminor للـfeatures، وpatch للإصلاحات.
+
+### m | release
+Q: Feature flags وRemote Config
+A:
+- الـfeature بتتشحن مقفولة، وبتتفتح من السيرفر (Firebase Remote Config، أو backend بتاعك).
+- **الفوايد**: staged rollout، وA/B testing، و**kill switch** لو feature فيها مشكلة من غير release جديد.
+- لازم تحط default آمن في الكود، علشان لو الـconfig مجاش الـapp يشتغل عادي، واعمل cache لآخر قيمة.
+- امسح الـflags القديمة، لأنها بتتراكم وتبقى technical debt.
+
+### m | hr | hot
+Q: [HR] ليه عاوز تسيب شغلك الحالي، أو ليه عاوز تشتغل معانا؟
+A:
+- خلي الإجابة **إيجابية ومتجهة للمستقبل**، زي: "عاوز أشتغل في فريق أكبر، على منتج واحد لفترة طويلة، وأتعلم من ناس Senior."
+- ماتتكلمش وحش عن شغلك الحالي أو الشركة.
+- اربطها بالشركة: اقرأ عن المنتج قبلها، وقول حاجة محددة عجبتك فيه.
+
+### m | hr | hot
+Q: [HR] إيه توقعاتك للمرتب؟
+A:
+- اعمل research قبلها: اسأل ناس في نفس المستوى، وشوف مواقع المرتبات والـjob posts.
+- قول **range** مش رقم واحد، وخلي الحد الأدنى فيه هو الرقم اللي فعلًا يرضيك.
+- ممكن ترجّع السؤال: "إيه الـrange المحدد للمكان ده؟"
+- اسأل عن الباقي كمان: التأمين، والـbonus، والـremote، والإجازات، والزيادة السنوية.
+
+### m | hr
+Q: [HR] إيه أكبر نقطة ضعف عندك؟
+A:
+- قول ضعف **حقيقي**، ومايكونش ضعف أساسي للوظيفة، ومعاه **إيه اللي بتعمله علشان تحسّنه**.
+- مثال: "ساعات بتعمق في التفاصيل التقنية أكتر من اللازم، فبقيت أحدد وقت للـspike، وأرجع للـteam بخيارات."
+- ابعد عن الإجابات المستهلكة زي "أنا perfectionist".
+
+### m | hr | hot
+Q: [HR] عندك أسئلة لينا؟ (لازم يبقى عندك)
+A:
+- "شكل الفريق إيه؟ وكام Flutter dev؟ ومين هيبقى الـlead بتاعي؟"
+- "الـrelease cycle عندكم عامل إزاي؟ وفيه CI/CD وcode review وtests؟"
+- "إيه أكبر تحدي تقني في المنتج دلوقتي؟"
+- "إزاي بتقيّموا الأداء، وإيه شكل الـgrowth path من Mid لـSenior؟"
+- "الـstate management والـarchitecture اللي بتستخدموه، وليه اخترتوه؟"
+T: لو قلت "مفيش أسئلة"، ده بيبيّن إنك مش مهتم بالمكان.
+
+### m | hr
+Q: [HR] إزاي بتتابع الجديد في Flutter وبتتعلم حاجة جديدة؟
+A:
+- الـrelease notes الرسمية، وFlutter blog، وقناة Flutter على YouTube (Observable Flutter)، والـchangelogs بتاعة الـpackages اللي بتستخدمها.
+- بتجرب الحاجة الجديدة في مشروع جانبي صغير الأول، قبل ما تدخلها مشروع حقيقي.
+- اذكر حاجة **محددة** اتعلمتها مؤخرًا، زي: "نقلت مشروع لـSwift Package Manager"، أو "جربت الـdot shorthands".
+
+### s | perf | hot
+Q: الـthreads الأساسية في Flutter: Platform وUI وRaster وIO
+A:
+- **Platform thread**: الـmain thread بتاع الـOS. الـplugins والـplatform channels بيشتغلوا عليه.
+- **UI thread**: كود Dart بتاعك، وbuild وlayout وpaint، وده بيطلّع الـlayer tree.
+- **Raster thread**: بياخد الـlayer tree ويرسمه على الـGPU (Impeller).
+- **IO thread**: شغل تقيل زي فك ضغط الصور (decode).
+- **مهم**: الـisolate بتاع Dart بتاعك بيشتغل على الـUI thread. أي حاجة تقيلة فيه بتوقف الـframes.
+- في الـversions الجديدة من Flutter، الـUI والـPlatform اتدمجوا على Android وiOS علشان الـplatform channels تبقى synchronous. اتأكد من ده في release notes الـversion بتاعتك.
+
+### s | perf
+Q: الـGarbage Collection في Dart، وليه إنشاء widgets كتير مش مشكلة؟
+A:
+- الـGC في Dart **generational**. الـyoung generation بيتنضف بـscavenger سريع جدًا، لأن أغلب الـobjects بتموت بسرعة.
+- الـwidgets بتتعمل وتموت في كل frame، وده بالظبط الحالة اللي الـGC ده متصمم لها.
+- الـold generation بيتنضف بـmark-sweep وmark-compact، وبيشتغل بشكل concurrent علشان يقلل الـpauses.
+- المشكلة الحقيقية مش الـallocations، المشكلة في **الـreferences اللي فاضلة ماسكة objects** (leaks)، وفي الـobjects الكبيرة زي الصور.
+
+### s | perf
+Q: الـhot reload بيشتغل إزاي من جوه؟
+A:
+- الـtool بيعمل compile للملفات اللي اتغيرت بس، لـkernel files.
+- الـDart VM بيعمل reload للـlibraries دي (JIT)، ويحافظ على الـheap، يعني الـstate.
+- الـframework بينادي `reassemble()`، ويعمل rebuild للشجرة كلها.
+- **ليه ساعات مش بيشتغل**: التغيير في `main` أو `initState` أو الـglobals أو الـstatic initializers مش بيتنفذ تاني. وتغيير enum لـclass، أو تغيير الـgenerics، محتاج restart.
+
+### s | perf
+Q: Tree shaking وAOT، وليه الـrelease أصغر من الـdebug؟
+A:
+- الـcompiler في الـrelease بيعمل **tree shaking**: بيشيل أي كود مش مستخدم.
+- الـicons كمان بتتعمل tree shaking (`MaterialIcons` بيتحفظ منها بس اللي استخدمته). الـ`IconData` اللي بيتعمل dynamic بيكسر ده، ومحتاج `--no-tree-shake-icons`.
+- الـAOT بيطلّع native code، ومفيش JIT ولا debugging hooks.
+- `--split-debug-info` بيطلّع الـsymbols برّه الـbinary، فالحجم بيقل.
+
+### s | platform
+Q: Platform Views (خرائط وWebView وإعلانات): إيه تأثيرها على الأداء؟
+A:
+- الـnative view بيتدمج جوه شجرة Flutter. على Android فيه أكتر من طريقة: Hybrid Composition، وTexture Layer، وفي 3.44 **HCPP** اللي أداؤه أحسن.
+- التكلفة بتبان في: الـscroll وفوقه platform view، والـtransforms، والـclipping، وإن فيه أكتر من platform view في نفس الوقت.
+- **نصايح**: قلل عددهم في الشاشة، ولو ينفع اعرض static map كصورة في القوائم، وقيس بالـprofile.
+
+### s | platform
+Q: Flutter Web: إمتى يبقى اختيار كويس، وإمتى لأ؟
+A:
+- **كويس**: dashboards، وأدوات داخلية، وPWA، وتشارك نفس الكود مع الموبايل.
+- **مش كويس**: مواقع محتاجة **SEO** قوي، أو صفحات محتوى، أو زيارة أولى لازم تبقى سريعة جدًا. الـbundle تقيل، والنص جوه canvas.
+- الـrenderers: الـCanvasKit هو الـdefault، والـskwasm مع WebAssembly. الـHTML renderer اتشال.
+- الـinterop بـ`package:web` و`dart:js_interop`، مش `dart:html`.
+
+### s | design | hot
+Q: [System Design] صمم white-label app بيتعمل منه نسخ لأكتر من عميل
+A:
+- **المتطلبات**: عملاء كتير، ولكل واحد brand خاص (ألوان ولوجو واسم)، وfeatures ممكن تتفعل أو تتقفل، وbackend endpoints مختلفة، ونشر على الـstore باسم كل عميل.
+- **Build time**: flavor أو target لكل عميل، فيه app id وicons وsplash وFirebase config، وconfig عن طريق `--dart-define-from-file`.
+- **Runtime**: design tokens بـ`ThemeExtension`، وfeature flags لكل عميل، وremote config.
+- **الكود**: core مشترك في packages، وكل عميل بيبقى config أكتر ما يبقى كود. امنع أي if (client == X) منتشر في الكود.
+- **CI**: matrix build لكل عميل، وsigning منفصل، وrelease notes، وtesting للـbrand.
+T: السؤال ده مناسب جدًا لأي حد عنده base project بيبدأ منه مشاريع العملاء، فاحكي تجربتك الحقيقية.
+
+### s | design
+Q: [System Design] صمم news feed فيه infinite scroll وcaching وrealtime
+A:
+- **Data**: pagination بـcursor، وcache محلي لأول صفحة (stale-while-revalidate)، والصور ليها thumbnails.
+- **Realtime**: البوستات الجديدة بتيجي بـWebSocket أو push. ماتحطهاش فوق القائمة على طول، اعرض زرار "فيه N بوست جديد" علشان الـscroll مايتنططش.
+- **UI**: `ListView.builder` أو slivers، وplaceholders بمقاسات ثابتة، وprefetch للصفحة الجاية.
+- **Optimistic likes** مع rollback لو فشل.
+- **Performance**: cacheWidth للصور، ومفيش إعادة بناء للقائمة كلها لما like واحد يتغير (selectors).
+- **القياس**: وقت أول محتوى يظهر، ونسبة الـjank في الـscroll.
+
+### s | security | hot
+Q: Payment integration (Stripe أو Paymob أو غيرهم): إيه الطريقة الآمنة؟
+A:
+- الـapp **عمره ما يحسب المبلغ النهائي ولا يثق فيه**. الـbackend هو اللي بيعمل الـorder والـpayment intent أو الـtoken.
+- الـapp بيستخدم SDK بتاع الـprovider (أو WebView/hosted page) علشان بيانات الكارت ماتعديش على السيرفر بتاعك (PCI).
+- **الحقيقة جاية من الـwebhook** على السيرفر (مع التحقق من الـsignature)، مش من الـcallback اللي في الـapp.
+- الـapp يعمل polling أو يستنى حالة الـorder من السيرفر بعد ما الدفع يخلص.
+- حط idempotency key علشان مايتخصمش مرتين لو المستخدم ضغط مرتين، أو لو فيه retry.
+
+### s | security
+Q: Biometric authentication (بصمة أو Face ID): إزاي تعملها صح؟
+A:
+- `local_auth` لوحده بيقولك إن المستخدم "نجح"، وده **مش حماية**. الـboolean ده ممكن يتلعب فيه على جهاز rooted.
+- الأصح إنك تربط سر (token أو مفتاح) بـKeystore أو Keychain، مع شرط إن الوصول ليه يحتاج biometric. كده السر مش هيتفك غير بالبصمة.
+- لازم يبقى فيه fallback (PIN أو password)، وتتعامل مع حالة إن المستخدم ضاف بصمة جديدة على الجهاز (invalidation).
+
+### s | release
+Q: الـapp اترفض من App Store أو Google Play. إيه أشهر الأسباب، وتتصرف إزاي؟
+A:
+- **iOS**: permission strings مش واضحة، أو login إجباري من غير سبب، أو مفيش Sign in with Apple مع إن فيه social login تاني، أو مفيش طريقة تحذف بيها الحساب من جوه الـapp، أو features مخفية، أو crash وقت الـreview.
+- **Android**: الـdata safety form ناقص، أو permissions حساسة (SMS أو location في الخلفية) من غير مبرر، أو targetSdk قديم، أو الـ16KB page size.
+- **التعامل**: اقرأ الـguideline المذكورة، وصلّح، ورد في Resolution Center بتوضيح، وابعت demo account.
+- **الوقاية**: checklist قبل كل release.
+
+### s | behavioral | hot
+Q: إزاي بتقدّر وقت task أو feature (Estimation)؟
+A:
+- قسّم الـfeature لـtasks صغيرة، كل واحدة يوم أو أقل: UI، وstate، وAPI، وtests، وedge cases، وreview.
+- حط وقت للـunknowns: لو فيه حاجة جديدة، اعمل spike محدد بوقت الأول.
+- اديهم **range** وقول الافتراضات: "3 إلى 5 أيام لو الـAPI جاهز."
+- لو ظهر إن التقدير غلط، بلّغ بدري، مش آخر يوم.
+
+### s | behavioral
+Q: إزاي بتعمل mentoring لـJunior، أو بتنقل knowledge للفريق؟
+A:
+- pair programming على tasks حقيقية، وcode review بيشرح **ليه**، مش بس "غيّر ده".
+- الـJunior ياخد tasks تكبر تدريجيًا، ومعاه دعم واضح.
+- وثّق القرارات في ADRs وREADME، واعمل templates وlints علشان الأخطاء المتكررة تتمنع أوتوماتيك.
+- احكي عن مثال حقيقي، واذكر النتيجة: "بعد شهرين بقى بيعمل feature لوحده."
+
+### s | test
+Q: Integration testing في 2026: integration_test وPatrol
+A:
+- `integration_test` هو الرسمي. بيشغل الـapp على جهاز أو emulator، وبتستخدم نفس الـAPI بتاع widget tests.
+- **الحدود**: مش بيقدر يتعامل مع الـnative UI، زي permission dialogs والـnotifications والـWebView.
+- **Patrol**: فوق integration_test، وبيضيف native automation، يعني تقدر توافق على permission أو تضغط notification.
+- شغّلهم على Firebase Test Lab أو device farm في الـCI، للـflows المهمة بس.
 </script>
 
 <script>
 (function(){
 const LEVELS={
   j:{name:'Junior',sub:'Dart وFlutter من الأول: widgets وlayout وasync',c:'--j',cs:'--j-soft'},
-  m:{name:'Mid',sub:'Lifecycle وstate وarchitecture وtesting',c:'--m',cs:'--m-soft'},
+  m:{name:'Mid',sub:'Lifecycle وstate وarchitecture وtesting وHR',c:'--m',cs:'--m-soft'},
   s:{name:'Senior',sub:'Internals وperformance وsystem design وbehavioral',c:'--s',cs:'--s-soft'},
   u:{name:'اللي فاتك',sub:'الجديد في Flutter وDart من 2024 لحد 2026',c:'--u',cs:'--u-soft'}
 };
-const TOPICS={dart:'Dart',async:'Async',widgets:'Widgets & Lifecycle',layout:'Layout',nav:'Navigation',state:'State',net:'Networking',storage:'Storage',arch:'Architecture',test:'Testing',perf:'Performance',platform:'Platform',security:'Security',release:'Release & CI',design:'System Design',behavioral:'Behavioral',code:'Live Coding',new:'الجديد'};
+const TOPICS={dart:'Dart',async:'Async',widgets:'Widgets & Lifecycle',layout:'Layout',nav:'Navigation',state:'State',net:'Networking',storage:'Storage',arch:'Architecture',test:'Testing',perf:'Performance',platform:'Platform',security:'Security',release:'Release & CI',design:'System Design',code:'Live Coding',ps:'Problem Solving',behavioral:'Behavioral',hr:'HR',new:'الجديد'};
+const TOPIC_ORDER=Object.keys(TOPICS);
 
-const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const inline=s=>esc(s).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>');
-const KW=/\b(abstract|async|await|base|break|case|catch|class|const|continue|default|else|enum|extends|extension|factory|final|finally|for|get|if|implements|in|interface|late|mixin|new|null|on|required|rethrow|return|sealed|set|static|super|switch|this|throw|true|false|try|var|void|when|while|with|yield|int|double|String|bool|dynamic|Future|Stream|List|Map|Set)\b/;
+const KW=new Set('abstract async await base break case catch class const continue default else enum extends extension factory final finally for get if implements in interface late mixin new null on required rethrow return sealed set static super switch this throw true false try var void when while with yield int double String bool dynamic Future Stream List Map Set Object Never type'.split(' '));
 function hl(code){
   const re=/(\/\/[^\n]*)|('(?:[^'\\\n]|\\.)*'|"(?:[^"\\\n]|\\.)*")|\b(\d[\d_]*(?:\.\d+)?)\b|([A-Za-z_]\w*)/g;
   let out='',last=0,m;
@@ -1781,7 +2557,7 @@ function hl(code){
     if(m[1])out+='<span class="cm">'+esc(m[1])+'</span>';
     else if(m[2])out+='<span class="st">'+esc(m[2])+'</span>';
     else if(m[3])out+='<span class="nm">'+esc(m[3])+'</span>';
-    else out+=KW.test(m[4])&&m[4].match(KW)[0]===m[4]?'<span class="k">'+m[4]+'</span>':esc(m[4]);
+    else out+=KW.has(m[4])?'<span class="k">'+m[4]+'</span>':esc(m[4]);
     last=re.lastIndex;
   }
   return out+esc(code.slice(last));
@@ -1803,11 +2579,16 @@ function renderBody(lines){
   closeUl();
   return html;
 }
+function answerHTML(x){
+  return renderBody(x.body)
+    +x.f.map(f=>`<div class="note f"><b>سؤال متابعة متوقع</b><span>${inline(f)}</span></div>`).join('')
+    +x.t.map(t=>`<div class="note t"><b>نصيحة / فخ</b><span>${inline(t)}</span></div>`).join('');
+}
 function hash(s){let h=5381;for(let i=0;i<s.length;i++)h=(h*33+s.charCodeAt(i))|0;return 'q'+(h>>>0).toString(36)}
 
-// parse
+/* parse */
 const raw=document.getElementById('data').textContent;
-const Q=[];
+let Q=[];
 raw.split(/\n(?=### )/).forEach(block=>{
   block=block.trim(); if(!block.startsWith('### '))return;
   const lines=block.split('\n');
@@ -1829,21 +2610,38 @@ raw.split(/\n(?=### )/).forEach(block=>{
   item.id=hash(item.q);
   Q.push(item);
 });
+const LV_ORDER=Object.keys(LEVELS);
+Q=Q.map((x,i)=>({...x,_i:i})).sort((a,b)=>LV_ORDER.indexOf(a.lv)-LV_ORDER.indexOf(b.lv)||TOPIC_ORDER.indexOf(a.tp)-TOPIC_ORDER.indexOf(b.tp)||a._i-b._i);
+Q.forEach((x,i)=>x.n=i+1);
+const byId=new Map(Q.map(x=>[x.id,x]));
+document.getElementById('lead').textContent=`${Q.length} سؤال Flutter وDart مرتبين من الأسهل للأصعب: Junior ثم Mid ثم Senior، وفي الآخر "اللي فاتك" عن الجديد من 2024 لحد 2026. العلامة 🔥 معناها إن السؤال بيتكرر كتير في الإنترفيوهات.`;
 
-// state
+/* storage */
 const store={
-  get(){try{return JSON.parse(localStorage.getItem('flutter-ladder-v1')||'{}')}catch(e){return {}}},
-  set(v){try{localStorage.setItem('flutter-ladder-v1',JSON.stringify(v))}catch(e){}}
+  get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 };
-let ratings=store.get();
+let ratings=store.get('flutter-ladder-v1',{});
 const ui={level:null,topic:null,filter:'all',q:''};
 const open=new Set();
-
 const $=id=>document.getElementById(id);
 const main=$('main');
+const cssVars=lv=>`--c:var(${LEVELS[lv].c});--cs:var(${LEVELS[lv].cs})`;
 
-function cssVars(lv){const L=LEVELS[lv];return `--c:var(${L.c});--cs:var(${L.cs})`}
+function toast(msg){const t=$('toast');t.textContent=msg;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>t.hidden=true,1800)}
 
+/* theme */
+const THEMES=['auto','light','dark'],THEME_LABEL={auto:'🌓 تلقائي',light:'☀️ فاتح',dark:'🌙 غامق'};
+let theme=store.get('flutter-ladder-theme','auto');
+function applyTheme(){
+  if(theme==='auto')document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme',theme);
+  $('themeBtn').textContent=THEME_LABEL[theme];
+}
+$('themeBtn').onclick=()=>{theme=THEMES[(THEMES.indexOf(theme)+1)%3];store.set('flutter-ladder-theme',theme);applyTheme()};
+applyTheme();
+
+/* render */
 function renderLadder(){
   $('ladder').innerHTML=Object.entries(LEVELS).map(([k,L])=>{
     const all=Q.filter(x=>x.lv===k),ok=all.filter(x=>ratings[x.id]==='ok').length;
@@ -1857,88 +2655,230 @@ function renderLadder(){
 function renderTopics(){
   const pool=Q.filter(x=>!ui.level||x.lv===ui.level);
   const counts={};pool.forEach(x=>counts[x.tp]=(counts[x.tp]||0)+1);
+  if(ui.topic&&!counts[ui.topic])ui.topic=null;
   $('topics').innerHTML=`<button class="chip" data-tp="" aria-pressed="${!ui.topic}">كل المواضيع<span class="n">${pool.length}</span></button>`+
-    Object.keys(TOPICS).filter(t=>counts[t]).map(t=>`<button class="chip" data-tp="${t}" aria-pressed="${ui.topic===t}">${TOPICS[t]}<span class="n">${counts[t]}</span></button>`).join('');
+    TOPIC_ORDER.filter(t=>counts[t]).map(t=>`<button class="chip" data-tp="${t}" aria-pressed="${ui.topic===t}">${TOPICS[t]}<span class="n">${counts[t]}</span></button>`).join('');
 }
-function visible(){
+function matches(x){
   const s=ui.q.trim().toLowerCase();
-  return Q.filter(x=>(!ui.level||x.lv===ui.level)&&(!ui.topic||x.tp===ui.topic)
-    &&(ui.filter==='all'||(ui.filter==='hot'&&x.hot)||(ui.filter==='todo'&&!ratings[x.id])||(ui.filter==='again'&&ratings[x.id]==='again'))
-    &&(!s||(x.q+' '+x.body.join(' ')+x.f.join(' ')+x.t.join(' ')).toLowerCase().includes(s)));
+  const r=ratings[x.id];
+  return (!ui.level||x.lv===ui.level)&&(!ui.topic||x.tp===ui.topic)
+    &&(ui.filter==='all'||(ui.filter==='hot'&&x.hot)||(ui.filter==='todo'&&!r)||(ui.filter==='again'&&r==='again')||(ui.filter==='ok'&&r==='ok'))
+    &&(!s||(x.q+' '+x.body.join(' ')+x.f.join(' ')+x.t.join(' ')).toLowerCase().includes(s));
 }
-function cardHTML(x,i){
-  const r=ratings[x.id]||'';
-  const isOpen=open.has(x.id);
+const visible=()=>Q.filter(matches);
+function cardHTML(x){
+  const r=ratings[x.id]||'',isOpen=open.has(x.id);
   return `<article class="card" id="${x.id}" style="${cssVars(x.lv)}">
     <div class="q">
-      <div class="meta"><span class="num">#${String(i).padStart(3,'0')}</span>
+      <div class="meta"><span class="num">#${String(x.n).padStart(3,'0')}<button class="link-btn" data-link="${x.id}" aria-label="انسخ لينك السؤال" title="انسخ لينك السؤال">🔗</button></span>
         <span class="tag lv">${LEVELS[x.lv].name}</span><span class="tag">${TOPICS[x.tp]||x.tp}</span>${x.hot?'<span class="tag hot">🔥 شائع</span>':''}</div>
       <h3>${inline(x.q)}</h3>
       <div class="actions">
-        <button class="toggle" data-toggle="${x.id}" aria-expanded="${isOpen}">${isOpen?'اخفي الإجابة':'اعرض الإجابة'}</button>
+        <button class="toggle" data-toggle="${x.id}" aria-expanded="${isOpen}" aria-controls="a-${x.id}">${isOpen?'اخفي الإجابة':'اعرض الإجابة'}</button>
         <div class="rate">
           <button data-rate="${x.id}" data-v="ok" aria-pressed="${r==='ok'}">✓ عارفها</button>
           <button data-rate="${x.id}" data-v="again" aria-pressed="${r==='again'}">↻ محتاج أراجع</button>
         </div>
       </div>
     </div>
-    <div class="ans" id="a-${x.id}" ${isOpen?'':'hidden'}>
-      ${renderBody(x.body)}
-      ${x.f.map(f=>`<div class="note f"><b>سؤال متابعة متوقع</b><span>${inline(f)}</span></div>`).join('')}
-      ${x.t.map(t=>`<div class="note t"><b>نصيحة / فخ</b><span>${inline(t)}</span></div>`).join('')}
-    </div></article>`;
+    <div class="ans" id="a-${x.id}" ${isOpen?'':'hidden'}>${isOpen?answerHTML(x):''}</div></article>`;
 }
 function render(){
   renderLadder();renderTopics();
   const v=visible();
+  $('resultCount').textContent=v.length===Q.length?`${Q.length} سؤال`:`${v.length} من ${Q.length} سؤال`;
   if(!v.length){main.innerHTML='<div class="empty">مفيش أسئلة بالفلتر ده. جرّب تغيّر البحث أو الفلتر.</div>';return}
-  const idx=new Map(Q.map((x,i)=>[x.id,i+1]));
   let html='';
-  for(const k of Object.keys(LEVELS)){
+  for(const k of LV_ORDER){
     const items=v.filter(x=>x.lv===k);if(!items.length)continue;
     html+=`<section style="${cssVars(k)}"><div class="sec-head"><h2>${LEVELS[k].name}</h2><p>${LEVELS[k].sub} · ${items.length} سؤال</p></div>
-      <div class="list">${items.map(x=>cardHTML(x,idx.get(x.id))).join('')}</div></section>`;
+      <div class="list">${items.map(cardHTML).join('')}</div></section>`;
   }
   main.innerHTML=html;
 }
 function setOpen(id,on){
   on?open.add(id):open.delete(id);
   const a=$('a-'+id),b=document.querySelector(`[data-toggle="${id}"]`);
-  if(a)a.hidden=!on;
+  if(a){if(on&&!a.innerHTML)a.innerHTML=answerHTML(byId.get(id));a.hidden=!on}
   if(b){b.setAttribute('aria-expanded',on);b.textContent=on?'اخفي الإجابة':'اعرض الإجابة'}
+}
+function rate(id,v,toggle=true){
+  if(toggle&&ratings[id]===v)delete ratings[id];else ratings[id]=v;
+  store.set('flutter-ladder-v1',ratings);
+  document.querySelectorAll(`[data-rate="${id}"]`).forEach(b=>b.setAttribute('aria-pressed',ratings[id]===b.dataset.v));
+  renderLadder();
+}
+function goTo(id,{openIt=false}={}){
+  let el=$(id);
+  if(!el){ui.level=null;ui.topic=null;ui.filter='all';ui.q='';$('search').value='';syncFilterChips();render();el=$(id)}
+  if(!el)return;
+  if(openIt)setOpen(id,true);
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+  el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
+}
+function syncFilterChips(){document.querySelectorAll('#filters .chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.f===ui.filter))}
+function randomQ(){
+  const v=visible().length?visible():Q;
+  const pool=v.filter(x=>ratings[x.id]!=='ok');
+  const src=pool.length?pool:v;
+  const pick=src[Math.floor(Math.random()*src.length)];
+  setOpen(pick.id,false);goTo(pick.id);
 }
 
 document.addEventListener('click',e=>{
   const t=e.target.closest('button');if(!t)return;
   if(t.dataset.toggle){setOpen(t.dataset.toggle,!open.has(t.dataset.toggle));return}
-  if(t.dataset.rate){
-    const id=t.dataset.rate,v=t.dataset.v;
-    ratings[id]=ratings[id]===v?undefined:v;if(!ratings[id])delete ratings[id];
-    store.set(ratings);
-    t.parentElement.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',ratings[id]===b.dataset.v));
-    renderLadder();return;
+  if(t.dataset.rate){rate(t.dataset.rate,t.dataset.v);return}
+  if(t.dataset.link){
+    const url=location.href.split('#')[0]+'#'+t.dataset.link;
+    try{history.replaceState(null,'','#'+t.dataset.link)}catch(_){}
+    (navigator.clipboard?navigator.clipboard.writeText(url):Promise.reject()).then(()=>toast('اتنسخ لينك السؤال'),()=>toast('اللينك في شريط العنوان'));
+    return;
   }
   if(t.dataset.lv){ui.level=ui.level===t.dataset.lv?null:t.dataset.lv;ui.topic=null;render();return}
-  if(t.dataset.tp!==undefined){ui.topic=t.dataset.tp||null;render();return}
-  if(t.dataset.f){ui.filter=t.dataset.f;document.querySelectorAll('#filters .chip').forEach(c=>c.setAttribute('aria-pressed',c===t));render();return}
+  if(t.dataset.tp!==undefined&&t.closest('#topics')){ui.topic=t.dataset.tp||null;render();return}
+  if(t.dataset.f){ui.filter=t.dataset.f;syncFilterChips();render();return}
 });
-$('search').addEventListener('input',e=>{ui.q=e.target.value;render()});
-$('expand').onclick=()=>visible().forEach(x=>setOpen(x.id,true));
+let searchT;
+$('search').addEventListener('input',e=>{clearTimeout(searchT);searchT=setTimeout(()=>{ui.q=e.target.value;render()},150)});
+$('expand').onclick=()=>{visible().forEach(x=>setOpen(x.id,true));toast('اتفتحت كل الإجابات')};
 $('collapse').onclick=()=>{[...open].forEach(id=>setOpen(id,false))};
-$('random').onclick=()=>{
-  const v=visible();if(!v.length)return;
-  const pool=v.filter(x=>ratings[x.id]!=='ok');
-  const pick=(pool.length?pool:v)[Math.floor(Math.random()*(pool.length||v.length))];
-  setOpen(pick.id,false);
-  const el=$(pick.id);el.scrollIntoView({behavior:'smooth',block:'center'});
-  el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
+$('random').onclick=randomQ;$('random2').onclick=randomQ;$('bbRandom').onclick=randomQ;
+const toTop=()=>window.scrollTo({top:0,behavior:'smooth'});
+$('bbTop').onclick=toTop;$('fabTop').onclick=toTop;
+$('bbSearch').onclick=()=>{$('tools').scrollIntoView({behavior:'smooth'});setTimeout(()=>$('search').focus({preventScroll:true}),350)};
+let fabT=false;
+window.addEventListener('scroll',()=>{if(fabT)return;fabT=true;requestAnimationFrame(()=>{$('fabTop').hidden=window.scrollY<900;fabT=false})},{passive:true});
+
+/* progress sync */
+$('copyProgress').onclick=()=>{
+  const code=btoa(unescape(encodeURIComponent(JSON.stringify(ratings))));
+  $('progressCode').value=code;
+  const done=()=>$('syncMsg').textContent=`اتنسخ الكود (${Object.keys(ratings).length} سؤال متقيّم).`;
+  (navigator.clipboard?navigator.clipboard.writeText(code):Promise.reject()).then(done,()=>{$('progressCode').select();$('syncMsg').textContent='انسخ الكود من الخانة.'});
+};
+$('importProgress').onclick=()=>{
+  try{
+    const data=JSON.parse(decodeURIComponent(escape(atob($('progressCode').value.trim()))));
+    if(typeof data!=='object'||Array.isArray(data))throw 0;
+    let n=0;for(const [k,v] of Object.entries(data)){if(byId.has(k)&&(v==='ok'||v==='again')){ratings[k]=v;n++}}
+    store.set('flutter-ladder-v1',ratings);render();$('syncMsg').textContent=`اتستورد تقييم ${n} سؤال.`;
+  }catch(_){$('syncMsg').textContent='الكود ده مش صحيح. انسخه تاني من الجهاز التاني.'}
 };
 $('reset').onclick=()=>{
   const b=$('reset');
-  if(b.dataset.confirm){ratings={};store.set(ratings);delete b.dataset.confirm;b.textContent='امسح التقييم';$('resetMsg').textContent='اتمسح.';render()}
+  if(b.dataset.confirm){ratings={};store.set('flutter-ladder-v1',ratings);delete b.dataset.confirm;b.textContent='امسح التقييم';$('syncMsg').textContent='اتمسح التقييم.';render()}
   else{b.dataset.confirm='1';b.textContent='متأكد؟ اضغط تاني';setTimeout(()=>{delete b.dataset.confirm;b.textContent='امسح التقييم'},3000)}
 };
+
+/* mock interview */
+const mock={cfg:store.get('flutter-ladder-mock',{levels:['j','m','s'],count:10,minutes:3,hot:false}),list:[],i:0,res:[],timer:null,left:0,shown:false,lastFocus:null};
+const mb=$('mockBody');
+function openMock(){
+  mock.lastFocus=document.activeElement;
+  $('mock').hidden=false;document.body.classList.add('modal-open');
+  mockSetup();$('mockClose').focus();
+}
+function closeMock(){
+  clearInterval(mock.timer);$('mock').hidden=true;document.body.classList.remove('modal-open');
+  if(mock.lastFocus&&mock.lastFocus.focus)mock.lastFocus.focus();
+}
+function seg(name,opts,val,multi){
+  return `<div class="seg" data-seg="${name}">${opts.map(([v,l])=>`<button type="button" data-v="${v}" aria-pressed="${multi?val.includes(v):String(val)===String(v)}">${l}</button>`).join('')}</div>`;
+}
+function poolFor(cfg){return Q.filter(x=>cfg.levels.includes(x.lv)&&(!cfg.hot||x.hot))}
+function mockSetup(){
+  clearInterval(mock.timer);
+  const c=mock.cfg;
+  mb.innerHTML=`
+    <p style="margin:0;color:var(--muted);font-size:14.5px">هيظهرلك سؤال واحد كل مرة ومعاه تايمر. جاوب بصوت عالي، وبعدين اعرض الإجابة وقيّم نفسك بصراحة. في الآخر هتشوف نتيجتك، والأسئلة اللي محتاج ترجعلها.</p>
+    <div class="field"><span>المستويات</span>${seg('levels',Object.entries(LEVELS).map(([k,L])=>[k,L.name]),c.levels,true)}</div>
+    <div class="field"><span>عدد الأسئلة</span>${seg('count',[[5,'5'],[10,'10'],[15,'15'],[20,'20']],c.count)}</div>
+    <div class="field"><span>الوقت لكل سؤال</span>${seg('minutes',[[1,'دقيقة'],[2,'2 د'],[3,'3 د'],[5,'5 د']],c.minutes)}</div>
+    <label class="check"><input type="checkbox" id="mockHot" ${c.hot?'checked':''}> الأسئلة الأكتر تكرارًا 🔥 بس</label>
+    <div class="result-count" id="mockPool"></div>
+    <button class="btn primary" id="mockStart" style="justify-self:start;padding:10px 20px">ابدأ</button>`;
+  const upd=()=>{const n=poolFor(c).length;$('mockPool').textContent=`متاح ${n} سؤال بالاختيارات دي.`;$('mockStart').disabled=!n};
+  mb.querySelectorAll('[data-seg]').forEach(g=>g.addEventListener('click',e=>{
+    const b=e.target.closest('button');if(!b)return;const name=g.dataset.seg;
+    if(name==='levels'){const s=new Set(c.levels);s.has(b.dataset.v)?s.delete(b.dataset.v):s.add(b.dataset.v);if(!s.size)return;c.levels=[...s];
+      g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',s.has(x.dataset.v)))}
+    else{c[name]=Number(b.dataset.v);g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b))}
+    upd();
+  }));
+  $('mockHot').onchange=e=>{c.hot=e.target.checked;upd()};
+  $('mockStart').onclick=()=>{
+    store.set('flutter-ladder-mock',c);
+    const pool=poolFor(c).slice();
+    for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}
+    // الأسئلة اللي مش متعلّمة "عارفها" ليها أولوية
+    pool.sort((a,b)=>(ratings[a.id]==='ok')-(ratings[b.id]==='ok'));
+    mock.list=pool.slice(0,c.count).sort((a,b)=>LV_ORDER.indexOf(a.lv)-LV_ORDER.indexOf(b.lv));
+    mock.i=0;mock.res=[];mockQuestion();
+  };
+  upd();
+}
+const fmt=s=>`${Math.floor(Math.max(s,0)/60)}:${String(Math.max(s,0)%60).padStart(2,'0')}`;
+function mockQuestion(){
+  clearInterval(mock.timer);
+  const x=mock.list[mock.i],total=mock.list.length;
+  mock.left=mock.cfg.minutes*60;mock.shown=false;
+  mb.innerHTML=`
+    <div class="mstat"><span>سؤال ${mock.i+1} من ${total}</span><span class="bar" style="--c:var(--accent)"><i style="width:${mock.i/total*100}%"></i></span><span class="timer" id="mTimer">${fmt(mock.left)}</span></div>
+    <div class="meta" style="${cssVars(x.lv)}"><span class="tag lv">${LEVELS[x.lv].name}</span><span class="tag">${TOPICS[x.tp]||x.tp}</span>${x.hot?'<span class="tag hot">🔥 شائع</span>':''}</div>
+    <p class="mq">${inline(x.q)}</p>
+    <button class="btn" id="mShow" style="justify-self:start">اعرض الإجابة</button>
+    <div class="mans" id="mAns" hidden></div>
+    <div id="mRateWrap" hidden><div style="font-size:13.5px;color:var(--muted);margin-bottom:6px">إجابتك كانت عاملة إزاي؟</div>
+      <div class="mrate"><button class="g" data-mr="ok">✓ صح</button><button class="w" data-mr="half">± نص نص</button><button class="b" data-mr="no">✗ معرفتش</button></div></div>
+    <button class="btn ghost" id="mSkip" style="justify-self:start;font-size:13px">تخطّي السؤال</button>`;
+  mb.scrollTop=0;mb.parentElement.scrollTop=0;
+  mock.timer=setInterval(()=>{
+    mock.left--;const t=$('mTimer');if(!t)return;
+    t.textContent=mock.left>0?fmt(mock.left):'الوقت خلص';t.classList.toggle('low',mock.left<=30);
+  },1000);
+  const reveal=()=>{if(mock.shown)return;mock.shown=true;$('mAns').innerHTML=answerHTML(x);$('mAns').hidden=false;$('mRateWrap').hidden=false;$('mShow').hidden=true};
+  $('mShow').onclick=reveal;
+  mb.querySelector('.mrate').onclick=e=>{const b=e.target.closest('[data-mr]');if(!b)return;next(b.dataset.mr)};
+  $('mSkip').onclick=()=>next('skip');
+  function next(r){
+    mock.res.push({id:x.id,r,time:mock.cfg.minutes*60-mock.left});
+    if(r==='ok')rate(x.id,'ok',false);else if(r==='half'||r==='no')rate(x.id,'again',false);
+    mock.i++;mock.i<mock.list.length?mockQuestion():mockSummary();
+  }
+}
+function mockSummary(){
+  clearInterval(mock.timer);
+  const c=k=>mock.res.filter(r=>r.r===k).length;
+  const ok=c('ok'),half=c('half'),no=c('no')+c('skip');
+  const score=Math.round((ok+half*.5)/mock.res.length*100);
+  const verdict=score>=75?'ممتاز، إنت جاهز للمستوى ده. جرّب مستوى أعلى.':score>=50?'كويس، بس راجع الأسئلة اللي تحت وأعد المحاكاة بعد يومين.':'محتاج مراجعة. ذاكر الأسئلة اللي تحت الأول، وبعدين أعد المحاكاة.';
+  const missed=mock.res.filter(r=>r.r!=='ok').map(r=>byId.get(r.id));
+  mb.innerHTML=`
+    <div style="text-align:center;display:grid;gap:4px"><div style="font-family:'Readex Pro',sans-serif;font-size:42px;font-weight:700;color:var(--accent)">${score}%</div><div>${verdict}</div></div>
+    <div class="score"><div><b style="color:var(--good)">${ok}</b><span>صح</span></div><div><b style="color:var(--warn)">${half}</b><span>نص نص</span></div><div><b style="color:var(--bad)">${no}</b><span>معرفتش أو اتخطّى</span></div></div>
+    ${missed.length?`<div class="field"><span>ارجع للأسئلة دي (اتعلّمت "محتاج أراجع"):</span><ul class="missed">${missed.map(x=>`<li><button data-go="${x.id}">#${String(x.n).padStart(3,'0')} · ${inline(x.q)}</button></li>`).join('')}</ul></div>`:''}
+    <div class="row"><button class="btn primary" id="mAgain">محاكاة جديدة</button><button class="btn" id="mDone">اقفل</button></div>`;
+  $('mAgain').onclick=mockSetup;$('mDone').onclick=closeMock;
+  mb.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{closeMock();render();goTo(b.dataset.go,{openIt:true})});
+}
+$('mockBtn').onclick=openMock;$('bbMock').onclick=openMock;$('mockClose').onclick=closeMock;
+$('mock').addEventListener('click',e=>{if(e.target.id==='mock')closeMock()});
+
+/* keyboard */
+document.addEventListener('keydown',e=>{
+  if(!$('mock').hidden){if(e.key==='Escape')closeMock();return}
+  if(e.target.matches('input,textarea,select')||e.metaKey||e.ctrlKey||e.altKey)return;
+  if(e.key==='/'){e.preventDefault();$('search').focus()}
+  else if(e.key==='r'||e.key==='R'||e.key==='ق'){randomQ()}
+  else if(e.key==='m'||e.key==='M'||e.key==='ة'){openMock()}
+});
+
 render();
+/* deep link */
+const h=location.hash.slice(1);
+if(h&&byId.has(h))setTimeout(()=>goTo(h,{openIt:true}),60);
 })();
 </script>
 
