@@ -1,0 +1,1915 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="137 سؤال Flutter وDart للإنترفيوهات من Junior لـSenior، مع إجابات بتتعرض وتختفي.">
+<title>Flutter Interview Ladder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#f3f6f9; --surface:#ffffff; --surface-2:#eaf0f5; --ink:#0f1c2b; --muted:#5a6878; --line:#d6dee7;
+  --accent:#0a6f93; --accent-soft:#dff0f6;
+  --j:#1f8a58; --j-soft:#e2f4ea; --m:#b86e05; --m-soft:#fbefdc; --s:#5b43c9; --s-soft:#ece8fb; --u:#0a6f93; --u-soft:#dff0f6;
+  --hot:#c2410c; --hot-soft:#fdeadf; --good:#1f8a58; --warn:#b86e05;
+  --code-bg:#0f1b2a; --code-ink:#dbe6f2; --code-kw:#7cc7ff; --code-str:#b5e38a; --code-com:#7d8da1; --code-num:#f5b86c;
+  --shadow:0 1px 2px rgba(15,28,43,.06),0 4px 14px rgba(15,28,43,.05);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#0b131d; --surface:#121d2a; --surface-2:#18263a; --ink:#e4ecf4; --muted:#93a3b6; --line:#243449;
+  --accent:#4cb8e0; --accent-soft:#12303f;
+  --j:#4fcb8c; --j-soft:#123124; --m:#f0a741; --m-soft:#33250f; --s:#a592ff; --s-soft:#231d45; --u:#4cb8e0; --u-soft:#12303f;
+  --hot:#ff8a4c; --hot-soft:#3a1d10; --good:#4fcb8c; --warn:#f0a741;
+  --code-bg:#08111b; --shadow:0 1px 2px rgba(0,0,0,.3);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0b131d; --surface:#121d2a; --surface-2:#18263a; --ink:#e4ecf4; --muted:#93a3b6; --line:#243449;
+  --accent:#4cb8e0; --accent-soft:#12303f;
+  --j:#4fcb8c; --j-soft:#123124; --m:#f0a741; --m-soft:#33250f; --s:#a592ff; --s-soft:#231d45; --u:#4cb8e0; --u-soft:#12303f;
+  --hot:#ff8a4c; --hot-soft:#3a1d10; --good:#4fcb8c; --warn:#f0a741;
+  --code-bg:#08111b; --shadow:0 1px 2px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;font-size:16px;line-height:1.75;margin:0;padding-inline:16px;padding-block:0 80px}
+.wrap{max-width:880px;margin-inline:auto}
+h1,h2,h3{font-family:"Readex Pro","IBM Plex Sans Arabic",sans-serif;text-wrap:balance;line-height:1.35}
+code,pre{font-family:"JetBrains Mono",ui-monospace,monospace}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* hero */
+.hero{padding-block:36px 20px;display:grid;gap:14px}
+.eyebrow{font-size:13px;letter-spacing:.06em;color:var(--accent);font-weight:600;direction:ltr;text-align:right}
+.hero h1{font-size:clamp(28px,5vw,42px);margin:0}
+.hero h1 span{color:var(--accent)}
+.hero p{margin:0;color:var(--muted);max-width:62ch}
+.ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px}
+.rung{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:6px;text-align:start;transition:border-color .15s,transform .15s}
+.rung:hover{transform:translateY(-1px)}
+.rung[aria-pressed="true"]{border-color:var(--c);box-shadow:inset 0 0 0 1px var(--c)}
+.rung .lv{font-family:"Readex Pro",sans-serif;font-weight:600;color:var(--c);font-size:15px}
+.rung .sub{font-size:12.5px;color:var(--muted);line-height:1.4}
+.bar{height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--c);width:0;transition:width .3s}
+.rung .cnt{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.how{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--muted)}
+.how b{color:var(--ink);font-weight:600}
+
+/* toolbar */
+.tools{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;display:grid;gap:10px;border-bottom:1px solid var(--line)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.search{flex:1 1 220px;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font:inherit;color:var(--ink)}
+.btn{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14px;white-space:nowrap}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#04121a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.primary{color:#04121a}}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.chips::-webkit-scrollbar{display:none}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:4px 11px;font-size:13px;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip .n{opacity:.6;font-variant-numeric:tabular-nums;margin-inline-start:4px}
+
+/* sections & cards */
+.sec-head{margin-block:30px 12px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.sec-head h2{margin:0;font-size:22px;color:var(--c)}
+.sec-head p{margin:0;color:var(--muted);font-size:14px}
+.list{display:grid;gap:10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;border-inline-start:4px solid var(--c)}
+.card.flash{animation:flash 1.2s ease}
+@keyframes flash{0%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:var(--shadow)}}
+.q{padding:14px 16px 12px;display:grid;gap:8px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px}
+.tag{padding:1px 8px;border-radius:99px;background:var(--surface-2);color:var(--muted)}
+.tag.lv{background:var(--cs);color:var(--c);font-weight:600}
+.tag.hot{background:var(--hot-soft);color:var(--hot);font-weight:600}
+.num{color:var(--muted);font-variant-numeric:tabular-nums;margin-inline-end:auto;font-family:"JetBrains Mono",monospace;font-size:12px}
+.q h3{margin:0;font-size:17px;font-weight:600}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.toggle{background:var(--cs);color:var(--c);border:0;border-radius:9px;padding:7px 14px;font-weight:600;font-size:14px}
+.rate{display:flex;gap:6px;margin-inline-start:auto}
+.rate button{border:1px solid var(--line);background:transparent;border-radius:9px;padding:5px 10px;font-size:13px;color:var(--muted)}
+.rate button[aria-pressed="true"][data-v="ok"]{background:var(--j-soft);border-color:var(--good);color:var(--good)}
+.rate button[aria-pressed="true"][data-v="again"]{background:var(--m-soft);border-color:var(--warn);color:var(--warn)}
+.ans{border-top:1px dashed var(--line);padding:14px 16px 16px;display:grid;gap:10px;background:linear-gradient(var(--surface),var(--surface))}
+.ans p{margin:0}
+.ans ul{margin:0;padding-inline-start:20px;display:grid;gap:4px}
+.ans code{background:var(--surface-2);padding:1px 6px;border-radius:5px;font-size:.86em;direction:ltr;unicode-bidi:isolate}
+.ans pre{margin:0;background:var(--code-bg);color:var(--code-ink);border-radius:10px;padding:12px 14px;overflow-x:auto;direction:ltr;text-align:left;font-size:13px;line-height:1.6}
+.ans pre code{background:none;padding:0;font-size:inherit}
+.k{color:var(--code-kw)}.st{color:var(--code-str)}.cm{color:var(--code-com);font-style:italic}.nm{color:var(--code-num)}
+.note{border-radius:10px;padding:10px 12px;font-size:14.5px;display:grid;gap:2px}
+.note b{font-size:12.5px;letter-spacing:.02em}
+.note.f{background:var(--accent-soft)}
+.note.f b{color:var(--accent)}
+.note.t{background:var(--hot-soft)}
+.note.t b{color:var(--hot)}
+.empty{padding:40px 10px;text-align:center;color:var(--muted)}
+.foot{margin-top:40px;font-size:13px;color:var(--muted);display:grid;gap:6px}
+.foot a{color:var(--accent)}
+@media (max-width:640px){
+  .ladder{grid-template-columns:repeat(2,1fr)}
+  .rate{margin-inline-start:0}
+  .q h3{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap" dir="rtl" lang="ar">
+  <header class="hero">
+    <div class="eyebrow">FLUTTER · DART · 2026 INTERVIEW PREP</div>
+    <h1>من الأساسيات لحد <span>Senior</span>، سؤال سؤال</h1>
+    <p>بنك أسئلة مرتب من الأسهل للأصعب: ابدأ بالـJunior علشان ترجّع الأساسيات، بعدها Mid، بعدها Senior. وفي الآخر "اللي فاتك"، وده ملخص اللي اتغير في Flutter وDart من 2024 لحد 2026. الأسئلة اللي عليها علامة 🔥 هي اللي بتتكرر في الإنترفيوهات.</p>
+    <div class="how">
+      <span><b>١.</b> اقرأ السؤال وجاوب بصوت عالي الأول</span>
+      <span><b>٢.</b> اضغط "اعرض الإجابة" وقارن</span>
+      <span><b>٣.</b> قيّم نفسك: عارفها أو محتاج أراجع</span>
+    </div>
+    <div class="ladder" id="ladder"></div>
+  </header>
+
+  <div class="tools">
+    <div class="row">
+      <input class="search" id="search" type="search" placeholder="دوّر في الأسئلة والإجابات… (مثلاً: keys أو isolate)" aria-label="بحث">
+      <button class="btn primary" id="random">🎲 سؤال عشوائي</button>
+    </div>
+    <div class="row">
+      <button class="btn" id="expand">اعرض كل الإجابات</button>
+      <button class="btn" id="collapse">اخفي كل الإجابات</button>
+      <div class="chips" id="filters" role="group" aria-label="فلتر">
+        <button class="chip" data-f="all" aria-pressed="true">الكل</button>
+        <button class="chip" data-f="hot" aria-pressed="false">🔥 الأكتر تكرارًا</button>
+        <button class="chip" data-f="todo" aria-pressed="false">لسه متقيّمتش</button>
+        <button class="chip" data-f="again" aria-pressed="false">محتاج أراجع</button>
+      </div>
+    </div>
+    <div class="chips" id="topics" role="group" aria-label="المواضيع"></div>
+  </div>
+
+  <main id="main"></main>
+
+  <footer class="foot">
+    <div>التقييم بتاعك متسجل في المتصفح ده بس. <button class="btn" id="reset" style="padding:3px 10px;font-size:12px">امسح التقييم</button> <span id="resetMsg"></span></div>
+    <div>المراجع: <a href="https://docs.flutter.dev/app-architecture" target="_blank" rel="noopener">Flutter Architecture</a> · <a href="https://dart.dev/resources/whats-new" target="_blank" rel="noopener">Dart What's new</a> · <a href="https://docs.flutter.dev/release/release-notes" target="_blank" rel="noopener">Flutter release notes</a> · <a href="https://docs.flutter.dev/perf/ui-performance" target="_blank" rel="noopener">Flutter Performance</a></div>
+  </footer>
+</div>
+
+<script type="text/plain" id="data">
+### j | dart | hot
+Q: يعني إيه Flutter، وبيرسم الـUI إزاي؟ هل بيستخدم native widgets؟
+A:
+Flutter هو UI toolkit من Google بتكتب بيه app واحد بـDart، ويشتغل على Android وiOS والـWeb والـDesktop.
+- **مش بيستخدم native widgets.** Flutter بيرسم كل pixel بنفسه عن طريق rendering engine خاص بيه، وهو **Impeller** دلوقتي (قبل كده كان Skia).
+- الطبقات تلاتة: **Framework** مكتوب بـDart (widgets وlayout وgestures)، وتحته **Engine** مكتوب بـC++ (rendering وtext والـDart runtime)، وتحته **Embedder** خاص بكل منصة (الـwindow والـinput والـlifecycle).
+- علشان كده الشكل ثابت على كل الأجهزة، والأداء عالي لأن مفيش bridge بين Dart والـUI.
+F: طيب لو محتاج حاجة native زي الكاميرا أو البلوتوث؟ ← plugins وplatform channels وFFI.
+T: جملة "Everything is a widget" حلوة كبداية، بس الـSenior يكمل ويقول إن الـwidget مجرد وصف، واللي بيرسم فعلًا هو الـRenderObject.
+
+### j | dart
+Q: ليه Flutter بيستخدم Dart؟
+A:
+- **JIT وقت التطوير:** ده اللي مخلي الـhot reload سريع.
+- **AOT في الـrelease:** بيحوّل الكود لـnative machine code، فالـstartup سريع والأداء ثابت.
+- **Sound null safety** ونظام types قوي.
+- الـGC مصمم للـobjects الصغيرة اللي بتتعمل وتتشال بسرعة، وده بالظبط اللي بيحصل مع الـwidgets.
+- لغة سهلة لأي حد جاي من Java أو Kotlin أو JS أو Swift.
+
+### j | dart | hot
+Q: إيه الفرق بين var وfinal وconst وdynamic؟
+A:
+- `var`: الـcompiler بيستنتج النوع، وتقدر تغيّر القيمة بعد كده بس بنفس النوع.
+- `final`: بيتعمله assign مرة واحدة بس، والقيمة ممكن تتحدد وقت الـruntime (من API مثلًا).
+- `const`: قيمة ثابتة وقت الـ**compile**، وبتتعمل canonicalization، يعني أي اتنين const متطابقين بيبقوا نفس الـobject في الذاكرة.
+- `dynamic`: بيقفل الـtype checking، وأي غلط هيظهر وقت الـruntime. استخدمه أقل حاجة ممكنة.
+~~~dart
+final list = [1, 2];
+list.add(3);        // مسموح: final بيمنع إعادة الـassign بس
+// list = [];       // compile error
+const fixed = [1, 2];
+// fixed.add(3);    // UnsupportedError وقت الـruntime
+~~~
+F: هل `final` بيخلي الـobject immutable؟ ← لأ. `final` بيمنع إنك تغيّر الـreference بس، ومش بيمنع تعديل الـobject نفسه.
+T: `var x;` من غير قيمة بيتعامل كأنه `dynamic`. الغلطة دي بتعدّي على ناس كتير.
+
+### j | dart | hot
+Q: اشرح Null Safety والـoperators: ? و! و?? و??= و?. وlate
+A:
+- `String?` معناها إن القيمة ممكن تبقى null. أما `String` لوحدها فمستحيل تبقى null، والـcompiler بيضمن ده.
+- `a?.length`: لو `a` بـnull النتيجة null ومفيش crash.
+- `a ?? 'default'`: لو `a` بـnull خد القيمة التانية.
+- `a ??= 5`: اعمل assign بس لو `a` بـnull.
+- `a!`: إنت بتقول للـcompiler "أنا متأكد إنها مش null". لو طلعت null هيحصل crash وقت الـruntime.
+- `late`: متغير هتديله قيمة بعدين. لو قريته قبل ما تديله قيمة هيطلع `LateInitializationError`.
+T: الإفراط في استخدام `!` علامة إن الـdesign محتاج مراجعة. الأحسن تعمل null check في local variable، أو تعدّل الـtypes نفسها.
+
+### j | dart
+Q: إيه الـbasic types في Dart، وإيه الـRecords؟
+A:
+- `int` و`double` (والاتنين subtypes من `num`)، و`String`، و`bool`.
+- Collections: `List` مرتبة، و`Set` من غير تكرار، و`Map` عبارة عن key/value.
+- **Records** (من Dart 3): بتجمع أكتر من قيمة من غير ما تعمل class. مفيدة لو دالة محتاجة ترجع أكتر من قيمة.
+~~~dart
+(String, int) user() => ('Ali', 30);
+final (name, age) = user();       // destructuring
+({double lat, double lng}) loc = (lat: 30.0, lng: 31.2);
+~~~
+F: الـRecord بيقارن إزاي؟ ← بالقيمة (structural equality): لو الحقول متساوية يبقى الاتنين متساويين.
+
+### j | dart
+Q: أنواع الـparameters في دوال Dart؟
+A:
+- **Positional** وهي إجبارية: `f(int a)`.
+- **Optional positional** بين `[]`: `f([int a = 0])`.
+- **Named** بين `{}`، وتقدر تخلي أي واحد فيهم إجباري بـ`required`: `f({required String name, int age = 0})`.
+- **Arrow function**: `int twice(int x) => x * 2;`
+- **Closure**: دالة شايلة معاها المتغيرات اللي في الـscope اللي اتعملت فيه.
+T: في Flutter بنستخدم named parameters في الـconstructors دايمًا تقريبًا علشان الكود يبقى مقروء، زي `Text('x', style: ...)`.
+
+### j | dart
+Q: اشرح الـconstructors في Dart: default وnamed وinitializer list وconst
+A:
+~~~dart
+class Point {
+  final double x, y;
+  const Point(this.x, this.y);                  // shorthand + const
+  Point.origin() : x = 0, y = 0;                // named + initializer list
+  Point.fromJson(Map<String, dynamic> j)
+      : x = (j['x'] as num).toDouble(),
+        y = (j['y'] as num).toDouble();
+  factory Point.parse(String s) {               // factory
+    final p = s.split(',');
+    return Point(double.parse(p[0]), double.parse(p[1]));
+  }
+}
+~~~
+- الـ**initializer list** بيتنفذ قبل الـbody، وبيستخدم لما تحب تدي قيمة لـ`final` fields.
+- الـ**const constructor** بيشترط إن كل الـfields تبقى final.
+
+### j | dart | hot
+Q: إيه الفرق بين extends وimplements وwith؟
+A:
+- `extends`: **وراثة**. بتاخد الـimplementation والـtype من superclass واحد بس.
+- `implements`: بتاخد **العقد** بس. لازم تكتب implementation لكل الـmembers بنفسك. وفي Dart أي class ينفع يتعامل كـinterface.
+- `with`: بتضيف **mixin**، يعني بتعيد استخدام behavior جاهز من غير وراثة. وينفع تضيف أكتر من mixin.
+~~~dart
+mixin Logger { void log(String m) => print(m); }
+class Api extends BaseApi with Logger implements Disposable { ... }
+~~~
+F: إمتى composition أحسن من inheritance؟ ← لما مفيش علاقة "is-a" حقيقية، أو لما تكون محتاج تبدّل الـbehavior وقت الـruntime.
+
+### j | dart
+Q: abstract class وinterface في Dart
+A:
+- `abstract class` مينفعش تعمل منها instance، وممكن يبقى فيها methods من غير implementation.
+- Dart مفيهاش كلمة interface زي Java، لأن أي class بتعتبر implicit interface. ومن Dart 3 فيه `interface class` كـmodifier.
+- الاستخدام المعتاد: `abstract class AuthRepository` كعقد، وتحته `AuthRepositoryImpl implements AuthRepository`.
+
+### j | dart | hot
+Q: الـunderscore _ في Dart بيعمل إيه؟ هل هو private للـclass؟
+A:
+- `_name` معناه إن الحاجة دي **private على مستوى الـlibrary**، يعني الملف، مش على مستوى الـclass.
+- يعني class تانية موجودة في **نفس الملف** تقدر توصل للـ`_field`.
+- لو عندك `part`/`part of`، الملفات دي بتتحسب library واحدة.
+T: دي من الأسئلة اللي بتكشف مين فاهم Dart ومين بيقيس على Java.
+
+### j | dart
+Q: الـstatic في Dart معناه إيه؟
+A:
+- الـ`static` member تابع للـclass نفسها، مش لأي instance منها: `Config.baseUrl`.
+- مفيش جواه `this`.
+- مفيد للـconstants والـhelpers. بس ماتستخدمش static mutable state كـglobal state، لأنه صعب في الـtesting وبيعمل coupling.
+
+### j | dart
+Q: collection-if وcollection-for والـspread operator
+A:
+~~~dart
+final items = [
+  'Home',
+  if (isAdmin) 'Dashboard',
+  for (final t in tabs) t.title,
+  ...extra,          // spread
+  ...?maybeNull,     // null-aware spread
+];
+~~~
+مفيدة جدًا جوه `children` في Flutter بدل ما تعمل الـlist في مكان منفصل.
+
+### j | dart | hot
+Q: map وwhere وfold وany وexpand… وليه ساعات بنكتب toList()؟
+A:
+- `map` بتحوّل كل عنصر، و`where` بتفلتر، و`fold`/`reduce` بتجمّع العناصر في قيمة واحدة، و`any`/`every` بيرجعوا bool، و`expand` بتفرد العناصر (flatten).
+- الـmethods دي بترجع **Iterable lazy**، يعني الشغل مش بيتنفذ غير لما حد يقرأ العناصر فعلًا.
+- `toList()` بتنفذ الشغل كله مرة واحدة وتخزن النتيجة. ده مهم لو هتقرأ النتيجة أكتر من مرة، أو لو الـAPI اللي بتبعتله محتاج List.
+T: الفخ هنا إن الـIterable الـlazy ممكن يتحسب أكتر من مرة لو قريته مرتين.
+
+### j | dart | hot
+Q: إزاي بتتعامل مع الـexceptions؟ وإيه الفرق بين Exception وError؟
+A:
+~~~dart
+try {
+  await api.load();
+} on SocketException {
+  showOffline();
+} on FormatException catch (e, st) {
+  log(e, st);
+} catch (e) {
+  rethrow;
+} finally {
+  hideLoading();
+}
+~~~
+- **Exception**: مشكلة متوقعة تقدر تتعامل معاها، زي الشبكة أو parsing.
+- **Error**: bug في البرنامج، زي `RangeError` أو `TypeError`. المفروض تصلح الكود نفسه، مش تحط catch.
+- `rethrow` بيحافظ على الـstack trace الأصلي.
+
+### j | dart
+Q: إيه هي extension methods؟
+A:
+بتضيف methods لـclass موجودة من غير ما تعدّلها أو تورث منها:
+~~~dart
+extension StringX on String {
+  bool get isEmail => contains('@');
+}
+extension ContextX on BuildContext {
+  ThemeData get theme => Theme.of(this);
+}
+~~~
+مهمة: الـextension بيتحدد وقت الـcompile (static dispatch)، فمش بيشتغل على متغير نوعه `dynamic`.
+
+### j | dart
+Q: enums العادية والـenhanced enums
+A:
+~~~dart
+enum Status {
+  active('نشط'), banned('محظور');
+  const Status(this.label);
+  final String label;
+  bool get canLogin => this == active;
+}
+~~~
+ومن Dart 3، لما تعمل `switch` على enum، الـcompiler بيتأكد إنك غطيت كل القيم (exhaustive).
+
+### j | async | hot
+Q: إيه هو Future، وإزاي async/await بيشتغلوا؟
+A:
+- الـ`Future<T>` قيمة هتيجي بعدين، ونهايتها يا إما نتيجة يا إما error.
+- `async` بتخلي الدالة ترجع Future. و`await` بتوقف **الدالة دي بس** لحد ما الـFuture يخلص، من غير ما توقف الـapp.
+- `await` **مش بيعمل thread جديد**. Dart بيشتغل على thread واحد جوه الـisolate، وفيه event loop.
+~~~dart
+Future<User> load() async {
+  try {
+    final res = await http.get(uri);
+    return User.fromJson(jsonDecode(res.body));
+  } catch (e) {
+    throw LoadFailure(e.toString());
+  }
+}
+~~~
+
+### j | async | hot
+Q: إيه الفرق بين Future وStream؟
+A:
+- **Future**: قيمة واحدة بتيجي مرة واحدة، زي HTTP request.
+- **Stream**: سلسلة قيم بتيجي على مراحل مع الوقت، زي الـlocation أو WebSocket أو تغييرات الـDB.
+- بتقرأ الـStream بـ`listen` أو `await for`، وبـ`StreamBuilder` في الـUI.
+- ولازم تعمل `cancel()` للـsubscription لما تخلص منها، وإلا هيحصل memory leak.
+
+### j | async | hot
+Q: FutureBuilder وStreamBuilder، وإيه أشهر غلطة بتحصل معاهم؟
+A:
+- بياخدوا future أو stream، وبيبنوا الـUI حسب `snapshot.connectionState` و`hasData` و`hasError`.
+- **أشهر غلطة:** إنك تعمل الـfuture جوه `build`:
+~~~dart
+// غلط: كل rebuild بيبعت request جديد
+FutureBuilder(future: api.load(), ...)
+
+// صح: اعمله مرة واحدة في initState
+late final Future<User> _future = api.load();
+FutureBuilder(future: _future, ...)
+~~~
+
+### j | widgets | hot
+Q: إيه الـWidget؟ وليه بيقولوا إن كل حاجة في Flutter widget؟
+A:
+- الـWidget **وصف immutable** لجزء من الـUI، يعني configuration مش object مرسوم.
+- الـpadding widget، والـcenter widget، وحتى الـgesture widget. علشان كده بيقولوا كل حاجة widget.
+- الـwidget رخيص في إنشائه، وبيتعمل منه نسخ كتير في كل build، وده عادي تمامًا.
+- الـFramework بيقارن الـwidgets الجديدة بالقديمة، وبيحدّث الحاجات اللي اتغيرت بس.
+
+### j | widgets | hot
+Q: StatelessWidget وStatefulWidget، إيه الفرق وإمتى أستخدم كل واحد؟
+A:
+- **Stateless**: مفيهوش state داخلي بيتغير. شكله معتمد على الـparameters اللي جاية له بس.
+- **Stateful**: فيه `State` object بيعيش أطول من الـwidget نفسه، وبيتغير بـ`setState`.
+- استخدم Stateful لما تكون محتاج: controllers (زي TextEditingController أو AnimationController)، أو subscriptions، أو state محلي زي tab مختار.
+T: الـwidget نفسه immutable حتى لو Stateful. اللي بيتغير هو الـState object.
+
+### j | widgets | hot
+Q: setState بيعمل إيه بالظبط؟
+A:
+- بيعلّم الـElement إنه "dirty"، فالـframework يعمل `build` تاني في الـframe الجاي.
+- الـcallback اللي بتبعته لازم يكون synchronous، ويغيّر الـstate بس.
+- ماتستدعيهوش بعد `dispose`. لو في كود async، اتأكد من `mounted` الأول.
+- ماتستدعيهوش جوه `build`.
+
+### j | widgets | hot
+Q: اشرح الـlifecycle بتاع StatefulWidget
+A:
+- `createState` ← `initState()` مرة واحدة: تجهيز الـcontrollers والـsubscriptions.
+- `didChangeDependencies()`: بتتنده بعد initState، وكل ما InheritedWidget الـwidget معتمد عليه يتغير.
+- `build()`: بتتنده كتير جدًا.
+- `didUpdateWidget(old)`: لما الـparent يبعت widget جديد بنفس الـtype والـkey.
+- `deactivate()`: لما الـwidget يتشال من الشجرة، ولسه ممكن يرجع.
+- `dispose()`: النهاية. اقفل هنا كل الـcontrollers والـsubscriptions.
+F: ليه مينفعش تستخدم `Theme.of(context)` جوه initState؟ ← لأن الـdependencies لسه ماتجهزتش. استخدمها في didChangeDependencies أو في build.
+
+### j | widgets | hot
+Q: إيه هو BuildContext؟
+A:
+- هو **مكان الـwidget في الشجرة**. عمليًا هو الـElement نفسه.
+- بتستخدمه علشان تدوّر على حاجة فوقك في الشجرة: `Theme.of(context)` و`Navigator.of(context)` و`MediaQuery.of(context)`.
+- كل widget ليه context خاص بيه. علشان كده لما تستخدم context بتاع widget فوق الـProvider، مش هيلاقي الـProvider.
+T: غلطة مشهورة: `Scaffold.of(context)` بـcontext الـwidget اللي عامل الـScaffold بنفسه. الحل `Builder`، أو تستخدم `ScaffoldMessenger`.
+
+### j | widgets | hot
+Q: إيه الفرق بين Hot Reload وHot Restart وFull Restart؟
+A:
+- **Hot Reload**: بيحقن الكود الجديد، ويعيد الـbuild، و**بيحافظ على الـstate**. التغييرات اللي في `initState` أو في `main` أو في الـglobals مش هتظهر.
+- **Hot Restart**: بيشغّل الـapp من الأول بالكود الجديد، والـstate بيضيع. أسرع من full restart.
+- **Full Restart**: بيعيد الـbuild كله. ده لازم لو غيّرت native code، أو ضفت plugin، أو assets في بعض الحالات.
+- الـHot Reload شغال في debug mode بس، لأنه معتمد على الـJIT.
+
+### j | widgets | hot
+Q: إيه الـbuild modes في Flutter؟
+A:
+- **Debug**: فيه JIT وhot reload وassertions، و**بطيء**. ماتقيسش الأداء عليه.
+- **Profile**: AOT مع أدوات القياس. ده اللي تقيس فيه الأداء، على جهاز حقيقي.
+- **Release**: AOT ومتظبط للسرعة، ومن غير أدوات debugging. ده اللي بيتنشر في الـstore.
+
+### j | widgets
+Q: pubspec.yaml بيعمل إيه؟ وإيه معنى ^ في الـversion؟ وإيه هو pubspec.lock؟
+A:
+- فيه اسم الـapp والـversion، والـdependencies والـdev_dependencies، والـassets والـfonts.
+- `^2.3.0` معناها أي version من 2.3.0 لحد **أقل من 3.0.0**، يعني أي تحديث مش breaking حسب semver.
+- `pubspec.lock` بيسجل الـversions الفعلية اللي اتنزلت. في الـapps اعمله commit، علشان كل الناس والـCI يشتغلوا على نفس الـversions.
+- `dev_dependencies` حاجات التطوير بس، زي `build_runner` و`mocktail` والـlints.
+
+### j | widgets
+Q: main() وrunApp، وإمتى بتحتاج WidgetsFlutterBinding.ensureInitialized()؟
+A:
+~~~dart
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
+}
+~~~
+لو هتنادي platform channels أو plugins **قبل** `runApp`، زي Firebase أو SharedPreferences، لازم تستدعي ensureInitialized الأول.
+
+### j | widgets
+Q: MaterialApp وCupertinoApp وScaffold بيعملوا إيه؟
+A:
+- `MaterialApp`: بيجهز الـTheme والـNavigator والـlocalization والـMediaQuery بستايل Material.
+- `CupertinoApp`: نفس الفكرة بس بستايل iOS.
+- `Scaffold`: الهيكل الأساسي للشاشة: AppBar وbody وDrawer وFAB وBottomNavigationBar.
+T: من Flutter 3.44 مكتبات Material وCupertino اتعملها freeze جوه الـSDK، والخطة إنها تتنقل لـpackages منفصلة اسمها `material_ui` و`cupertino_ui`.
+
+### j | layout | hot
+Q: Container وSizedBox وPadding، إمتى أستخدم كل واحد؟
+A:
+- `SizedBox`: لو محتاج مسافة أو مقاس محدد بس. خفيف، وينفع يبقى const.
+- `Padding`: لو محتاج padding بس.
+- `Container`: widget بيجمع حاجات كتير (padding وmargin وdecoration وconstraints وalignment). استخدمه لو محتاج أكتر من حاجة فيهم مع بعض، وأهمها الـdecoration.
+T: `Container` فاضي من غير child ولا مقاس بياخد أكبر مساحة متاحة. وده ساعات بيعمل layout غريب.
+
+### j | layout | hot
+Q: Row وColumn، الـmainAxis والـcrossAxis، والفرق بين Expanded وFlexible
+A:
+- في الـRow الـmainAxis أفقي، وفي الـColumn رأسي. والـcrossAxis عكسه.
+- `Expanded`: الـchild **لازم** يملى المساحة الفاضية كلها. هو نفسه `Flexible(fit: FlexFit.tight)`.
+- `Flexible`: الـchild **مسموح** له ياخد لحد المساحة الفاضية، بس ممكن ياخد أقل.
+- `flex: 2` بيقسم المساحة بالنسبة.
+F: `Text` طويل جوه Row عامل overflow، تعمل إيه؟ ← لفه بـ`Expanded` أو `Flexible`، واستخدم `overflow: TextOverflow.ellipsis` لو محتاج.
+
+### j | layout
+Q: Stack وPositioned
+A:
+- `Stack` بيحط الـchildren فوق بعض، وأول child بيبقى تحت.
+- `Positioned` بيحدد مكان الـchild جوه الـStack بـtop وleft وright وbottom.
+- `Positioned.fill` بيخلي الـchild يملى الـStack كله.
+- `PositionedDirectional` بياخد الـRTL في الاعتبار.
+
+### j | layout | hot
+Q: ListView وListView.builder وColumn جوه SingleChildScrollView، إيه الفرق؟
+A:
+- `ListView(children: [...])`: بيبني كل العناصر مرة واحدة. ينفع للقوائم الصغيرة بس.
+- `ListView.builder`: بيبني العناصر **lazy**، يعني بيبني اللي ظاهر على الشاشة بس. ده الصح لأي قائمة كبيرة أو جاية من API.
+- `ListView.separated`: زي builder، وبيضيف فاصل بين العناصر.
+- `SingleChildScrollView + Column`: بيبني كل حاجة مرة واحدة. ينفع لشاشة form مثلًا، لكن مش لقائمة طويلة.
+T: لو عندك عناصر كلها بنفس الارتفاع، `itemExtent` أو `prototypeItem` بيحسّنوا الأداء.
+
+### j | layout | hot
+Q: ظهرلك الشريط الأصفر والأسود (overflow)، أو error زي "Vertical viewport was given unbounded height"، بتعمل إيه؟
+A:
+- **Overflow**: الـchild أكبر من المساحة المتاحة. الحل حسب الحالة: `Expanded` أو `Flexible` أو scrolling أو `FittedBox`، أو إنك تسمح للـText يلف على أكتر من سطر.
+- **Unbounded height**: حطيت `ListView` جوه `Column`. الـColumn بيدي لأولاده ارتفاع مفتوح، والـListView عاوز ياخد أكبر ارتفاع ممكن. الحل إنك تلفه بـ`Expanded`، أو تديله ارتفاع محدد.
+- `shrinkWrap: true` بيحل المشكلة، بس بيبني العناصر كلها وبيقتل الـlazy loading. ماتستخدمهوش مع القوائم الطويلة.
+
+### j | layout
+Q: MediaQuery وLayoutBuilder، إيه الفرق؟
+A:
+- `MediaQuery`: معلومات عن **الشاشة كلها**: المقاس والـpadding (زي الـnotch) والـtext scale وdark mode.
+- `LayoutBuilder`: الـ**constraints** اللي الـparent إداها للـwidget ده تحديدًا. ده الأنسب للـresponsive components.
+- استخدم `MediaQuery.sizeOf(context)` بدل `MediaQuery.of(context).size`، علشان الـwidget يعمل rebuild لما المقاس يتغير بس، مش مع أي تغيير في الـMediaQuery.
+
+### j | layout | hot
+Q: ليه بنحط const قبل الـwidgets؟
+A:
+- الـconst widget بيتعمل مرة واحدة وقت الـcompile، وبيتعاد استخدامه.
+- لما الـparent يعمل rebuild، Flutter بيشوف إن الـwidget هو هو (identical)، فبيتخطى الـrebuild بتاعه وبتاع اللي تحته.
+- كمان بيقلل الـallocations. والـlint `prefer_const_constructors` بيساعدك تفتكر.
+T: الـconst مفيد، بس مش بيحل مشكلة layout أو paint تقيل. ماتقولش إنه حل سحري للأداء.
+
+### j | nav | hot
+Q: التنقل بين الشاشات: push وpop، وتمرير data، وإزاي ترجع نتيجة
+A:
+~~~dart
+final result = await Navigator.push<bool>(
+  context,
+  MaterialPageRoute(builder: (_) => EditScreen(user: user)),
+);
+// جوه EditScreen:
+Navigator.pop(context, true);
+~~~
+- `pushReplacement`: بيبدّل الشاشة الحالية، مفيد بعد الـlogin.
+- `pushAndRemoveUntil`: بيمسح الـstack، مفيد في الـlogout.
+
+### j | nav
+Q: Named routes وgo_router
+A:
+- الـnamed routes القديمة (`routes:` مع `pushNamed`) محدودة، ومش بتدعم الـdeep linking كويس.
+- `go_router` package رسمي من Flutter، ومبني على Router API: paths وparams وredirects (للـauth مثلًا) وnested navigation بـ`ShellRoute`.
+~~~dart
+GoRoute(path: '/product/:id',
+  builder: (c, s) => ProductPage(id: s.pathParameters['id']!));
+context.go('/product/42');   // بيبدّل الـstack
+context.push('/product/42'); // بيضيف شاشة فوق
+~~~
+
+### j | net | hot
+Q: إزاي بتنادي API وتعمل parse للـJSON؟
+A:
+~~~dart
+class User {
+  final int id; final String name;
+  User({required this.id, required this.name});
+  factory User.fromJson(Map<String, dynamic> j) =>
+      User(id: j['id'] as int, name: j['name'] as String);
+  Map<String, dynamic> toJson() => {'id': id, 'name': name};
+}
+
+final res = await http.get(Uri.parse('$base/users/1'));
+if (res.statusCode == 200) {
+  final user = User.fromJson(jsonDecode(res.body));
+}
+~~~
+- في المشاريع الكبيرة بنستخدم `json_serializable` أو `freezed` مع `build_runner`.
+- دايمًا اتعامل مع الـstatus codes والـtimeouts وأخطاء الـparsing.
+
+### j | storage | hot
+Q: SharedPreferences وSecure Storage وقاعدة بيانات، إمتى أستخدم كل واحد؟
+A:
+- **shared_preferences**: key/value بسيط للإعدادات، زي الثيم أو اللغة أو إن الـonboarding اتشاف. **مش مشفّر**.
+- **flutter_secure_storage**: للـtokens والحاجات الحساسة. بيستخدم Keychain على iOS، وKeystore أو EncryptedSharedPreferences على Android.
+- **قاعدة بيانات** زي sqflite أو Drift أو ObjectBox أو Hive أو Isar: للبيانات الكتيرة، والـqueries، والـoffline.
+T: ماتحطش الـtoken في SharedPreferences. السؤال ده بييجي كتير.
+
+### j | widgets
+Q: الـForms: TextEditingController والـvalidation
+A:
+~~~dart
+final _formKey = GlobalKey<FormState>();
+final _email = TextEditingController();
+
+@override
+void dispose() { _email.dispose(); super.dispose(); }
+
+Form(key: _formKey, child: TextFormField(
+  controller: _email,
+  validator: (v) => (v == null || !v.contains('@')) ? 'إيميل غلط' : null,
+));
+if (_formKey.currentState!.validate()) submit();
+~~~
+الـcontroller بيتعمل في الـState، مش جوه build، ولازم تعمله dispose.
+
+### j | widgets
+Q: الـThemes والـDark mode
+A:
+- `ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: ...))` مع Material 3.
+- `theme` و`darkTheme` و`themeMode` في MaterialApp.
+- خد الألوان من `Theme.of(context).colorScheme` بدل ما تكتبها hardcoded.
+- ممكن تعمل `ThemeExtension` للألوان والـtokens الخاصة بمشروعك.
+
+### j | code | hot
+Q: [كود] اعمل شاشة بتجيب list من API وتعرض loading وerror وdata، وفيها retry
+A:
+~~~dart
+class UsersPage extends StatefulWidget {
+  const UsersPage({super.key});
+  @override
+  State<UsersPage> createState() => _UsersPageState();
+}
+
+class _UsersPageState extends State<UsersPage> {
+  late Future<List<User>> _future = api.fetchUsers();
+
+  void _retry() => setState(() => _future = api.fetchUsers());
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<User>>(
+      future: _future,
+      builder: (context, snap) {
+        if (snap.connectionState != ConnectionState.done) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (snap.hasError) {
+          return Center(child: TextButton(
+              onPressed: _retry, child: const Text('حاول تاني')));
+        }
+        final users = snap.data!;
+        if (users.isEmpty) return const Center(child: Text('مفيش بيانات'));
+        return ListView.builder(
+          itemCount: users.length,
+          itemBuilder: (_, i) => ListTile(title: Text(users[i].name)),
+        );
+      },
+    );
+  }
+}
+~~~
+المحاور بيبص على: إن الـfuture مش جوه build، وإنك غطيت الـ4 حالات (loading وerror وempty وdata)، وإنك استخدمت ListView.builder.
+
+### j | code
+Q: [كود] اعمل زرار reusable بياخد text وonTap وحالة loading
+A:
+~~~dart
+class AppButton extends StatelessWidget {
+  const AppButton({super.key, required this.label,
+      required this.onPressed, this.loading = false});
+  final String label;
+  final VoidCallback? onPressed;
+  final bool loading;
+
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton(
+      onPressed: loading ? null : onPressed,
+      child: loading
+          ? const SizedBox.square(dimension: 20,
+              child: CircularProgressIndicator(strokeWidth: 2))
+          : Text(label),
+    );
+  }
+}
+~~~
+الـbutton بيتقفل تلقائي وقت الـloading، والألوان جاية من الـTheme مش hardcoded.
+
+### m | dart | hot
+Q: sealed classes وswitch expressions والـpatterns: اشرح بمثال
+A:
+- الـ`sealed` بيخلي كل الـsubtypes المباشرة في نفس الـlibrary، فالـcompiler بيعرفهم كلهم ويقدر يتأكد إن الـswitch **exhaustive**.
+- لو ضفت حالة جديدة ونسيت تتعامل معاها، هيطلعلك **compile error**، مش bug في الـruntime.
+~~~dart
+sealed class Result<T> {}
+final class Success<T> extends Result<T> { Success(this.data); final T data; }
+final class Failure<T> extends Result<T> { Failure(this.message); final String message; }
+
+String label(Result<int> r) => switch (r) {
+  Success(data: final n) when n == 0 => 'فاضي',
+  Success(:final data) => 'العدد: $data',
+  Failure(:final message) => message,
+};
+~~~
+- الـpatterns كمان بتشتغل في `if-case` وفي الـdestructuring: `if (json case {'name': String name}) ...`
+F: إيه الفرق بين sealed وabstract؟ ← الاتنين مينفعش يتعمل منهم instance، لكن sealed بيقفل الـsubtypes على نفس الـlibrary، وده اللي بيدي الـexhaustiveness.
+
+### m | dart
+Q: class modifiers: base وinterface وfinal وsealed وmixin class
+A:
+الـmodifiers دي بتتحكم في اللي يقدر يعمله أي كود **برّه الـlibrary**:
+- `interface class`: تقدر تعمل implements، بس مينفعش extends.
+- `base class`: تقدر تعمل extends، بس مينفعش implements. كده بتضمن إن الـimplementation بتاعتك دايمًا موجود.
+- `final class`: مينفعش لا extends ولا implements.
+- `sealed class`: abstract ضمنيًا، والـsubtypes محصورة في نفس الملف.
+- `mixin class`: تنفع تُستخدم كـclass وكـmixin في نفس الوقت.
+مهمين جدًا لو بتكتب package أو public API.
+
+### m | dart | hot
+Q: إزاي تعمل Singleton في Dart؟ وهل هو فكرة كويسة؟
+A:
+~~~dart
+class ApiClient {
+  ApiClient._();
+  static final ApiClient instance = ApiClient._();
+  // أو: factory ApiClient() => instance;
+}
+~~~
+- الـstatic final بيتعمله initialize بشكل lazy وthread-safe، لأن كل isolate ليه نسخته.
+- **العيب**: global state، وصعب تعمله mock في الـtests، ومخبّي الـdependencies.
+- **الأحسن**: تعمل instance واحد في الـcomposition root، وتمرره بـDI (get_it أو Riverpod أو constructor injection).
+
+### m | dart | hot
+Q: factory constructor إمتى تستخدمه؟
+A:
+- لما ماتكونش عاوز تعمل instance جديد كل مرة، زي الـcache أو الـsingleton.
+- لما ترجّع subtype حسب الـinput: `Shape.fromType('circle')`.
+- لما تحتاج validation أو parsing قبل ما تعمل الـobject، زي `fromJson`.
+- الـfactory مفيهوش `this`، ومش لازم يرجّع instance جديد.
+- لو العملية async، اعمل static method بدل الـfactory: `static Future<Db> open()`.
+
+### m | dart | hot
+Q: == وhashCode، وليه بنستخدم Equatable أو freezed؟
+A:
+- الـ`==` الافتراضي بيقارن **identity**، يعني هل الاتنين هما نفس الـobject في الذاكرة.
+- لو عملت override لـ`==`، لازم تعمل override لـ`hashCode` كمان: أي اتنين متساويين لازم يبقى ليهم نفس الـhash. وإلا الـSet والـMap هيتلخبطوا.
+- في الـstate management ده مهم جدًا: BLoC بيقارن الـstate الجديد بالقديم، ولو متساويين مش بيعمل emit.
+- `equatable` أو `freezed` بيولّدوا الـequality بدل ما تكتبها بإيدك.
+T: لو الـfield اللي داخل في الـequality mutable، والـobject جوه Set، هتحصل كارثة.
+
+### m | dart
+Q: الـimmutability وcopyWith، وليه مهمين في الـstate؟
+A:
+- الـstate الـimmutable بيخلي التغيير واضح: بتعمل object جديد بدل ما تعدّل القديم.
+- ده بيسهّل المقارنة، والـdebugging، وتتبع الـstate عبر الوقت، ومفيش حد يعدّل في الـstate من ورا ضهرك.
+~~~dart
+final next = state.copyWith(isLoading: false, items: [...state.items, item]);
+~~~
+T: لو عملت `state.items.add(x)` ثم `emit(state)`، الـBLoC مش هيعمل rebuild، لأنه نفس الـobject.
+
+### m | dart
+Q: late: إمتى تستخدمه، وإيه مخاطره؟
+A:
+- مفيد مع الـlazy initialization (`late final x = compute();`)، أو قيمة أكيد هتتحدد في initState.
+- **المخاطرة**: لو قريته قبل ما يتحدد، هيطلع `LateInitializationError` وقت الـruntime، والـcompiler مش هيحذرك.
+- لو القيمة ممكن فعلًا تبقى مش جاهزة (زي token قبل الـlogin)، عبّر عن ده في الـtypes: nullable أو sealed state. متخبيش المشكلة بـlate.
+
+### m | dart
+Q: mixins مع on، إمتى تستخدمها؟
+A:
+~~~dart
+mixin Validator on FormState { bool check() => validate(); }
+~~~
+- `on` بتحدد إن الـmixin ده يتضاف بس على subclass من نوع معين، فتقدر تستخدم الـmethods بتاعته.
+- استخدمها لـbehavior مشترك صغير. ماتعملهاش مكان تحط فيه كل الـlogic.
+- مثال مشهور: `SingleTickerProviderStateMixin`.
+
+### m | dart
+Q: Generics: الـbounds والـcovariance
+A:
+- `class Repo<T extends Entity>`: الـT لازم يبقى Entity أو subtype منها.
+- Dart بيخلي `List<Cat>` ينفع يتعامل كـ`List<Animal>` (covariant). لكن لو حاولت تضيف Dog للـlist دي هيطلع **runtime error**.
+- الحل: الـAPI اللي بيقرأ بس ياخد `Iterable<Animal>`، وماتعدّلش في collection عن طريق type أوسع من نوعها الحقيقي.
+
+### m | async | hot
+Q: الـEvent Loop: الـmicrotask queue والـevent queue. رتّب الـoutput
+A:
+~~~dart
+print('1');
+Future(() => print('2'));
+scheduleMicrotask(() => print('3'));
+Future.value().then((_) => print('4'));
+Timer.run(() => print('5'));
+print('6');
+// الناتج: 1 6 3 4 2 5
+~~~
+- الأول بيخلص كل الكود الـ**synchronous**، فيطبع 1 ثم 6.
+- بعدها Dart بيفضّي الـ**microtask queue** كلها، فيطبع 3 ثم 4. الـ`then` على future خلصان بيتجدول كـmicrotask.
+- بعدها بياخد من الـ**event queue** واحد واحد: `Future()` و`Timer.run` بيتحطوا هناك بترتيب ما اتجدولوا، فيطبع 2 ثم 5.
+T: لو عملت microtasks كتير ورا بعض، الـevents زي الـtaps والـframes هتستنى، والـUI هيقف.
+
+### m | async | hot
+Q: الـIsolates: إيه هي، وإمتى تستخدم Isolate.run أو compute؟
+A:
+- الـisolate ليه **ذاكرته الخاصة** والـevent loop بتاعه، ومفيش ذاكرة مشتركة بين isolates. بيتواصلوا عن طريق messages.
+- استخدم `Isolate.run(() => heavyParse(json))` لأي شغل تقيل على الـCPU، زي parsing JSON ضخم أو معالجة صور أو تشفير، يعني أي حاجة بتاخد أكتر من frame (حوالي 16ms).
+- **ماتستخدمهوش** للـHTTP. الـI/O أصلًا مش بيوقف الـevent loop.
+- فيه تكلفة: إنشاء الـisolate، ونسخ البيانات رايح جاي. قيس الأول.
+- للشغل الطويل أو المتكرر: `Isolate.spawn` مع SendPort وReceivePort.
+T: Isolate.run مش متاح على الـWeb (compute هناك بيشتغل على نفس الـthread).
+
+### m | async
+Q: Single-subscription stream وBroadcast stream، والـStreamController
+A:
+- **Single-subscription** (الافتراضي): listener واحد بس. لو حد تاني حاول يعمل listen هيطلع `Bad state: Stream has already been listened to`.
+- **Broadcast**: listeners كتير. الـevents اللي بتيجي ومفيش حد سامع بتضيع.
+~~~dart
+final _ctrl = StreamController<int>.broadcast();
+Stream<int> get stream => _ctrl.stream;
+void dispose() => _ctrl.close();
+~~~
+- اللي عمل الـsubscription هو المسؤول إنه يعملها `cancel()` في الـdispose.
+T: ماتحوّلش الـstream لـbroadcast علشان تسكّت الـerror بس. اسأل نفسك الأول: هل فعلًا محتاج أكتر من listener؟
+
+### m | async
+Q: Future.wait، وإزاي تتعامل مع الـerrors
+A:
+~~~dart
+// النتايج بترجع typed باستخدام records:
+final (user, orders) = await (api.user(), api.orders()).wait;
+~~~
+- التوازي بيخلي الوقت الكلي قريب من وقت أبطأ request، مش مجموعهم.
+- لو واحد فشل: `Future.wait` بيرمي أول error. ومع records بيطلع `ParallelWaitError`.
+- قرّر قرار **product**: هل فشل request واحد يوقف الصفحة كلها، ولا تعرض البيانات اللي وصلت؟
+
+### m | async | hot
+Q: بحث بـdebounce، وإزاي تمنع نتيجة قديمة تكتب فوق نتيجة أحدث
+A:
+~~~dart
+Timer? _debounce;
+int _gen = 0;
+
+void onChanged(String q) {
+  _debounce?.cancel();
+  _debounce = Timer(const Duration(milliseconds: 350), () => _search(q));
+}
+
+Future<void> _search(String q) async {
+  final mine = ++_gen;
+  emit(Loading());
+  try {
+    final r = await repo.search(q);
+    if (mine != _gen) return;       // نتيجة قديمة، تجاهلها
+    emit(Data(q, r));
+  } catch (e) {
+    if (mine != _gen) return;       // حتى الـerror القديم يتجاهل
+    emit(Error(e));
+  }
+}
+~~~
+- الـdebounce بيقلل عدد الـrequests، لكنه **مش بيمنع** الـrace condition.
+- الـgeneration counter (أو cancel token في Dio) هو اللي بيضمن إن آخر بحث بس هو اللي يتعرض.
+- وفي الـdispose: اعمل `_debounce?.cancel()`.
+
+### m | widgets | hot
+Q: Widget Tree وElement Tree وRenderObject Tree: إيه الفرق؟
+A:
+- **Widget**: configuration immutable ورخيص، بيتعمل من جديد في كل build.
+- **Element**: الـinstance اللي **فاضل موجود** وماسك مكان الـwidget في الشجرة. بيقارن الـwidget الجديد بالقديم، وبيمسك الـState. والـ`BuildContext` هو الـElement ده.
+- **RenderObject**: اللي بيعمل الشغل التقيل فعلًا: layout وpaint وhit testing.
+- لما الـwidget يتغير بنفس الـtype والـkey، الـElement بيفضل زي ما هو، وبيحدّث الـRenderObject بالقيم الجديدة بس. علشان كده الـrebuild رخيص.
+- مش كل widget ليه RenderObject: Stateless وStateful مجرد composition لـwidgets تانية.
+
+### m | widgets | hot
+Q: الـKeys: ValueKey وObjectKey وUniqueKey وGlobalKey، إمتى محتاجها؟
+A:
+- من غير key، Flutter بيطابق العناصر حسب **المكان والنوع**. لو رتّبت قائمة فيها stateful items، الـstate هيفضل في مكانه القديم ومش هيتحرك مع العنصر.
+- `ValueKey(item.id)`: الأكتر استخدامًا، لما يكون عندك id ثابت.
+- `ObjectKey(obj)`: لما هوية الـobject نفسه هي المهمة.
+- `UniqueKey()`: بيجبر Flutter يعمل element جديد كل مرة. ممكن تستخدمه علشان تعمل reset لـwidget.
+- `GlobalKey`: تقدر توصل منه للـState من أي مكان (زي `FormState`)، أو تنقل widget من مكان لمكان في الشجرة من غير ما الـstate يضيع. تقيل، فاستخدمه لما تحتاجه بس.
+T: ماتستخدمش الـindex كـkey في قائمة بيتغير ترتيبها.
+
+### m | widgets | hot
+Q: استخدام BuildContext بعد await: ليه خطر؟
+A:
+~~~dart
+onPressed: () async {
+  await repo.save();
+  if (!context.mounted) return;   // لازم
+  Navigator.of(context).pop();
+}
+~~~
+- وأنت مستني، ممكن الـwidget يتشال من الشجرة، ويبقى الـcontext مش صالح.
+- جوه State استخدم `mounted`، وفي أي callback تاني استخدم `context.mounted`.
+- حل تاني: خد الـNavigator أو الـMessenger في variable قبل الـawait.
+- الـlint اسمه `use_build_context_synchronously`.
+
+### m | widgets | hot
+Q: InheritedWidget بيشتغل إزاي؟ وإيه علاقته بـProvider؟
+A:
+- widget بيحط data في الشجرة، وأي widget تحته يقدر يوصلها في O(1) عن طريق `dependOnInheritedWidgetOfExactType`.
+- الـwidget اللي بيقرأ بيتسجل كـdependent، ولما الـdata تتغير و`updateShouldNotify` ترجع true، بيعمل rebuild للـdependents دول بس.
+- `Theme.of` و`MediaQuery.of` مبنيين على الفكرة دي.
+- **Provider** عبارة عن wrapper حوالين InheritedWidget، بيسهّل الاستخدام ويدير الـdispose.
+
+### m | widgets
+Q: didUpdateWidget وdidChangeDependencies: إمتى بيتندهوا، وبتعمل فيهم إيه؟
+A:
+- `didChangeDependencies`: بعد initState، وكل ما InheritedWidget معتمد عليه يتغير (Theme أو Locale أو Provider). المكان المناسب لأي شغل معتمد على context.
+- `didUpdateWidget(old)`: الـparent بعت configuration جديدة. قارن `old.x` بـ`widget.x`، ولو الـstream أو الـcontroller اتغير، الغي القديم واعمل subscribe على الجديد.
+- مش محتاج تنادي setState جواها، لأن build هيتنده بعدها لوحده.
+
+### m | layout | hot
+Q: "Constraints go down, sizes go up, parent sets position": اشرحها
+A:
+- الـparent بيقول للـchild: "مقاسك يكون بين كذا وكذا" (min/max width وheight).
+- الـchild بيختار مقاسه جوه الحدود دي، ويرجّعه للـparent.
+- الـparent بيحدد مكان الـchild.
+- **نتيجة مهمة**: الـchild مش بيعرف مكانه، ومش بيقدر ياخد مقاس برّه الـconstraints. علشان كده `Container(width: 100)` جوه parent بيفرض tight constraints هيتجاهل الـ100.
+- **Tight**: min = max (المقاس مفروض). **Loose**: min = 0. **Unbounded**: max = infinity، زي جوه ListView أو Row.
+
+### m | layout
+Q: الـSlivers وCustomScrollView: إمتى محتاجهم؟
+A:
+- لما تكون عاوز scroll واحد فيه أنواع مختلفة: AppBar بيختفي، وgrid، وlist، وheaders.
+~~~dart
+CustomScrollView(slivers: [
+  const SliverAppBar(floating: true, title: Text('Shop')),
+  SliverGrid.builder(...),
+  SliverList.builder(...),
+]);
+~~~
+- كله lazy جوه viewport واحد. الأحسن من إنك تحط ListView جوه ListView بـshrinkWrap.
+- لو القائمة بسيطة، ListView لوحده كفاية.
+
+### m | widgets | hot
+Q: الـAnimations: implicit وexplicit، وAnimationController والـvsync
+A:
+- **Implicit** (`AnimatedContainer` و`AnimatedOpacity` و`TweenAnimationBuilder`): بتغيّر القيمة، وFlutter يعمل الـanimation لوحده. ده الأسهل.
+- **Explicit**: بـ`AnimationController` مع `Tween` و`AnimatedBuilder`. للتحكم الكامل: تكرار، وعكس الاتجاه، وتسلسل.
+- `vsync: this` مع `SingleTickerProviderStateMixin`: بيربط الـanimation بالـframes، وبيوقفها لما الـwidget يبقى مش ظاهر.
+- لازم `controller.dispose()`.
+- `Hero` للانتقال بين شاشتين.
+T: في `AnimatedBuilder` حط الجزء الثابت في `child` علشان ميتعملوش rebuild كل frame.
+
+### m | state | hot
+Q: إيه الفرق بين Ephemeral state وApp state؟
+A:
+- **Ephemeral**: state محلي لـwidget واحد، زي tab مختار أو animation أو expand. هنا `setState` كفاية.
+- **App/Feature state**: state بتحتاجه أكتر من شاشة أو بيعيش أطول من الشاشة، زي user session أو cart أو settings. محتاج state management.
+- **Server state**: بيانات مصدرها الـbackend، ومحتاجة caching وrefresh.
+- القاعدة: خلي الـstate أقرب ما يمكن للمكان اللي بيستخدمه. ماترفعهوش global من غير سبب.
+
+### m | state | hot
+Q: Provider وRiverpod وBLoC وGetX: قارن بينهم
+A:
+- **Provider**: بسيط ومبني على InheritedWidget، ومعتمد على الـcontext. كويس للـapps الصغيرة والمتوسطة.
+- **Riverpod**: مش معتمد على الـcontext، وعنده compile-safety، وautoDispose، وfamilies، وAsyncValue، ودعم ممتاز للـasync والـDI. نسخة 3.x هي الحالية.
+- **BLoC/Cubit**: فصل واضح بين events وstates، وسهل تتبعه وتختبره بـbloc_test. شائع جدًا في الشركات والفرق الكبيرة.
+- **GetX**: سريع في الكتابة، بس بيخلط state وrouting وDI، وفيه global state وmagic كتير، وصعب في الـtesting. أغلب الشركات مش بتفضله في المشاريع الكبيرة.
+T: الإجابة الـSenior: "مفيش أحسن حاجة. القرار بيعتمد على الفريق، وحجم الـapp، والـtestability، وتكلفة الـmigration." واحكي عن تجربة حقيقية ليك.
+
+### m | state | hot
+Q: Bloc وCubit: إيه الفرق؟ وإيه الفرق بين BlocBuilder وBlocListener وBlocConsumer؟
+A:
+- **Cubit**: بتنادي functions وتعمل `emit(state)`. أبسط.
+- **Bloc**: بتبعت **events**، والـBloc بيحولها لـstates. بتكسب تتبع أوضح، وتقدر تتحكم في الـconcurrency بالـtransformers (debounce وrestartable).
+- **BlocBuilder**: بيبني الـUI حسب الـstate.
+- **BlocListener**: للـside effects بس، زي navigation أو snackbar. مش بيبني UI.
+- **BlocConsumer**: الاتنين مع بعض.
+- `buildWhen` و`listenWhen` و`BlocSelector` بيقللوا الـrebuilds.
+- `context.read` للأوامر (جوه onPressed)، و`context.watch` للاستماع (جوه build).
+
+### m | state
+Q: BLoC event concurrency: الـtransformers
+A:
+- من flutter_bloc 8، الـevents بتتنفذ **بالتوازي** بشكل افتراضي (concurrent).
+- عن طريق package `bloc_concurrency`:
+- `sequential()`: واحد ورا التاني، مفيد في الدفع.
+- `droppable()`: بيتجاهل أي event جديد وهو شغال، مفيد لو المستخدم ضغط الزرار كذا مرة.
+- `restartable()`: بيلغي القديم ويبدأ الجديد، ده المثالي للبحث.
+~~~dart
+on<SearchChanged>(_onSearch, transformer: restartable());
+~~~
+
+### m | state
+Q: Riverpod: ref.watch وref.read وref.listen، وautoDispose وfamily
+A:
+- `ref.watch`: جوه build أو جوه provider تاني. بيعمل rebuild لما القيمة تتغير.
+- `ref.read`: قراءة مرة واحدة، جوه callbacks زي onPressed.
+- `ref.listen`: للـside effects، زي snackbar أو navigation.
+- `autoDispose`: بيمسح الـstate لما مفيش حد بيسمعه.
+- `family`: provider بياخد parameter: `productProvider(id)`.
+- `AsyncValue`: فيه loading وdata وerror جاهزين، وبتستخدم `.when(...)`.
+- في Riverpod 3 بنستخدم `Notifier` و`AsyncNotifier` مع code generation (`@riverpod`)، والـStateNotifier والـChangeNotifierProvider بقوا legacy.
+
+### m | arch | hot
+Q: اشرح Clean Architecture في Flutter
+A:
+- **Presentation**: UI وstate management (Bloc أو ViewModel).
+- **Domain**: entities وuse cases وrepository interfaces. **Dart خالص**، من غير Flutter ولا packages خارجية.
+- **Data**: repository implementations وdata sources (remote وlocal) وDTOs/models وmappers.
+- **قاعدة الاعتمادية**: الـdependencies بتشاور للداخل. الـDomain مش عارف أي حاجة عن Data أو UI.
+- الفايدة: testability، وتقدر تبدّل الـdata source، وكل feature معزولة عن التانية.
+T: الـSenior يقول كمان: "مش كل app محتاج كل الطبقات. Use case لكل getter بسيط ده ceremony من غير قيمة." ودليل Flutter الرسمي بيعتبر الـDomain layer اختياري.
+
+### m | arch | hot
+Q: Repository Pattern: إيه هو، وإيه الفرق بين Repository وDataSource أو Service؟
+A:
+- الـ**DataSource/Service**: بيلف مصدر واحد low-level، زي REST API أو SQLite أو Firebase.
+- الـ**Repository**: هو **source of truth** للبيانات بالنسبة للتطبيق. بينسّق بين المصادر (cache وremote)، وبيعمل map من DTO لـentity، وبيطبق الـerror وretry policies.
+- اللي بيستخدمه مش بيعرف البيانات جاية من الـcache ولا من الشبكة.
+- دليل Flutter الرسمي بينصح إن الـrepository ميعتمدش على repository تاني. التنسيق يبقى في الـViewModel أو الـuse case.
+
+### m | arch | hot
+Q: Dependency Injection في Flutter: get_it وinjectable وRiverpod وconstructor injection
+A:
+- **الفكرة**: الـclass ما يعملش الـdependencies بتاعته بنفسه، هي بتتبعتله من برّه.
+~~~dart
+class LoginCubit extends Cubit<LoginState> {
+  LoginCubit(this._auth) : super(LoginInitial());
+  final AuthRepository _auth;   // abstraction
+}
+~~~
+- **Constructor injection** هو الأساس، والـtesting معاه سهل.
+- **get_it**: service locator. سهل، بس لو استدعيته من أي مكان في الكود الـdependencies بتستخبى. خلي استخدامه في الـcomposition root.
+- **injectable**: بيولّد تسجيل get_it بالـannotations.
+- **Riverpod**: الـproviders نفسها بتعمل الـDI.
+- الـscopes: singleton وlazySingleton وfactory.
+
+### m | arch | hot
+Q: SOLID بأمثلة من Flutter
+A:
+- **S**: `LoginCubit` مسؤول عن الـlogin بس، مش عن الـanalytics والـcache والـnavigation كمان.
+- **O**: تضيف payment method جديدة عن طريق class جديدة بتعمل implement لـ`PaymentMethod`، من غير ما تعدّل if/else القديمة.
+- **L**: أي `AuthRepository` implementation لازم يلتزم بنفس العقد، يعني ميرميش exceptions غريبة ومختلفة.
+- **I**: interfaces صغيرة: `Readable` و`Writable` بدل `DataManager` فيه 30 method.
+- **D**: الـCubit معتمد على `AuthRepository` (abstract)، مش على `DioAuthRepository`.
+
+### m | arch
+Q: Folder structure: feature-first ولا layer-first؟
+A:
+- **Layer-first** (`data/` و`domain/` و`presentation/`): مناسب للمشاريع الصغيرة، بس بيبعثر الـfeature الواحدة في أماكن كتير.
+- **Feature-first** (`features/auth/{data,domain,presentation}`): كل feature لوحدها. أسهل تتنقل فيه، وأسهل تحذف منه، وينفع يتقسم packages. الأشهر في المشاريع الكبيرة.
+- وفيه `core/` أو `shared/` للحاجات المشتركة: الـnetwork والـtheme والـwidgets المشتركة.
+
+### m | arch
+Q: MVVM في Flutter (اللي في دليل Flutter الرسمي)
+A:
+- **View**: widgets بس، ومفيهاش business logic.
+- **ViewModel**: بيمسك الـUI state، وبيعرض **commands** للـView، وبيكلم الـrepositories. غالبًا بيبقى ChangeNotifier أو Cubit.
+- **Repositories** وتحتها **Services**.
+- الـdata بتمشي في اتجاه واحد (unidirectional): الـrepository يروح للـViewModel، والـViewModel يروح للـView. والـevents بتمشي في الاتجاه العكسي.
+
+### m | net | hot
+Q: Dio interceptors، وإزاي تعمل refresh للـtoken
+A:
+- الـinterceptor بيضيف `Authorization` header لكل request، وبيسجل logs، وبيحوّل الـerrors لـtyped failures.
+- لما ييجي `401`: اعمل refresh للـtoken، وبعدها أعد الـrequest الأصلي.
+- **مهم**: لو 5 requests رجعوا 401 في نفس اللحظة، لازم refresh **واحد بس** (single-flight)، والباقي يستنوا نفس الـFuture. الكود كامل في أسئلة الـSenior.
+- لو الـrefresh نفسه فشل: اعمل logout وامسح الـtokens.
+- استخدم `QueuedInterceptorsWrapper` علشان الـrequests تتعالج ورا بعض.
+
+### m | net
+Q: استراتيجية التعامل مع الـerrors في الـapp كله
+A:
+- حوّل الـexceptions الخام (زي DioException وSocketException) لـ**typed failures** (زي `NetworkFailure` و`UnauthorizedFailure` و`ServerFailure(code)`) على حدود طبقة الـdata.
+- الـrepository يرجّع `Result<T>` أو `Either<Failure, T>`، أو يرمي failure معروف.
+- الـUI يعرض رسالة مفهومة، وزرار retry لو ينفع.
+- سجّل الـerrors في Crashlytics أو Sentry، ومعاها `FlutterError.onError` و`PlatformDispatcher.instance.onError` علشان تمسك الأخطاء اللي محدش عملها catch.
+
+### m | net | hot
+Q: إزاي تعمل Pagination أو infinite scroll؟
+A:
+- `ScrollController` يسمع للـscroll، ولما توصل قرب آخر القائمة (حوالي 200px) اطلب الصفحة الجاية.
+- الـstate فيه: items وpage أو cursor وhasMore وisLoadingMore وerror.
+- **امنع** الطلبات المكررة: لو فيه تحميل شغال، أو hasMore بـfalse، ماتطلبش.
+- الـcursor-based pagination أحسن من offset، لو البيانات بتتغير.
+- ممكن تستخدم `infinite_scroll_pagination`. وماتنساش pull-to-refresh يعمل reset للقائمة.
+
+### m | storage
+Q: قواعد البيانات المحلية: sqflite وDrift وHive وIsar وObjectBox
+A:
+- **sqflite**: SQL خام، وثابت.
+- **Drift**: فوق SQLite، type-safe، وفيه reactive streams وmigrations. اختيار قوي في 2026.
+- **Hive/Isar**: NoSQL وسريعين، **بس** المطور الأصلي ساب الـpackages دي. فيه community forks (زي `hive_ce`)، فاتأكد من حالة الصيانة قبل ما تختار.
+- **ObjectBox**: NoSQL سريع جدًا، ومدعوم تجاريًا.
+- **القرار**: هل البيانات relational؟ محتاج migrations؟ محتاج queries معقدة؟ مين بيصين الـpackage؟
+
+### m | test | hot
+Q: Unit test وWidget test وIntegration test: إيه الفرق؟
+A:
+- **Unit**: بيختبر function أو class لوحدها. سريع جدًا ومعزول. هتكتب منه أكتر حاجة.
+- **Widget**: بيشغل widget في بيئة test ويتفاعل معاها (`tester.tap` و`find.text`). سريع، وبيختبر الـUI.
+- **Integration** (`integration_test`): الـapp كله على جهاز أو emulator. ثقة أعلى، بس أبطأ وأصعب في الصيانة. استخدمه للـflows المهمة، زي الـlogin أو الـcheckout.
+~~~dart
+testWidgets('shows error', (tester) async {
+  await tester.pumpWidget(MaterialApp(home: Page(repo: FailingRepo())));
+  await tester.pump();
+  expect(find.text('حاول تاني'), findsOneWidget);
+});
+~~~
+
+### m | test
+Q: Mocking بـmocktail، واختبار Bloc بـbloc_test
+A:
+~~~dart
+class MockAuth extends Mock implements AuthRepository {}
+
+blocTest<LoginCubit, LoginState>(
+  'emits [loading, success]',
+  setUp: () => when(() => auth.login(any(), any()))
+      .thenAnswer((_) async => user),
+  build: () => LoginCubit(auth),
+  act: (c) => c.login('a', 'b'),
+  expect: () => [LoginLoading(), LoginSuccess(user)],
+);
+~~~
+- الـ**Fake** (implementation بسيطة بتشتغل فعلًا) بيبقى أحسن من الـMock لو عاوز تختبر الـbehavior. الـMock مناسب لو عاوز تتأكد إن interaction معين حصل.
+
+### m | test
+Q: Golden tests: إيه هي، وإيه مشاكلها؟
+A:
+- بتاخد screenshot للـwidget، وتقارنه بصورة محفوظة. أي تغيير غير مقصود في الشكل هيفشّل الـtest.
+- `flutter test --update-goldens` علشان تحدّث الصور المرجعية.
+- **المشاكل**: الـfonts والـrendering بيختلفوا من OS لـOS. لازم تحمّل الـfonts، وتشغل الـtests على نفس البيئة في الـCI.
+- مفيدة للـdesign system components.
+
+### m | perf | hot
+Q: إيه أهم نصايح الأداء في Flutter؟
+A:
+- استخدم `const` على قد ما تقدر، وقسّم الـwidgets الكبيرة لـwidgets صغيرة، علشان الـrebuild يبقى محدود.
+- استخدم `ListView.builder` أو slivers مع القوائم الطويلة.
+- ماتعملش شغل تقيل جوه `build`: لا requests ولا sorting ولا parsing.
+- حط الـlistener أو الـBlocBuilder أقرب ما يمكن للجزء اللي بيتغير، واستخدم selectors.
+- الصور: `cacheWidth`/`cacheHeight`، و`cached_network_image`، وصور بحجم مناسب للعرض.
+- قلل `Opacity` و`ClipPath` و`saveLayer`، وحط `RepaintBoundary` حوالين الأجزاء اللي بتتحرك كتير.
+- الشغل التقيل على الـCPU يروح isolate.
+- **وقبل أي حاجة**: قيس في profile mode بـDevTools.
+
+### m | perf
+Q: بتستخدم DevTools في إيه؟
+A:
+- **Performance**: الـframe chart، وتعرف منه المشكلة في الـUI thread ولا الـraster thread، وتقدر تتتبع الـrebuilds.
+- **CPU Profiler**: مين واكل الوقت.
+- **Memory**: snapshots، والـleaks، والـallocations.
+- **Inspector**: شجرة الـwidgets، والـlayout explorer، والـrepaint rainbow.
+- **Network**: الـrequests.
+
+### m | platform | hot
+Q: Platform Channels: MethodChannel وEventChannel
+A:
+~~~dart
+const ch = MethodChannel('app/battery');
+final level = await ch.invokeMethod<int>('getLevel');
+~~~
+- **MethodChannel**: request وresponse، يعني Dart بينادي native ويستنى النتيجة.
+- **EventChannel**: stream من native لـDart، زي sensors أو location.
+- **BasicMessageChannel**: رسايل في الاتجاهين بـcodec.
+- **Pigeon**: بيولّد كود type-safe للجهتين بدل الـstrings. ده اللي بيتنصح بيه.
+- **FFI / jnigen / ffigen**: بتنادي C أو Java أو Kotlin أو Objective-C أو Swift مباشرة من غير channels.
+
+### m | platform | hot
+Q: Flavors والـenvironments (dev وstaging وprod)
+A:
+- الـ**flavor** بيغيّر الـapp id والـicon والاسم والـFirebase config، على Android (productFlavors) وعلى iOS (schemes وconfigurations).
+- الـconfig بتاع كل بيئة (base URL والـflags) بيتبعت بـ`--dart-define` أو `--dart-define-from-file=env/prod.json`.
+- `flutter run --flavor dev -t lib/main_dev.dart`
+T: الـdart-define **مش مكان للأسرار**. أي حاجة جوه الـbinary تقدر تتقري.
+
+### m | platform
+Q: الـLocalization والـRTL
+A:
+- `flutter_localizations` مع `intl`، وملفات **ARB**، والـgeneration عن طريق `flutter: generate: true` و`l10n.yaml`.
+- `AppLocalizations.of(context)!.hello`
+- الـRTL: استخدم `EdgeInsetsDirectional` و`AlignmentDirectional` و`start`/`end` بدل left وright.
+- اختبر بـtext scale كبير وباللغة العربية.
+
+### m | platform | hot
+Q: Push notifications بـFCM: اشرح الـflow
+A:
+- الـapp بيطلب permission، وبياخد **FCM token**، ويبعته للـbackend، ويحدّثه في `onTokenRefresh`.
+- **Foreground**: `FirebaseMessaging.onMessage`، وتعرض الإشعار بنفسك عن طريق `flutter_local_notifications`.
+- **Background/terminated**: top-level handler متعلّم بـ`@pragma('vm:entry-point')`.
+- لما المستخدم يضغط على الإشعار: `onMessageOpenedApp` و`getInitialMessage()`، وبعدها deep link للشاشة المناسبة.
+- iOS محتاج APNs key وcapability.
+
+### m | platform
+Q: الـApp lifecycle: resumed وinactive وpaused وdetached وhidden
+A:
+~~~dart
+late final _listener = AppLifecycleListener(
+  onResume: () => refresh(),
+  onPause: () => saveDraft(),
+);
+~~~
+- `AppLifecycleListener` (من Flutter 3.13) أسهل من `WidgetsBindingObserver`.
+- استخدامات: وقّف الـvideo، واحفظ البيانات، واعمل refresh للـtoken أو البيانات لما الـapp يرجع.
+
+### m | code | hot
+Q: [كود] Cubit لقائمة فيها pagination وrefresh
+A:
+~~~dart
+class ProductsState {
+  const ProductsState({this.items = const [], this.page = 0,
+      this.hasMore = true, this.loading = false, this.error});
+  final List<Product> items; final int page;
+  final bool hasMore, loading; final Object? error;
+  ProductsState copyWith({List<Product>? items, int? page,
+      bool? hasMore, bool? loading, Object? error}) => ProductsState(
+      items: items ?? this.items, page: page ?? this.page,
+      hasMore: hasMore ?? this.hasMore, loading: loading ?? this.loading,
+      error: error);
+}
+
+class ProductsCubit extends Cubit<ProductsState> {
+  ProductsCubit(this._repo) : super(const ProductsState());
+  final ProductsRepository _repo;
+
+  Future<void> loadMore() async {
+    if (state.loading || !state.hasMore) return;   // امنع التكرار
+    emit(state.copyWith(loading: true));
+    try {
+      final next = await _repo.fetch(page: state.page + 1);
+      emit(state.copyWith(items: [...state.items, ...next],
+          page: state.page + 1, hasMore: next.isNotEmpty, loading: false));
+    } catch (e) {
+      emit(state.copyWith(loading: false, error: e));
+    }
+  }
+
+  Future<void> refresh() async {
+    emit(const ProductsState());
+    await loadMore();
+  }
+}
+~~~
+
+### s | perf | hot
+Q: اشرح الـrendering pipeline: build وlayout وpaint وcompositing وrasterization، والـUI thread والـRaster thread
+A:
+- **Build**: الـwidgets بتتحول لتحديثات في شجرة الـElements والـRenderObjects.
+- **Layout**: الـconstraints بتنزل لتحت، والمقاسات بتطلع لفوق، والـparent بيحدد مكان كل child.
+- **Paint**: الـRenderObjects بتسجل أوامر رسم (display lists).
+- **Compositing**: الأوامر بتتنظم في layers، والناتج scene.
+- **Rasterization**: الـscene بيتحول لـpixels على الـGPU عن طريق Impeller.
+- **UI thread**: بيشغّل كود Dart، يعني build وlayout وpaint. **Raster thread**: بيحوّل الـscene لـpixels.
+- الـframe budget في شاشة 60Hz حوالي **16ms**، وفي شاشة 120Hz حوالي **8ms**. لو أي thread منهم عدّى الـbudget، بيحصل jank.
+
+### s | perf | hot
+Q: إزاي تفرق بين UI jank وRaster jank؟ وحل كل واحد إيه؟
+A:
+- في الـframe chart بتاع DevTools (في **profile mode** وعلى جهاز حقيقي)، بتبص على أنهي bar أحمر: UI ولا Raster.
+- **UI jank**: build تقيل، أو rebuild لأجزاء كبيرة، أو layout معقد (intrinsics)، أو شغل Dart تقيل. الحل: قلل الـrebuilds، واستخدم lazy lists، وانقل الحسابات لـisolate.
+- **Raster jank**: `saveLayer` (من Opacity أو ShaderMask أو ClipPath مع antialias)، أو صور كبيرة من غير resize، أو effects كتير. الحل: قلل الـlayers، و`FadeTransition` بدل `Opacity`، وصغّر الصور، و`RepaintBoundary`.
+T: الـisolate مش هيحل raster jank. ده سؤال فخ.
+
+### s | perf
+Q: Rebuild وRelayout وRepaint: هل كل rebuild مكلف؟
+A:
+- الـ**Rebuild** عادة رخيص: widgets جديدة، والـElements بتتحدث. ومش شرط يطلع منه layout أو paint، لو الـrender properties ماتغيرتش.
+- الـ**Relayout**: إعادة حساب المقاسات والأماكن. ممكن يبقى مكلف لو فيه intrinsics أو شجرة عميقة.
+- الـ**Repaint**: إعادة رسم الـpixels. الـ`RepaintBoundary` بيعزل جزء بيتحرك كتير، زي animation أو فيديو، علشان باقي الشاشة ميتعادش رسمها.
+- **ماتعملش optimize من غير قياس**. استخدم "Track widget rebuilds" و"Highlight repaints".
+
+### s | perf
+Q: Impeller: إيه اللي اتغير عن Skia؟
+A:
+- Skia كان بيعمل compile للـshaders **وقت التشغيل**، فأول مرة تشوف animation كان بيحصل jank، وده اللي اسمه shader compilation jank.
+- **Impeller** بيعمل compile للـshaders مسبقًا وقت الـbuild، فالأداء بقى predictable.
+- هو الـdefault على iOS، وعلى Android 10 (API 29) وأحدث بيستخدم Vulkan. وفي Flutter 3.44 بقى الـrenderer الوحيد على Android الحديث.
+- لو فيه مشكلة rendering: جرّب تتأكد إنها مش bug في Impeller، وبلّغ عنها.
+
+### s | perf | hot
+Q: إزاي تكتشف Memory Leaks وتمنعها؟
+A:
+- **أشهر الأسباب**: controllers ماتعملهاش dispose (Animation وText وScroll)، وStreamSubscriptions وTimers ماتلغتش، وlisteners ماتشالتش، وcontext أو State محفوظ في singleton أو closure عايش طويل، وimage cache كبير.
+- **الاكتشاف**: DevTools Memory، تاخد snapshot قبل وبعد ما تفتح الشاشة وتقفلها كذا مرة، وتشوف هل عدد الـinstances بيزيد. وفيه package `leak_tracker` في الـtests.
+- **المنع**: أي حاجة اتعملت في initState تتقفل في dispose، والـlint `cancel_subscriptions` و`close_sinks`.
+
+### s | perf
+Q: JSON كبير واقف الـanimation، تعمل إيه؟
+A:
+- **قيس الأول**: اتأكد بالـCPU profiler إن الـparsing هو المشكلة، واعرف الحجم والوقت.
+- انقل الـparsing **ومعاه التحويل لـmodels** لـ`Isolate.run`. الـIsolate.run بيرجع النتيجة من غير نسخ (بيستخدم Isolate.exit).
+- الأحسن من كده: قلل الـpayload نفسه عن طريق pagination، أو fields أقل، أو streaming.
+- وقيس بعد التعديل. لو ماتحسنش، ماتسيبش التعقيد في الكود.
+
+### s | perf
+Q: Startup time وحجم الـapp: إزاي تحسنهم؟
+A:
+- **Startup**: قلل الشغل اللي قبل `runApp`، واعمل initialize للـSDKs بشكل lazy أو بالتوازي، وخلي الشاشة الأولى خفيفة. وقيس بـ`--trace-startup`.
+- **الحجم**: `--split-debug-info` و`--obfuscate`، وقلل الـassets، واستخدم WebP أو vectors، وشيل الـpackages اللي مش مستخدمة، واستخدم App Bundle على Android، وdeferred components لو بتستخدمها.
+- `flutter build apk --analyze-size` بيوريك مين واكل المساحة.
+
+### s | arch | hot
+Q: هل كل app محتاج Domain layer وUse Cases؟
+A:
+- **لأ.** apps كتير كفاية فيها UI وData بس، وده اللي دليل Flutter الرسمي بيقوله: الـdomain layer اختياري.
+- الـ**Domain/Use cases** بيبقى ليهم قيمة لما: الـlogic يكون معقد، أو يجمع أكتر من repository، أو يتكرر في أكتر من ViewModel، أو محتاج تختبره لوحده.
+- Use case بيعمل `return repo.getUser()` وخلاص، ده ceremony من غير قيمة.
+- **القرار** بيعتمد على: حجم الفريق، ومعدل التغيير، والـtestability، وعمر المشروع.
+T: الإجابة دي بتفرق Senior عن Mid بيحفظ Clean Architecture زي الكتاب.
+
+### s | arch
+Q: Modularization: packages وmonorepo وpub workspaces وmelos
+A:
+- تقسيم الـapp لـpackages (زي `core_network` و`design_system` و`feature_auth`) بيخلي الحدود بين الأجزاء إجبارية، ويسرّع التطوير المتوازي، ويسهّل الـtests.
+- **Pub workspaces** (من Dart 3.6): resolution واحد لكل الـpackages في الـrepo. و**melos** للـscripts والـversioning.
+- **قواعد**: الـfeatures ماتعتمدش على بعض مباشرة، والتواصل بينهم عن طريق interfaces في core، أو عن طريق الـrouting.
+- **التكلفة**: overhead في الإعداد. ماتعملوش لـapp صغير.
+
+### s | net | hot
+Q: [كود] اعمل refresh token بشكل single-flight، ومن غير race conditions
+A:
+~~~dart
+class TokenRefresher {
+  TokenRefresher(this._store, this._authApi);
+  final TokenStore _store;
+  final AuthApi _authApi;
+  Completer<String>? _inFlight;
+
+  Future<String> refresh() {
+    final running = _inFlight;
+    if (running != null) return running.future;  // استنى نفس الـrefresh
+    final c = _inFlight = Completer<String>();
+    () async {
+      try {
+        final t = await _authApi.refresh(_store.refreshToken);
+        await _store.save(t);
+        c.complete(t.access);
+      } catch (e, st) {
+        await _store.clear();              // logout
+        c.completeError(e, st);
+      } finally {
+        _inFlight = null;
+      }
+    }();
+    return c.future;
+  }
+}
+
+// جوه الـinterceptor عند 401:
+final usedToken = request.headers['Authorization'];
+final current = 'Bearer ${store.accessToken}';
+final newToken = usedToken != current
+    ? store.accessToken!          // request قديم، والـrefresh حصل خلاص
+    : await refresher.refresh();
+if (request.extra['retried'] == true) return reject(err);   // امنع الـloop
+request.extra['retried'] = true;
+// أعد الـrequest بالـtoken الجديد
+~~~
+- **النقطة اللي الـSenior بيفتكرها**: request اتبعت بالـtoken القديم، ورجعله 401 **بعد** ما الـrefresh خلص. قارن الـtoken اللي اتبعت بالـtoken الحالي بدل ما تبدأ refresh تاني.
+- الـPOST اللي مش idempotent (زي الدفع) مايتعادش تلقائيًا غير لو فيه idempotency key.
+
+### s | net
+Q: Retry آمن: backoff وjitter وidempotency
+A:
+- اعمل retry للأخطاء **المؤقتة** بس: timeout، و5xx، و429. أما 400 و401 و403 و422 فلأ.
+- **Exponential backoff**: 1s ثم 2s ثم 4s، علشان تقلل الضغط على السيرفر.
+- **Jitter**: وقت عشوائي بيتضاف على الانتظار، علشان آلاف الأجهزة ميعملوش retry في نفس اللحظة.
+- الـGET عادة idempotent. أما الـPOST (دفع أو طلب) فمحتاج **idempotency key**، أو إنك تتأكد من الحالة قبل ما تعيد.
+- حط حد أقصى للمحاولات أو deadline، وراقب معدل الـretries.
+
+### s | net | hot
+Q: صمم Offline-first مع optimistic updates وحل الـconflicts
+A:
+- الـ**Local DB هو source of truth**: الـUI بيقرأ من الـDB (streams)، والشبكة بتحدّث الـDB.
+- **Optimistic**: التغيير بيتكتب محليًا فورًا، ومعاه `operationId` و`baseVersion` وحالة `pending`، والـUI يتحدث على طول.
+- **Sync queue**: worker بيبعت العمليات بالترتيب، ومع كل عملية idempotency key. لو فشلت بيعمل retry بـbackoff، ولو فشلت نهائيًا حالتها تبقى `failed` والمستخدم يقدر يعيد.
+- **Conflicts**: server-wins، أو client-wins، أو last-write-wins بالـtimestamp، أو merge على مستوى الـfield، أو تسأل المستخدم. **القرار حسب نوع البيانات.**
+- الـconnectivity_plus **مش بيثبت** إن فيه internet. هو بس بيقول إن فيه network interface. الحقيقة الوحيدة هي نتيجة الـrequest نفسه.
+
+### s | net
+Q: Caching: صمم stale-while-revalidate
+A:
+- اعرض البيانات اللي في الـcache فورًا حتى لو قديمة، ومعاها metadata زي وقت الحفظ.
+- في نفس الوقت اعمل refresh في الخلفية، ولما يخلص اكتب النتيجة في الـcache وحدّث الـUI.
+- حدد TTL، وسياسة للفشل: ماتمسحش data كويسة علشان refresh فشل.
+- **Cache key** لازم يشمل كل حاجة بتأثر في النتيجة: الـuser والـlocale والـquery params.
+- والـinvalidation لما يحصل تعديل أو logout.
+
+### s | security | hot
+Q: API secret جوه الـapp، حتى لو بـ--dart-define وobfuscation: هل ده آمن؟
+A:
+- **لأ.** أي حاجة جوه الـbinary أو ماشية في الـtraffic تقدر تتقري، بأدوات زي strings وFrida وproxy.
+- الـobfuscation بيصعّب الـreverse engineering شوية، لكنه مش تشفير ومش حماية.
+- **الحل**: السر يفضل على الـbackend، والـapp ياخد tokens قصيرة العمر ليها صلاحيات محدودة (least privilege).
+- الـkeys العامة زي Maps وFirebase: قيّدها بالـpackage name والـSHA والـbundle id، وفعّل App Check.
+
+### s | security
+Q: Security checklist لأي Flutter app
+A:
+- الـtokens في `flutter_secure_storage`، مش في SharedPreferences.
+- HTTPS بس. والـ**certificate pinning** قرار مبني على threat model، ومعاه خطة لتدوير الشهادات، علشان لو الشهادة اتغيرت الـapp ميقعش.
+- ماتسجلش tokens أو بيانات شخصية (PII) في الـlogs أو في الـcrash reports.
+- اعمل validation للـinput، وخلي الـbackend يعمل validation من ناحيته كمان.
+- `--obfuscate --split-debug-info` في الـrelease.
+- Root/jailbreak detection بيعلّي التكلفة على المهاجم بس، ومش ضمان.
+- اشتغل على OWASP MASVS كمرجع.
+
+### s | platform
+Q: Plugin lifecycle وFederated plugins
+A:
+- الـplugin بيتربط بالـ**Engine**، وممكن يتربط بـActivity أو ViewController في وقت مختلف. ممكن يبقى فيه engines كتير، أو background isolate من غير UI.
+- سجّل الـhandlers لما يحصل attach، وشيلها لما يحصل detach. وماتحفظش Activity في static.
+- **Federated**: الـpackage متقسم لـinterface مشترك (platform_interface)، وimplementation لكل منصة. كده أي حد يقدر يضيف منصة جديدة.
+
+### s | release | hot
+Q: CI/CD لـFlutter app: إيه مكوناته؟
+A:
+- **كل PR**: `dart format --set-exit-if-changed` ثم `flutter analyze` ثم `flutter test --coverage`، وممكن golden tests.
+- **Build**: Flutter version ثابت (FVM أو ملف config)، وcache للـpub والـGradle والـPods.
+- **Signing**: الـkeystore والـcertificates في secret store، مش في الـrepo.
+- **Deploy**: Fastlane أو Codemagic أو GitHub Actions، وتطلع لـinternal testing ثم staged rollout.
+- **بعد الـrelease**: ارفع الـdebug symbols والـobfuscation maps لـCrashlytics أو Sentry، وراقب الـcrash-free rate، وخلي فيه خطة rollback، زي feature flags أو hotfix سريع.
+
+### s | release | hot
+Q: Crash بيحصل في release mode بس، وفي debug لأ، تعمل إيه؟
+A:
+- جرّب `flutter run --release` أو `--profile`، وشوف الـlogs (adb logcat أو Xcode console).
+- **أسباب مشهورة**: الـassertions مش شغالة في release، أو R8/ProGuard شال classes بتستخدمها بالـreflection (محتاج keep rules)، أو الـobfuscation كسر كود بيعتمد على `runtimeType.toString()`، أو timing مختلف لأن الـrelease أسرع، أو config أو env ناقص.
+- الـstack trace بتاع Crashlytics محتاج symbols. ارفعها، أو استخدم `flutter symbolize`.
+- اكتب test بيكرر المشكلة قبل ما تصلحها.
+
+### s | release
+Q: صمم release فيه database migration بشكل آمن
+A:
+- الـmigration forward-only، ومتختبر من **كل** version قديم ممكن يكون عند المستخدمين، على بيانات حقيقية الحجم.
+- الـmigration تتعمل في transaction، ومعاها خطة backup أو recovery.
+- الـapp القديم ممكن يفضل موجود عند مستخدمين كتير. الـbackend لازم يدعم أكتر من version، وأي API contract يتغير لازم يفضل backward compatible.
+- staged rollout ومراقبة، وfeature flag يفصل تفعيل الـfeature عن تغيير الـschema.
+- الـrollback بتاع الـbinary **مش بيرجّع** الـschema. خطط لده من الأول.
+
+### s | test
+Q: استراتيجية الـtesting لـapp كبير، وإزاي تتعامل مع الـflaky tests
+A:
+- الأولوية: unit tests للـlogic والـrepositories والـblocs، وwidget tests للشاشات المهمة، وintegration tests للـflows الحرجة.
+- الـcoverage مؤشر، مش هدف. السؤال الحقيقي: "لو غيرت الشرط ده، هل فيه test هيفشل؟"
+- **الـFlaky**: غالبًا سببها وقت حقيقي أو شبكة حقيقية أو ترتيب الـtests أو state global.
+- الحل: `fakeAsync` أو clock ممكن تحقنه، وfakes بـCompleters بتتحكم إمتى تخلص، و`pump(duration)` بدل ما تستخدم `pumpAndSettle` في كل حاجة، ونضّف الـsingletons بين كل test والتاني.
+T: `pumpAndSettle` بيعلّق للأبد لو فيه animation مستمرة، زي loading indicator.
+
+### s | design | hot
+Q: [System Design] صمم chat app بيدعم offline وأكتر من جهاز
+A:
+- **اسأل الأول**: عدد المستخدمين، والـgroups، والـattachments، وهل فيه encryption، وrequirements الـdelivered والـread، والترتيب.
+- **Data**: Local DB (Drift) هو الـsource of truth. رسايل الـoutgoing بتتحط في queue ومعاها client-generated id، علشان الـserver يعمل dedupe.
+- **Transport**: WebSocket مع reconnect بـbackoff، وsync بـcursor أو آخر sequence number لما يحصل reconnect، وpush notifications لما الـapp مقفول.
+- **حالات الرسالة**: pending ثم sent ثم delivered ثم read، أو failed ومعاها retry.
+- **الترتيب**: بـserver sequence، مش بساعة الجهاز.
+- **UI**: pagination للقديم، وlist معكوسة، وoptimistic send.
+- **اختم بـ**: الـtrade-offs، وإيه اللي هتأجله، وإزاي هتختبر وتراقب.
+
+### s | design | hot
+Q: [System Design] صمم E-commerce app: catalog وcart وcheckout
+A:
+- **Features**: auth وcatalog (بحث وفلاتر وpagination) وcart (offline ومتزامن) وcheckout وorders.
+- **Architecture**: feature-first، وrepositories، وBLoC أو Riverpod، وgo_router مع auth redirect وdeep links للمنتجات.
+- **Cart**: محلي ومتزامن مع السيرفر، والـmerge بعد الـlogin.
+- **Checkout**: idempotency key، وحالة واضحة (processing وsuccess وfailed)، ومفيش retry تلقائي للدفع.
+- **Performance**: صور متصغّرة، وcaching، وskeletons.
+- **Observability**: analytics للـfunnel، وcrash reporting.
+- **Testing**: unit للـpricing، وintegration للـcheckout.
+
+### s | behavioral | hot
+Q: إزاي تراجع PR كبير كـSenior؟
+A:
+- ابدأ بالصورة الكبيرة: المتطلبات، والمخاطر، وحدود الـarchitecture. وبعدها التفاصيل.
+- **الترتيب**: correctness ثم الـfailure modes والـconcurrency وفقدان البيانات والـsecurity، وبعدها الـtests والـperformance والـreadability.
+- فرّق بين **blocker** و**suggestion** و**nit**، واقترح تعديل محدد، مش "ده وحش".
+- لو الـPR كبير جدًا: اطلب يتقسم، أو walkthrough.
+- ماتفرضش ستايلك الشخصي. الـlints تحسم الحاجات دي.
+
+### s | arch | hot
+Q: عندك app قديم (GetX أو setState spaghetti أو singletons). إزاي تعمله migration؟
+A:
+- **ماتعيدش كتابته مرة واحدة.** اتبع الـStrangler pattern.
+- اكتب tests حوالين الـbehavior الحالي عند نقاط الفصل (seams).
+- حط interfaces حوالين الـsingletons، واعمل composition root، وابدأ تمرر الـdependencies بالـconstructor.
+- الـfeatures الجديدة تتكتب بالطريقة الجديدة، والقديمة تتنقل واحدة واحدة، والأولوية للي بيتغير كتير أو فيه bugs كتير.
+- اكتب ADR (Architecture Decision Record) واتفق عليه مع الفريق، واحذف الكود القديم لما محدش يبقى بيستخدمه.
+
+### s | arch | hot
+Q: عندك app على Flutter قديم (مثلًا 3.10). إزاي تحدّثه لآخر version؟
+A:
+- حدّث **خطوة خطوة** بين الـversions الكبيرة، واقرأ الـbreaking changes، و`dart fix --apply` بيحل حاجات كتير.
+- حدّث الـpackages، وشوف مين اتساب ومحدش بيصينه.
+- **Android**: AGP وGradle وKotlin وJava 17، والـplugin DSL الجديد بتاع Gradle، و16KB page size، وedge-to-edge، والـpredictive back.
+- **iOS**: الـminimum iOS version، وSwift Package Manager، والـUIScene lifecycle.
+- APIs اتشالت أو اتغيرت: `WillPopScope` بقى `PopScope`، و`MaterialStateProperty` بقى `WidgetStateProperty`، و`withOpacity` بقى `withValues(alpha:)`.
+- شغّل الـtests والـgoldens وجرّب على أجهزة حقيقية، وطلّع الـrelease بـstaged rollout.
+T: لو عملت upgrade كبير قبل كده، احكيه كقصة حقيقية في الإنترفيو: المشاكل اللي قابلتك وإزاي حليتها.
+
+### s | behavioral | hot
+Q: بتستخدم الـAI tools في الشغل إزاي، وإزاي بتراجع كود الـAI كتبه؟
+A:
+- استخدمه في الـboilerplate والـtests والـexploration والـrefactors الواضحة.
+- **المسؤولية عليك**: كل سطر لازم تفهمه، ولازم يعدّي analyze وtests وreview زي أي كود تاني.
+- **الأخطاء المشهورة في كود الـAI**: APIs قديمة أو deprecated، وpackages مش موجودة أصلًا، والـerror handling ناقص، وcontext بيتستخدم بعد await، وdispose منسي، وأسرار hardcoded.
+- ماتبعتش كود أو بيانات حساسة للـAI من غير سياسة من الشركة.
+- وفيه أدوات جديدة: Dart & Flutter MCP server بيخلي الـAI يستخدم الـanalyzer بتاع مشروعك فعلًا.
+T: السؤال ده بقى شائع جدًا في 2026. متقولش "مش بستخدمه"، ومتقولش "هو اللي بيكتب كل حاجة".
+
+### s | behavioral | hot
+Q: احكيلي عن نفسك (Tell me about yourself)
+A:
+- **دقيقة ونص لدقيقتين** بس.
+- **الحاضر**: "أنا Flutter developer بقالي X سنين، بنيت وسلّمت أكتر من N app لعملاء في مجالات كذا."
+- **الإنجاز**: حاجة واحدة أو اتنين بأرقام: "عملت base project بيوفر حوالي 40% من وقت بداية أي مشروع"، أو "نزّلت الـcrash rate من كذا لكذا."
+- **المستقبل**: "بدور على فريق أقدر أكبر فيه في architecture وsystem design…"
+T: لو شغال مع عملاء كتير أو عندك base project بتبدأ منه، ركّز على إزاي عملت standardization ووفرت وقت.
+
+### s | behavioral | hot
+Q: احكي عن خلاف تقني، أو incident، أو غلطة عملتها (بطريقة STAR)
+A:
+- **S**ituation: السياق في جملتين.
+- **T**ask: إنت كنت مسؤول عن إيه بالظبط.
+- **A**ction: إنت عملت إيه، بصيغة "أنا"، مش "إحنا": جمعت evidence، وسمعت الآراء التانية، وقررت أو صعّدت.
+- **R**esult: نتيجة بأرقام، والتغيير اللي فضل في النظام أو الـprocess (test أو monitoring أو checklist).
+- خد المسؤولية من غير ما تلوم حد، وماتحكيش قصة مثالية مفيهاش أي صعوبة.
+T: جهّز 4 قصص: bug كبير في production، وخلاف مع عميل أو زميل، وقرار تقني ندمت عليه، وحاجة حسّنتها من غير ما حد يطلبها.
+
+### s | behavioral
+Q: إزاي تقيّم package قبل ما تستخدمه؟
+A:
+- هل فعلًا محتاجه، ولا الكود اللي هيوفره صغير؟
+- الصيانة: آخر release، والـissues المفتوحة، والـpublisher (هل verified؟)، والـlicense، والمنصات اللي بيدعمها.
+- الـdependencies اللي بيجيبها معاه (transitive)، والحجم، والـsecurity.
+- **خطة خروج**: حطه ورا wrapper أو adapter، علشان لو اتساب تبدله بسهولة. زي اللي حصل مع Hive وIsar.
+
+### s | code | hot
+Q: [Live coding] اعمل LRU Cache بحيث get وput يبقوا O(1)
+A:
+~~~dart
+class LruCache<K, V> {
+  LruCache(this.capacity) : assert(capacity > 0);
+  final int capacity;
+  final _map = <K, V>{};   // LinkedHashMap بيحافظ على ترتيب الإضافة
+
+  V? get(K key) {
+    final v = _map.remove(key);
+    if (v == null) return null;   // لو القيم ممكن تبقى null استخدم containsKey
+    _map[key] = v;                // بقى الأحدث استخدامًا
+    return v;
+  }
+
+  void put(K key, V value) {
+    _map.remove(key);
+    if (_map.length >= capacity) _map.remove(_map.keys.first); // الأقدم
+    _map[key] = value;
+  }
+
+  int get length => _map.length;
+}
+~~~
+- في Dart، الـMap الافتراضي `LinkedHashMap` بيحافظ على ترتيب الإضافة. لما تشيل العنصر وترجع تضيفه، بيروح لآخر الترتيب.
+- **قبل ما تكتب، اسأل**: القيمة ممكن تبقى null؟ الـcapacity ممكن تبقى صفر؟ محتاج thread safety؟ (في Dart كل isolate لوحده، فلأ).
+- **Tests**: الـeviction، وتحديث key موجود، وإن get بيحدّث الترتيب.
+- وممكن تقترح الحل الكلاسيكي: HashMap مع doubly linked list.
+
+### s | code
+Q: [Live coding] اكتب debouncer وthrottler generic
+A:
+~~~dart
+class Debouncer {
+  Debouncer(this.delay);
+  final Duration delay;
+  Timer? _t;
+  void call(void Function() action) {
+    _t?.cancel();
+    _t = Timer(delay, action);
+  }
+  void dispose() => _t?.cancel();
+}
+
+class Throttler {
+  Throttler(this.interval);
+  final Duration interval;
+  DateTime? _last;
+  void call(void Function() action) {
+    final now = DateTime.now();
+    if (_last == null || now.difference(_last!) >= interval) {
+      _last = now;
+      action();
+    }
+  }
+}
+~~~
+- **Debounce**: بينفذ **بعد** ما المستخدم يبطل كتابة، زي البحث.
+- **Throttle**: مرة واحدة بالكتير كل فترة، زي الـscroll أو الضغط على زرار.
+
+### u | new | hot
+Q: إيه اللي اتغير في Flutter وDart من 2024 لحد 2026؟ (الملخص)
+A:
+- **الـversions**: Flutter نازل كل 3 شهور تقريبًا: 3.29 و3.32 و3.35 و3.38، وبعدهم 3.41، و**3.44** اللي اتعلن في Google I/O في مايو 2026. وفي Dart من 3.7 لحد **3.12 و3.13**.
+- **Dart**: الـformatter بقى بـ"tall style"، والـwildcard `_`، والـnull-aware elements، والـdot shorthands، والـprivate named parameters، والـprimary constructors (لسه experimental).
+- **الـMacros اتلغت**، وbuild_runner فضل هو الطريقة، وبقى أسرع.
+- **Impeller** بقى الـdefault في كل حتة تقريبًا.
+- **iOS**: الـSwift Package Manager بقى الـdefault، والـUIScene lifecycle بقى إجباري.
+- **Android**: Java 17، والـ16KB page size، والـpredictive back بقى default، والـedge-to-edge.
+- **Material وCupertino** اتعملهم freeze، والخطة إنهم يطلعوا في packages منفصلة.
+- **الـAI**: فيه Dart & Flutter MCP server، وGenUI SDK، وFlutter AI Toolkit، وGenkit Dart.
+T: جملة زي "أنا متابع اللي حصل في 3.38 و3.44، زي الـdot shorthands وImpeller وSPM" بتفرق جدًا في الإنترفيو.
+
+### u | new | hot
+Q: Dot shorthands (Dart 3.10): إيه هي؟
+A:
+لما الـcompiler يكون عارف النوع المتوقع، تقدر تشيل اسم الـtype:
+~~~dart
+Column(
+  mainAxisAlignment: .center,        // بدل MainAxisAlignment.center
+  crossAxisAlignment: .start,
+  children: [...],
+);
+Status s = .active;                   // enum
+EdgeInsets p = .all(8);               // constructor / static
+~~~
+
+### u | new
+Q: Null-aware elements (Dart 3.8)
+A:
+~~~dart
+final list = [
+  'a',
+  ?maybeItem,            // يتضاف بس لو مش null
+];
+final map = {
+  'name': name,
+  'phone': ?phone,       // الـkey مش هيتضاف لو phone بـnull
+};
+~~~
+بدل ما تكتب `if (x != null) x` كل مرة. مفيد جدًا في الـJSON وفي `children`.
+
+### u | new
+Q: الـWildcard variables (Dart 3.7)، وdigit separators (Dart 3.6)
+A:
+~~~dart
+list.forEach((_) => count++);
+void cb(_, _) {}          // تقدر تكرر _ من غير conflict
+final big = 1_000_000;    // digit separators
+~~~
+- الـ`_` بقى **non-binding**، يعني مش متغير حقيقي ومينفعش تقرأه.
+
+### u | new | hot
+Q: الـFormatter الجديد (tall style) في Dart 3.7
+A:
+- الـ`dart format` بقى بيقرر بنفسه يحط trailing commas أو يشيلها، وشكل الـformatting اتغير (tall style).
+- تقدر تغيّر طول السطر من `analysis_options.yaml`:
+~~~dart
+formatter:
+  page_width: 100
+~~~
+- أول ما تعمل upgrade هيحصل diff كبير في الـformatting. اعمله في commit لوحده.
+
+### u | new
+Q: Private named parameters وPrimary constructors (Dart 3.12 و3.13)
+A:
+~~~dart
+// private named parameters (stable في 3.12):
+class Bird {
+  Bird({required this._name});
+  final String _name;
+}
+// الاسم برّه هيبقى name:
+Bird(name: 'Tweety');
+~~~
+- **Primary constructors** (experimental في 3.12، واتوسع في 3.13): بتكتب الـclass والـconstructor في declaration واحد، زي Kotlin. ماتستخدمهاش في production غير لما تبقى stable.
+
+### u | new | hot
+Q: ليه الـMacros اتلغت؟ وإيه اللي حصل لـfreezed وjson_serializable؟
+A:
+- فريق Dart وقف شغل الـmacros في 2025، لأنها كانت بتبطّأ الـhot reload والـanalyzer بشكل مش مقبول.
+- **النتيجة**: `build_runner` فضل هو الطريق لتوليد الكود، والفريق شغال على تسريعه.
+- **freezed 3**: تقدر تكتب classes عادية مع الـgenerated code (mixed mode)، والـpattern matching بقى هو الطريقة المفضلة بدل `when` و`map`.
+
+### u | new | hot
+Q: Deprecated APIs لازم تعرفها بعد غياب سنتين
+A:
+- `WillPopScope` بقى **`PopScope`**، وبعدين `onPopInvoked` بقى **`onPopInvokedWithResult`**، علشان الـpredictive back.
+- `MaterialStateProperty` و`MaterialState` بقوا **`WidgetStateProperty`** و**`WidgetState`**.
+- `color.withOpacity(0.5)` بقى **`color.withValues(alpha: 0.5)`**، علشان دعم wide gamut.
+- `MediaQuery.of(context).size` بقى **`MediaQuery.sizeOf(context)`** (وفيه `paddingOf` و`textScalerOf`).
+- `textScaleFactor` بقى **`TextScaler`**.
+- `WidgetsBindingObserver` لسه موجود، بس **`AppLifecycleListener`** أسهل.
+- `dart:html` بقى `package:web` و`dart:js_interop`، علشان الـWasm.
+T: شغّل `dart fix --apply` واقرأ الـwarnings. والأهم: كود الـAI بيطلّع الـAPIs القديمة دي كتير.
+
+### u | new
+Q: الـHot reload على الـWeb، والـWidget Previews
+A:
+- **Flutter 3.35**: الـstateful hot reload على الـweb بقى stable وdefault.
+- **Widget Previews**: annotation `@Preview` بتعرض الـwidget لوحده جوه الـIDE من غير ما تشغل الـapp كله، زي SwiftUI. في 3.44 بقى فيها Inspector support.
+- **الـWeb**: الـHTML renderer اتشال، والـCanvasKit هو الـdefault، والـWasm داخل يبقى default.
+
+### u | new | hot
+Q: Swift Package Manager والـUIScene على iOS
+A:
+- الـ**SPM** بقى الـdefault في Flutter 3.44 بدل CocoaPods. للـmigration: `flutter migrate swift-package-manager`.
+- أي plugin بتكتبه أو بتصينه لازم يدعم SPM.
+- **UIScene lifecycle**: Apple بقت تفرضه، وFlutter 3.38 دعمه. الـapps القديمة محتاجة تعدّل الـAppDelegate، وتضيف SceneDelegate.
+
+### u | new | hot
+Q: التغييرات على Android: 16KB pages، وedge-to-edge، والـpredictive back، وGradle
+A:
+- **16KB page size**: Google Play بقى يطلبه. محتاج NDK وAGP حديثين، وأي native libs تكون متعملها build صح.
+- **Edge-to-edge**: من Android 15 (targetSdk 35) بقى إجباري. استخدم `SafeArea` والـpadding من MediaQuery.
+- **Predictive back**: بقى default، والـ`PopScope` هو اللي بيتعامل معاه.
+- **Java 17**، وAGP وGradle وKotlin حديثين. وفي AGP 9 الـKotlin بقى built-in.
+- **Hybrid Composition++**: أداء أحسن للـplatform views (زي الخرائط والـwebviews) في 3.44.
+
+### u | new
+Q: Material وCupertino هيطلعوا من الـSDK: يعني إيه ده بالنسبة لي؟
+A:
+- في Flutter 3.44 اتعمل **code freeze** لمكتبات Material وCupertino جوه الـSDK، والخطة إنهم ينتقلوا لـpackages اسمها `material_ui` و`cupertino_ui`.
+- **الفايدة**: تحديثات التصميم هتنزل من غير ما تستنى release جديد للـSDK كله.
+- **بالنسبة لك**: هتلاقي imports وmigration في الـversions الجاية. تابع الـrelease notes، وماتعملش upgrade لمشاريع العملاء في أول يوم.
+
+### u | new
+Q: Riverpod 3 وflutter_bloc: إيه الجديد في الـstate management؟
+A:
+- **Riverpod 3.x**: الـAPI بقى أبسط، و`Notifier` و`AsyncNotifier` هما الأساس. الـStateNotifier والـChangeNotifierProvider والـStateProvider بقوا legacy. فيه automatic retry للـproviders اللي بتفشل، وبقى يوقف الـlisteners بتاعة الـwidgets اللي مش ظاهرة، وفيه offline persistence وmutations كـexperimental.
+- **flutter_bloc 9**: نفس الأفكار، مع تحسينات، ولسه شائع جدًا في الشركات.
+- **Signals** ظهر كبديل خفيف.
+- **دليل Flutter الرسمي للـarchitecture**: MVVM مع Repositories وCommands، وChangeNotifier/ListenableBuilder كـbaseline. اقرأه لأن فيه مصطلحات ممكن المحاور يستخدمها.
+
+### u | new | hot
+Q: الـAI في منظومة Flutter: MCP وGenUI وAI Toolkit
+A:
+- **Dart & Flutter MCP Server**: بيخلي الـAI assistants (زي Claude وGemini وCopilot) يستخدموا الـanalyzer، ويعملوا hot reload، ويشوفوا الـwidget tree، ويدوروا على packages في مشروعك.
+- **Flutter AI Toolkit**: widgets جاهزة للـchat مع LLMs.
+- **GenUI SDK** (مبني على A2UI protocol): الـAI agent بيبني شاشات بـwidgets حقيقية من catalog إنت محدده.
+- **Genkit Dart**: framework لبناء AI features وagents بـDart.
+T: لو اتسألت "عملت أي حاجة بالـAI؟"، احكي عن feature حقيقية، أو عن إزاي بتستخدم الـAI في الـworkflow بشكل منضبط.
+</script>
+
+<script>
+(function(){
+const LEVELS={
+  j:{name:'Junior',sub:'Dart وFlutter من الأول: widgets وlayout وasync',c:'--j',cs:'--j-soft'},
+  m:{name:'Mid',sub:'Lifecycle وstate وarchitecture وtesting',c:'--m',cs:'--m-soft'},
+  s:{name:'Senior',sub:'Internals وperformance وsystem design وbehavioral',c:'--s',cs:'--s-soft'},
+  u:{name:'اللي فاتك',sub:'الجديد في Flutter وDart من 2024 لحد 2026',c:'--u',cs:'--u-soft'}
+};
+const TOPICS={dart:'Dart',async:'Async',widgets:'Widgets & Lifecycle',layout:'Layout',nav:'Navigation',state:'State',net:'Networking',storage:'Storage',arch:'Architecture',test:'Testing',perf:'Performance',platform:'Platform',security:'Security',release:'Release & CI',design:'System Design',behavioral:'Behavioral',code:'Live Coding',new:'الجديد'};
+
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const inline=s=>esc(s).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>');
+const KW=/\b(abstract|async|await|base|break|case|catch|class|const|continue|default|else|enum|extends|extension|factory|final|finally|for|get|if|implements|in|interface|late|mixin|new|null|on|required|rethrow|return|sealed|set|static|super|switch|this|throw|true|false|try|var|void|when|while|with|yield|int|double|String|bool|dynamic|Future|Stream|List|Map|Set)\b/;
+function hl(code){
+  const re=/(\/\/[^\n]*)|('(?:[^'\\\n]|\\.)*'|"(?:[^"\\\n]|\\.)*")|\b(\d[\d_]*(?:\.\d+)?)\b|([A-Za-z_]\w*)/g;
+  let out='',last=0,m;
+  while((m=re.exec(code))){
+    out+=esc(code.slice(last,m.index));
+    if(m[1])out+='<span class="cm">'+esc(m[1])+'</span>';
+    else if(m[2])out+='<span class="st">'+esc(m[2])+'</span>';
+    else if(m[3])out+='<span class="nm">'+esc(m[3])+'</span>';
+    else out+=KW.test(m[4])&&m[4].match(KW)[0]===m[4]?'<span class="k">'+m[4]+'</span>':esc(m[4]);
+    last=re.lastIndex;
+  }
+  return out+esc(code.slice(last));
+}
+function renderBody(lines){
+  let html='',ul=null,inCode=false,buf=[];
+  const closeUl=()=>{if(ul){html+='<ul>'+ul.join('')+'</ul>';ul=null}};
+  for(const line of lines){
+    if(inCode){
+      if(line.trim()==='~~~'){html+='<pre><code>'+hl(buf.join('\n'))+'</code></pre>';inCode=false;buf=[]}
+      else buf.push(line);
+      continue;
+    }
+    if(line.startsWith('~~~')){closeUl();inCode=true;continue}
+    if(/^- /.test(line)){(ul=ul||[]).push('<li>'+inline(line.slice(2))+'</li>');continue}
+    if(!line.trim()){closeUl();continue}
+    closeUl();html+='<p>'+inline(line)+'</p>';
+  }
+  closeUl();
+  return html;
+}
+function hash(s){let h=5381;for(let i=0;i<s.length;i++)h=(h*33+s.charCodeAt(i))|0;return 'q'+(h>>>0).toString(36)}
+
+// parse
+const raw=document.getElementById('data').textContent;
+const Q=[];
+raw.split(/\n(?=### )/).forEach(block=>{
+  block=block.trim(); if(!block.startsWith('### '))return;
+  const lines=block.split('\n');
+  const [lv,tp,...flags]=lines[0].slice(4).split('|').map(s=>s.trim()).join(' ').split(/\s+/);
+  const item={lv,tp,hot:flags.includes('hot'),q:'',body:[],f:[],t:[]};
+  let mode=null;
+  for(const l of lines.slice(1)){
+    if(mode!=='code'){
+      if(l.startsWith('Q: ')){item.q=l.slice(3);continue}
+      if(l==='A:'){mode='a';continue}
+      if(l.startsWith('F: ')){item.f.push(l.slice(3));mode='x';continue}
+      if(l.startsWith('T: ')){item.t.push(l.slice(3));mode='x';continue}
+    }
+    if(mode==='a'||mode==='code'){
+      item.body.push(l);
+      if(l.startsWith('~~~'))mode=(mode==='code'&&l.trim()==='~~~')?'a':'code';
+    }
+  }
+  item.id=hash(item.q);
+  Q.push(item);
+});
+
+// state
+const store={
+  get(){try{return JSON.parse(localStorage.getItem('flutter-ladder-v1')||'{}')}catch(e){return {}}},
+  set(v){try{localStorage.setItem('flutter-ladder-v1',JSON.stringify(v))}catch(e){}}
+};
+let ratings=store.get();
+const ui={level:null,topic:null,filter:'all',q:''};
+const open=new Set();
+
+const $=id=>document.getElementById(id);
+const main=$('main');
+
+function cssVars(lv){const L=LEVELS[lv];return `--c:var(${L.c});--cs:var(${L.cs})`}
+
+function renderLadder(){
+  $('ladder').innerHTML=Object.entries(LEVELS).map(([k,L])=>{
+    const all=Q.filter(x=>x.lv===k),ok=all.filter(x=>ratings[x.id]==='ok').length;
+    const pct=all.length?Math.round(ok/all.length*100):0;
+    return `<button class="rung" data-lv="${k}" aria-pressed="${ui.level===k}" style="${cssVars(k)}">
+      <span class="lv">${L.name}</span><span class="sub">${L.sub}</span>
+      <span class="bar"><i style="width:${pct}%"></i></span>
+      <span class="cnt">${ok} / ${all.length} عارفهم</span></button>`;
+  }).join('');
+}
+function renderTopics(){
+  const pool=Q.filter(x=>!ui.level||x.lv===ui.level);
+  const counts={};pool.forEach(x=>counts[x.tp]=(counts[x.tp]||0)+1);
+  $('topics').innerHTML=`<button class="chip" data-tp="" aria-pressed="${!ui.topic}">كل المواضيع<span class="n">${pool.length}</span></button>`+
+    Object.keys(TOPICS).filter(t=>counts[t]).map(t=>`<button class="chip" data-tp="${t}" aria-pressed="${ui.topic===t}">${TOPICS[t]}<span class="n">${counts[t]}</span></button>`).join('');
+}
+function visible(){
+  const s=ui.q.trim().toLowerCase();
+  return Q.filter(x=>(!ui.level||x.lv===ui.level)&&(!ui.topic||x.tp===ui.topic)
+    &&(ui.filter==='all'||(ui.filter==='hot'&&x.hot)||(ui.filter==='todo'&&!ratings[x.id])||(ui.filter==='again'&&ratings[x.id]==='again'))
+    &&(!s||(x.q+' '+x.body.join(' ')+x.f.join(' ')+x.t.join(' ')).toLowerCase().includes(s)));
+}
+function cardHTML(x,i){
+  const r=ratings[x.id]||'';
+  const isOpen=open.has(x.id);
+  return `<article class="card" id="${x.id}" style="${cssVars(x.lv)}">
+    <div class="q">
+      <div class="meta"><span class="num">#${String(i).padStart(3,'0')}</span>
+        <span class="tag lv">${LEVELS[x.lv].name}</span><span class="tag">${TOPICS[x.tp]||x.tp}</span>${x.hot?'<span class="tag hot">🔥 شائع</span>':''}</div>
+      <h3>${inline(x.q)}</h3>
+      <div class="actions">
+        <button class="toggle" data-toggle="${x.id}" aria-expanded="${isOpen}">${isOpen?'اخفي الإجابة':'اعرض الإجابة'}</button>
+        <div class="rate">
+          <button data-rate="${x.id}" data-v="ok" aria-pressed="${r==='ok'}">✓ عارفها</button>
+          <button data-rate="${x.id}" data-v="again" aria-pressed="${r==='again'}">↻ محتاج أراجع</button>
+        </div>
+      </div>
+    </div>
+    <div class="ans" id="a-${x.id}" ${isOpen?'':'hidden'}>
+      ${renderBody(x.body)}
+      ${x.f.map(f=>`<div class="note f"><b>سؤال متابعة متوقع</b><span>${inline(f)}</span></div>`).join('')}
+      ${x.t.map(t=>`<div class="note t"><b>نصيحة / فخ</b><span>${inline(t)}</span></div>`).join('')}
+    </div></article>`;
+}
+function render(){
+  renderLadder();renderTopics();
+  const v=visible();
+  if(!v.length){main.innerHTML='<div class="empty">مفيش أسئلة بالفلتر ده. جرّب تغيّر البحث أو الفلتر.</div>';return}
+  const idx=new Map(Q.map((x,i)=>[x.id,i+1]));
+  let html='';
+  for(const k of Object.keys(LEVELS)){
+    const items=v.filter(x=>x.lv===k);if(!items.length)continue;
+    html+=`<section style="${cssVars(k)}"><div class="sec-head"><h2>${LEVELS[k].name}</h2><p>${LEVELS[k].sub} · ${items.length} سؤال</p></div>
+      <div class="list">${items.map(x=>cardHTML(x,idx.get(x.id))).join('')}</div></section>`;
+  }
+  main.innerHTML=html;
+}
+function setOpen(id,on){
+  on?open.add(id):open.delete(id);
+  const a=$('a-'+id),b=document.querySelector(`[data-toggle="${id}"]`);
+  if(a)a.hidden=!on;
+  if(b){b.setAttribute('aria-expanded',on);b.textContent=on?'اخفي الإجابة':'اعرض الإجابة'}
+}
+
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t)return;
+  if(t.dataset.toggle){setOpen(t.dataset.toggle,!open.has(t.dataset.toggle));return}
+  if(t.dataset.rate){
+    const id=t.dataset.rate,v=t.dataset.v;
+    ratings[id]=ratings[id]===v?undefined:v;if(!ratings[id])delete ratings[id];
+    store.set(ratings);
+    t.parentElement.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',ratings[id]===b.dataset.v));
+    renderLadder();return;
+  }
+  if(t.dataset.lv){ui.level=ui.level===t.dataset.lv?null:t.dataset.lv;ui.topic=null;render();return}
+  if(t.dataset.tp!==undefined){ui.topic=t.dataset.tp||null;render();return}
+  if(t.dataset.f){ui.filter=t.dataset.f;document.querySelectorAll('#filters .chip').forEach(c=>c.setAttribute('aria-pressed',c===t));render();return}
+});
+$('search').addEventListener('input',e=>{ui.q=e.target.value;render()});
+$('expand').onclick=()=>visible().forEach(x=>setOpen(x.id,true));
+$('collapse').onclick=()=>{[...open].forEach(id=>setOpen(id,false))};
+$('random').onclick=()=>{
+  const v=visible();if(!v.length)return;
+  const pool=v.filter(x=>ratings[x.id]!=='ok');
+  const pick=(pool.length?pool:v)[Math.floor(Math.random()*(pool.length||v.length))];
+  setOpen(pick.id,false);
+  const el=$(pick.id);el.scrollIntoView({behavior:'smooth',block:'center'});
+  el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
+};
+$('reset').onclick=()=>{
+  const b=$('reset');
+  if(b.dataset.confirm){ratings={};store.set(ratings);delete b.dataset.confirm;b.textContent='امسح التقييم';$('resetMsg').textContent='اتمسح.';render()}
+  else{b.dataset.confirm='1';b.textContent='متأكد؟ اضغط تاني';setTimeout(()=>{delete b.dataset.confirm;b.textContent='امسح التقييم'},3000)}
+};
+render();
+})();
+</script>
+
+</body>
+</html>
