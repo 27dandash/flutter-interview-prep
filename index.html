@@ -142,6 +142,37 @@ details.panel[open]>summary::after{content:"－"}
 .note.f{background:var(--accent-soft)} .note.f b{color:var(--accent)}
 .note.t{background:var(--hot-soft)} .note.t b{color:var(--hot)}
 .empty{padding:40px 10px;text-align:center;color:var(--muted)}
+/* page tabs */
+.pagetabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px}
+.pagetabs button{border:0;background:transparent;border-radius:9px;padding:9px 8px;font-weight:600;font-size:14.5px;color:var(--muted)}
+.pagetabs button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+body.page-v .qonly{display:none!important}
+body:not(.page-v) .vonly{display:none!important}
+/* what's new */
+.v-intro{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:8px;font-size:14.5px}
+.v-intro p{margin:0}
+.v-tools{position:sticky;top:0;z-index:5;background:var(--bg);padding-block:10px;display:grid;gap:8px;border-bottom:1px solid var(--line);margin-top:14px}
+.vlist{display:grid;gap:10px;margin-top:14px;grid-template-columns:minmax(0,1fr)}
+.vcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;border-inline-start:4px solid var(--line)}
+.vcard.key{border-inline-start-color:var(--accent)}
+.vcard>summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;align-items:center}
+.vcard>summary::-webkit-details-marker{display:none}
+.vnum{grid-row:span 2;font-family:"Readex Pro",sans-serif;font-weight:700;font-size:26px;color:var(--accent);direction:ltr;min-width:64px;text-align:center;background:var(--accent-soft);border-radius:12px;padding:6px 8px;line-height:1.2}
+.vmeta{display:flex;flex-wrap:wrap;gap:6px;font-size:12px}
+.vhead{margin:0;font-size:16.5px;font-weight:600;grid-column:2}
+.vchev{grid-row:span 2;grid-column:3;color:var(--muted);font-size:18px;transition:transform .2s}
+.vcard[open] .vchev{transform:rotate(180deg)}
+.vbody{border-top:1px dashed var(--line);padding:14px 16px 16px;display:grid;gap:14px;grid-template-columns:minmax(0,1fr);font-size:calc(1em * var(--scale,1))}
+.vbody>p{margin:0}
+.vsec{display:grid;gap:8px;min-width:0}
+.vsec h4{margin:0;font-family:"Readex Pro",sans-serif;font-size:15.5px;color:var(--accent);display:flex;align-items:center;gap:8px}
+.vsec h4::before{content:"";width:6px;height:6px;border-radius:2px;background:var(--accent);flex:none}
+.vsec p{margin:0}
+.vsec ul{margin:0;padding-inline-start:20px;display:grid;gap:4px}
+.vbody code{background:var(--surface-2);padding:1px 6px;border-radius:5px;font-size:.86em;direction:ltr;unicode-bidi:isolate}
+.vbody pre{margin:0;background:var(--code-bg);color:var(--code-ink);border-radius:10px;padding:12px 14px;overflow-x:auto;direction:ltr;text-align:left;font-size:13px;line-height:1.6}
+.vbody pre code{background:none;padding:0;font-size:inherit}
+.vchip{direction:ltr}
 .viewseg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface);flex:0 0 auto}
 .viewseg button{border:0;background:transparent;padding:8px 11px;font-size:14px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .viewseg button+button{border-inline-start:1px solid var(--line)}
@@ -228,6 +259,14 @@ details.panel[open]>summary::after{content:"－"}
   .ans pre,.mans pre{font-size:12px;padding:10px}
   .note{padding:9px 10px;font-size:14px}
   .fab-top{display:none}
+  .pagetabs button{font-size:13.5px;padding:8px 6px}
+  .v-tools{position:static}
+  .vcard>summary{padding:12px;gap:4px 10px}
+  .vnum{font-size:20px;min-width:52px;padding:5px 6px}
+  .vhead{font-size:15px;grid-column:2/4}
+  .vchev{display:none}
+  .vbody{padding:12px}
+  .vbody pre{font-size:12px;padding:10px}
   .viewseg .vl{display:none}
   .viewseg button{padding:7px 10px}
   .pager{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
@@ -253,12 +292,16 @@ details.panel[open]>summary::after{content:"－"}
     </div>
     <h1>من الأساسيات لحد <span>Senior</span>، سؤال سؤال</h1>
     <p class="lead" id="lead">أسئلة Flutter وDart مرتبة من الأسهل للأصعب: Junior ثم Mid ثم Senior، وفي الآخر "اللي فاتك" عن الجديد من 2024 لحد 2026. العلامة 🔥 معناها إن السؤال بيتكرر كتير في الإنترفيوهات.</p>
-    <div class="ladder" id="ladder"></div>
-    <div class="hero-actions">
+    <div class="pagetabs" role="group" aria-label="أقسام الصفحة">
+      <button type="button" data-page="q" aria-pressed="true">📚 أسئلة الإنترفيو</button>
+      <button type="button" data-page="v" aria-pressed="false">🆕 الجديد في كل version</button>
+    </div>
+    <div class="ladder qonly" id="ladder"></div>
+    <div class="hero-actions qonly">
       <button class="btn primary" id="mockBtn">🎤 ابدأ محاكاة إنترفيو</button>
       <button class="btn" id="random">🎲 سؤال عشوائي</button>
     </div>
-    <details class="panel" id="howPanel">
+    <details class="panel qonly" id="howPanel">
       <summary>إزاي تذاكر من الصفحة دي، وخطة 3 أسابيع</summary>
       <div class="panel-body">
         <ol>
@@ -278,7 +321,7 @@ details.panel[open]>summary::after{content:"－"}
     </details>
   </header>
 
-  <div class="tools" id="tools">
+  <div class="tools qonly" id="tools">
     <div class="row">
       <input class="search" id="search" type="search" placeholder="دوّر في الأسئلة والإجابات… (مثلاً: keys أو isolate)" aria-label="بحث">
       <button class="btn desk-only" id="random2">🎲 عشوائي</button>
@@ -304,10 +347,23 @@ details.panel[open]>summary::after{content:"－"}
     <div class="result-count" id="resultCount"></div>
   </div>
 
-  <main id="main"></main>
+  <main id="main" class="qonly"></main>
+
+  <section id="whatsnew" class="vonly" aria-label="الجديد في كل version">
+    <div class="v-intro" id="vIntro"></div>
+    <div class="v-tools">
+      <div class="scroller"><div class="chips" id="vchips" role="group" aria-label="اختار version"></div></div>
+      <div class="row">
+        <button class="chip" id="vKeyOnly" aria-pressed="false">⭐ المهم للإنترفيو بس</button>
+        <button class="btn" id="vOpenAll">افتح الكل</button>
+        <button class="btn" id="vCloseAll">اقفل الكل</button>
+      </div>
+    </div>
+    <div class="vlist" id="vlist"></div>
+  </section>
 
   <footer class="foot">
-    <details class="panel">
+    <details class="panel qonly">
       <summary>انقل تقدّمك لجهاز تاني</summary>
       <div class="panel-body sync">
         <span>التقييم والملاحظات متسجلين في المتصفح ده بس. انسخ الكود، وافتح الصفحة على الجهاز التاني، وحطه هناك.</span>
@@ -336,6 +392,521 @@ details.panel[open]>summary::after{content:"－"}
   </div>
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
+
+<script type="text/plain" id="vdata">
+@@ 3.50 | 11 نوفمبر 2026 | Dart 3.14 | key
+H: Material بقى package منفصل رسميًا، والـnative interop المباشر بقى stable
+أكبر حاجة في الـrelease ده إن الخطة اللي بدأت في 3.44 خلصت: مكتبات Material وCupertino اللي جوه الـSDK بقت **deprecated رسميًا**، وأي مشروع جديد بيتعمل بـ`flutter create` بيستخدم `material_ui` و`cupertino_ui` من الأول. والحاجة التانية إن الكلام مع الـnative بقى ممكن **مباشرة** من غير platform channels، وبشكل stable.
+## Material وCupertino
+- `package:flutter/material.dart` و`package:flutter/cupertino.dart` بقوا deprecated، ومعاهم الـlocalization delegates بتاعتهم.
+- المشاريع الجديدة بتبدأ بالـpackages المنفصلة على طول.
+- الـmigration بأمر واحد بيغيّر الـimports:
+~~~dart
+// dart fix --apply --code=migrate_design_widgets
+// قبل:
+import 'package:flutter/material.dart';
+// بعد:
+import 'package:material_ui/material_ui.dart';
+~~~
+## Native interop من غير channels
+- **FFIgen** (لـC وObjective-C) و**JNIgen** (لـJava وKotlin) بقوا **stable**. بيولّدوا Dart bindings بأنواعها، فتنادي API الـnative مباشرة، synchronous أو من background isolate.
+- ده ممكن دلوقتي بسبب الـthread merge اللي حصل في 3.29: Dart والـnative بقوا على نفس الـthread.
+- **Pigeon** بقى فيه native interop mode كـpreview، بيستخدم FFIgen وJNIgen من تحت.
+## Android
+- المشاريع الجديدة: AGP 9.3.1، وGradle 9.5.0، وKotlin 2.4.20، وcompileSdk وtargetSdk 36، وminSdk 24.
+- الـplugins **لازم** تستخدم الـKotlin الـbuilt-in في AGP 9، مش تطبّق KGP بإيدها.
+- **HCPP** محتاج Android 14 وImpeller على Vulkan، وبيتفعّل بـ`flutter config --enable-hcpp`.
+- في الـrelease builds، الـIntent extras زي `route` و`dart_entrypoint` بقت بتتجاهل، علشان محدش يفتح الـapp على route معين من برّه.
+## iOS وmacOS
+- الـtouch input بقى أسرع بـframe كامل: حوالي 16ms على شاشة 60Hz.
+- لو قفلت Swift Package Manager، الـCLI بيطلّع warning.
+- `flutter config --enable-macos-arm64-only` لـapps بتشتغل على Apple Silicon بس.
+## Web
+- `dart:html` و`dart:js` و`package:js` بقوا deprecated، والبديل `dart:js_interop` و`package:web`. وتقدر تتأكد إن مشروعك نضيف بـ`flutter build web --no-deprecated-js-interop`.
+- WebAssembly بقى أسرع على Safari وFirefox الجديدين.
+- `WebParagraph` (experimental) بيخلي المتصفح يرسم النص، فحجم CanvasKit بيقل من 5.46MB لحوالي 3.75MB.
+## Framework
+- `SliverClipRect` و`SliverClipRRect` علشان تقص slivers.
+- `ListView.separated` بقى بياخد `itemExtentBuilder`.
+- `MediaQueryData.reduceMotion` علشان تحترم إعداد المستخدم إنه مش عاوز animations كتير.
+- `AutofillHints.emailOTPCode`، و`TextInputType.numberWithOptions(password: true)` لـPIN رقمي مخفي.
+- `showDialog` بقى بياخد `barrierBuilder`، وزرار Escape بيقفل الـtooltips.
+## Dart 3.14
+- مفيش features جديدة في اللغة، بس فيه أداة جديدة مهمة: **`dart migrate`**، بترفع الـSDK constraint بتاع الـpackage خطوة خطوة، وبتطبّق الـfixes المطلوبة في كل خطوة.
+~~~dart
+dart migrate --dry-run                      // شوف هيغيّر إيه
+dart migrate --apply                        // نفّذ
+dart migrate --apply --target-sdk=3.14.0
+~~~
+- **DartPad** اتبنى من جديد: بقى بيدعم أي package من pub.dev، وأكتر من ملف.
+- Genkit Dart وصل 1.0.
+T: لو اتسألت عن آخر حاجة في Flutter، اتكلم عن نقطتين: Material بقى package منفصل (وليه ده مفيد)، والـnative interop المباشر بـFFIgen وJNIgen (وإنه بقى ممكن بسبب الـthread merge).
+
+@@ 3.47 | أغسطس 2026 | Dart 3.13 | key
+H: primary constructors بقت stable، وImpeller وصل للـdesktop
+## Dart 3.13: Primary constructors
+أهم feature في اللغة من سنين. بتكتب الـfields والـconstructor في سطر الـclass نفسه، زي Kotlin:
+~~~dart
+// قبل:
+class Point {
+  const Point(this.x, this.y);
+  final int x;
+  final int y;
+}
+// بعد:
+class const Point(final int x, final int y);
+~~~
+- `final` أو `var` قبل الـparameter هي اللي بتخليه field.
+- فيه lints وrefactorings في الـIDE بتحوّل الكود القديم ليها.
+## Material وCupertino كـpackages
+- `material_ui` و`cupertino_ui` نزلوا **1.0** على pub.dev. استخدامهم لسه اختياري في الـrelease ده.
+- فيه `MaterialUiCompatibilityBridge` للفترة الانتقالية، لما تبقى بعض الـpackages لسه على النسخة القديمة.
+## Impeller على الـdesktop
+- Impeller بقى الـdefault على macOS وWindows وLinux. يعني مفيش shader jank أول مرة على الـdesktop كمان.
+- النصوص على الـdesktop بقت بتترسم بـSDF، فبقت أوضح.
+## Widget Previews بقت stable
+بتحط `@Preview` على function بترجّع widget، وتشوفه جوه الـIDE من غير ما تشغّل الـapp:
+~~~dart
+@Preview(name: 'زرار وقت التحميل')
+Widget loadingButton() => const AppButton(label: 'حفظ', loading: true);
+~~~
+## Desktop
+- Multi-window اتوسع: popup windows، و`windowHandle`.
+- الـflavors بقت شغالة على Windows وLinux.
+## iOS وmacOS
+- الحد الأدنى بقى **iOS 15** و**macOS 12**.
+- لحد 3.47، 92 من أشهر 100 plugin على iOS بقوا بيدعموا SPM.
+## Breaking
+- `describeEnum` اتشال. استخدم `myEnum.name` بدله.
+
+@@ 3.44 | مايو 2026 (Google I/O) | Dart 3.12 | key
+H: Swift Package Manager بقى الـdefault، وMaterial اتعمله freeze
+## iOS: Swift Package Manager
+CocoaPods بقى في وضع maintenance، وApple بتدعم SPM. فمن 3.44، **SPM بقى الـdefault**، والـCLI بيعمل الـmigration للمشروع لوحده. ولو بتكتب plugin، لازم تضيف دعم SPM.
+## Material وCupertino: code freeze
+- آخر تحديثات للنسخة اللي جوه الـSDK. بعد كده التطوير بيحصل في `material_ui` و`cupertino_ui`.
+- السبب: تحديثات التصميم مش هتستنى release الـSDK كل 3 شهور.
+## Android
+- **AGP 9**: الـKotlin بقى built-in. لو مشروعك بيطبّق الـKotlin Gradle plugin بإيده، هيحصل conflict ولازم تشيله.
+- **Skia اتشال** من Android 10 وأحدث، وImpeller (Vulkan) بقى الـrenderer الوحيد هناك.
+- **HCPP** (Hybrid Composition++): أداء أحسن للـplatform views زي الخرائط، بس opt-in.
+- `MediaQueryData.displayCornerRadii` بيدّيك انحناء أركان الشاشة.
+## Widgets جديدة
+- `CupertinoMenuAnchor` لقوائم شكلها iOS.
+- `CarouselView` بقى بيدعم infinite scrolling و`onIndexChanged`.
+- `ShapedInputBorder` لـborder أي شكل في الـTextField.
+## Breaking وdeprecations
+~~~dart
+// onReorder بقى deprecated:
+ReorderableListView(
+  onReorderItem: (oldIndex, newIndex) { ... },   // بدل onReorder
+  children: [...],
+);
+~~~
+- `IconData` بقت `final`، مينفعش تورث منها.
+- `cacheExtent` اتغيّر شكله في الـscroll views.
+## Dart 3.12
+- **Private named parameters** stable: `Bird({required this._name})`، والاسم برّه بيبقى `name`.
+- **Primary constructors** نزلت experimental.
+## Tooling
+- **Agentic hot reload**: الـMCP server بيخلي أدوات الـAI تعمل hot reload لوحدها بعد ما تعدّل الكود.
+
+@@ 3.41 | فبراير 2026 | Dart 3.11
+H: تحسينات iOS والـblur، وتمهيد لفصل Material
+## Framework
+- **Bounded blur** في `BackdropFilter`: قبل كده الـblur كان بيسحب ألوان من برّه حدوده عند الأطراف. الستايل الجديد بيمنع ده.
+- `Navigator.popUntilWithResult`: ترجع لشاشة معينة وتبعتلها نتيجة في نفس الوقت.
+~~~dart
+Navigator.popUntilWithResult(context, ModalRoute.withName('/cart'), 'paid');
+~~~
+- `FontWeight` بقى بيتحكم في وزن الـvariable fonts كمان.
+## iOS
+- دعم الـUIScene lifecycle بقى default.
+- استمرار النقل من CocoaPods لـSwift Package Manager.
+## Desktop
+- الـthread merge وصل لـLinux.
+## Process
+- Flutter بدأ ينشر **release windows** علنية، فتعرف التغييرات هتنزل في أنهي release.
+## Deprecations
+- `findChildIndexCallback` بقى `findItemIndexCallback` في `ListView.separated`.
+- `containsSemantics` بقى `isSemantics`.
+## Dart 3.11
+- مفيش features جديدة في اللغة، بس تحسينات في الـanalyzer للـdot shorthands.
+- `dart pub cache gc` بيمسح الـpackage versions اللي مش مستخدمة ويفضّي مساحة.
+- `dart:js_util` اتشال من dart2wasm.
+
+@@ 3.38 | نوفمبر 2025 | Dart 3.10 | key
+H: Dot shorthands، وUIScene، وpredictive back بقى الـdefault
+## Dart 3.10: Dot shorthands
+لما النوع يكون معروف من السياق، تقدر تشيل اسمه:
+~~~dart
+// قبل:
+Column(
+  mainAxisAlignment: MainAxisAlignment.center,
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [Padding(padding: EdgeInsets.all(8), child: ...)],
+);
+// بعد:
+Column(
+  mainAxisAlignment: .center,
+  crossAxisAlignment: .start,
+  children: [Padding(padding: .all(8), child: ...)],
+);
+~~~
+## iOS
+- دعم iOS 26 وXcode 26.
+- الـ**UIScene lifecycle** بقى مطلوب. فيه migration تلقائي experimental: `flutter config --enable-uiscene-migration`.
+## Android
+- Google Play بقى بيطلب **16KB page size** للـapps اللي بتستهدف Android 15، وFlutter 3.38 بيستخدم NDK r28 علشان كده.
+- **Java 17** بقى الحد الأدنى.
+- الـ**predictive back** بقى الـdefault في `MaterialApp`: لما المستخدم يسحب علشان يرجع، بيشوف preview للشاشة اللي وراه.
+## Web
+- `web_dev_config.yaml` بيحدد إعدادات `flutter run` على الويب، زي الـport والـheaders والـproxy.
+- الـhot reload شغال كمان مع `-d web-server`.
+## Framework
+- `OverlayPortal.overlayChildLayoutBuilder` بيعرض الـchild في أي Overlay فوقه.
+- `SliverGrid.list` constructor جديد.
+- `SliverSemantics` للـscreen readers.
+## Widget Previews
+- بقى ليها دعم في VS Code وAndroid Studio، وفيه `MultiPreview` والـgroups.
+## Breaking
+- **SnackBar فيه action مابقاش بيختفي لوحده**. لازم المستخدم يقفله أو يضغط الـaction.
+- `AssetManifest.json` مابقاش بيتولّد.
+- ملف `version` في الـSDK بقى `bin/cache/flutter.version.json`.
+
+@@ 3.35 | أغسطس 2025 | Dart 3.9 | key
+H: Hot reload على الويب بقى الـdefault، وWidget Previews والـMCP server
+## Web
+- **الـstateful hot reload على الويب** بقى شغال بشكل default. قبل كده كان hot restart بس، وكل تعديل كان بيرجّعك لأول الـapp.
+- كل build للويب بيعمل Wasm dry run، علشان يقولك لو فيه حاجة هتمنعك تنقل لـWasm.
+## AI وأدوات
+- **Dart and Flutter MCP Server** بقى في الـSDK الـstable. بيدّي أدوات الـAI وصول لمشروعك: الـanalyzer، والـhot reload، والـwidget tree.
+- **Widget Previews** نزلت experimental.
+- الـAnalysis Server بقى AOT، فـ`dart analyze` و`dart fix` بقوا أسرع.
+## Accessibility
+- `SensitiveContent` على Android 15+: بيخفي الشاشة وقت الـscreen sharing (للـpasswords أو بيانات البنك).
+- `SemanticsLabelBuilder` و`SliverEnsureSemantics`.
+## Material وCupertino
+- `DropdownMenuFormField` علشان تستخدم `DropdownMenu` جوه Form.
+- `NavigationRail` بقى بيعمل scroll.
+- Cupertino بقى بيستخدم الـ**squircle** (`RSuperellipse`) في الأركان، زي iOS بالظبط.
+## Breaking
+`Radio` اتغير: الـ`groupValue` والـ`onChanged` بقوا في `RadioGroup` واحد فوق:
+~~~dart
+// قبل:
+Radio(value: 1, groupValue: selected, onChanged: (v) => ...);
+// بعد:
+RadioGroup<int>(
+  groupValue: selected,
+  onChanged: (v) => setState(() => selected = v),
+  child: const Column(children: [Radio(value: 1), Radio(value: 2)]),
+);
+~~~
+- `DropdownButtonFormField`: الـ`value` بقى `initialValue`.
+- `Form` مابقاش ينفع يتحط كـsliver مباشرة. لفه بـ`SliverToBoxAdapter`.
+- الحد الأدنى لـAndroid بقى **API 24**، و32-bit x86 بقى deprecated.
+- الـthread merge وصل لـmacOS وWindows.
+
+@@ 3.32 | مايو 2025 | Dart 3.8
+H: Hot reload على الويب (experimental)، وsquircles، وFirebase AI
+## Web
+- أول مرة يبقى فيه hot reload على الويب: `flutter run -d chrome --web-experimental-hot-reload`.
+## Cupertino squircles
+الأركان في iOS مش دواير عادية، دي منحنى مستمر اسمه squircle. وFlutter بقى بيرسمه:
+~~~dart
+Container(
+  decoration: ShapeDecoration(
+    shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(20)),
+  ),
+);
+~~~
+## Framework
+- `Expansible`: widget أساسي من غير ستايل، والـ`ExpansionTile` مبني فوقه. و`ExpansionTileController` بقى `ExpansibleController`.
+- `RawMenuAnchor`: قائمة من غير ستايل Material، تبني عليها شكلك.
+- `SemanticsRole` بيحدد دور الـwidget للـscreen readers (على الويب في الأول).
+## Firebase AI
+- `firebase_ai` بقى البديل لـ`firebase_vertexai`.
+## Tooling
+- **Property Editor** في VS Code وAndroid Studio: بتعدّل خصائص الـwidget من panel جانبي.
+## Dart 3.8
+- **Null-aware elements**: `[?item]` و`{'phone': ?phone}` بيضيفوا العنصر بس لو مش null.
+- الـformatter بقى بيقرر الـtrailing commas لوحده.
+## Breaking
+- `ThemeData.indicatorColor` اتنقل لـ`TabBarThemeData.indicatorColor`.
+- 6 packages وقفوا، منهم `flutter_markdown` و`palette_generator`.
+
+@@ 3.29 | فبراير 2025 | Dart 3.7 | key
+H: الـthread merge: Dart بقى بيشتغل على الـmain thread
+## الـThread merge
+قبل 3.29، كود Dart كان على thread منفصل (UI thread)، وأي كلام مع الـnative كان لازم يبقى async عن طريق رسايل. من 3.29، على Android وiOS، **Dart بقى بيشتغل على الـplatform thread نفسه**.
+- **الفايدة**: تقدر تنادي native APIs بشكل synchronous، وده اللي خلّى FFIgen وJNIgen يبقوا عمليين.
+- **المسؤولية**: أي شغل Dart تقيل بقى بيوقف الـmain thread بتاع النظام كله، فالـisolates بقت أهم.
+## Rendering
+- **Skia اتشال من iOS**، وImpeller بقى الوحيد. والـflag `FLTEnableImpeller` بقى مالوش تأثير.
+- على Android، الأجهزة اللي مفيهاش Vulkan بترجع لـImpeller على OpenGL بدل Skia.
+- `BackdropGroup` و`BackdropFilter.grouped`: لو عندك blur كتير في الشاشة، بيتعملوا مع بعض بأداء أحسن.
+- `ImageFilter.shader` لتطبيق shader مخصص.
+## Cupertino
+- `CupertinoSheetRoute` و`showCupertinoSheet`: الـbottom sheet بتاع iOS اللي بيتسحب لتحت.
+- `CupertinoNavigationBar.large` للعنوان الكبير.
+## Web
+- الـHTML renderer **اتشال**. فاضل CanvasKit وskwasm.
+- `Image.network` بقى بيشتغل مع صور CORS.
+## Dart 3.7
+- **Wildcard `_`**: بقى ينفع تكرره: `(_, _) => ...`.
+- **الـformatter الجديد (tall style)**: أول upgrade بيعمل diff كبير، فاعمله في commit لوحده.
+- `dart:html` و`package:js` بقوا deprecated.
+## Breaking
+- الـv1 Android embedding اتشال خالص.
+- `ThemeData.dialogBackgroundColor` بقى `DialogThemeData.backgroundColor`.
+
+@@ 3.27 | ديسمبر 2024 | Dart 3.6 | key
+H: Row وColumn بقى فيهم spacing، وألوان wide gamut
+## spacing في Row وColumn
+أكتر تغيير هتحسه في الكود اليومي. بدل ما تحط `SizedBox` بين كل عنصرين:
+~~~dart
+// قبل:
+Column(children: [a, const SizedBox(height: 12), b, const SizedBox(height: 12), c]);
+// بعد:
+Column(spacing: 12, children: [a, b, c]);
+~~~
+## Color: wide gamut
+الـ`Color` بقى بيدعم ألوان أوسع من sRGB، والقيم بقت `double` من 0 لـ1 بدل 8 bits. علشان كده:
+~~~dart
+// deprecated:
+color.withOpacity(0.5);
+color.red;          // int من 0 لـ255
+// الجديد:
+color.withValues(alpha: 0.5);
+color.r;            // double من 0 لـ1
+~~~
+## Rendering
+- **Impeller بقى الـdefault على Android** للأجهزة اللي بتدعم Vulkan (API 29+).
+## Android
+- **Edge-to-edge** بقى الـdefault للـ`SystemUiMode`. الـapp بيترسم تحت الـstatus bar والـnavigation bar، فلازم `SafeArea`.
+## Cupertino
+- تحسينات كتير في الشكل، وwidgets زي `CupertinoCheckbox` و`CupertinoRadio` بقت أقرب لـiOS.
+- `CarouselView.weighted` للـcarousel بأحجام مختلفة.
+## Dart 3.6
+- **Digit separators**: `1_000_000`.
+- **Pub workspaces**: أكتر من package في نفس الـrepo بـresolution واحد. مفيد جدًا للـmonorepos.
+
+@@ 3.24 | أغسطس 2024 | Dart 3.5
+H: Flutter GPU، وCarouselView، وأول دعم لـSwift Package Manager
+## Rendering
+- **Flutter GPU** (preview): API منخفض المستوى علشان ترسم 3D أو effects مخصصة بنفسك.
+## Widgets جديدة
+- `CarouselView`: carousel بتصميم Material 3.
+- `TreeView` و`TreeSliver`: لعرض بيانات شجرية، زي فولدرات جواها فولدرات.
+## iOS
+- أول دعم **opt-in** لـSwift Package Manager.
+## Web
+- **Multi-view embedding**: تحط أكتر من Flutter view في صفحة HTML واحدة.
+## Breaking
+`PopScope` بقى generic، و`onPopInvoked` بقى `onPopInvokedWithResult`، علشان تعرف النتيجة اللي الشاشة رجعت بيها:
+~~~dart
+PopScope<bool>(
+  canPop: !hasUnsavedChanges,
+  onPopInvokedWithResult: (didPop, result) {
+    if (!didPop) showDiscardDialog();
+  },
+  child: ...,
+);
+~~~
+- `ButtonBar` بقى deprecated، والبديل `OverflowBar`.
+
+@@ 3.22 | مايو 2024 | Dart 3.4 | key
+H: WebAssembly بقى stable، وMaterialState بقى WidgetState
+## Web: WebAssembly
+- Flutter Web بقى يقدر يتعمله compile لـ**WebAssembly** بشكل stable: `flutter build web --wasm`. وده أسرع بكتير من JavaScript في الـframes.
+- الشرط إن الكود مايستخدمش `dart:html`. لازم `package:web` و`dart:js_interop`.
+## MaterialState بقى WidgetState
+الاسم اتغير لأن الفكرة مش خاصة بـMaterial، وده كان تمهيد لفصل Material بعد كده:
+~~~dart
+// قبل:
+MaterialStateProperty.resolveWith((states) =>
+    states.contains(MaterialState.pressed) ? Colors.blue : Colors.grey);
+// بعد:
+WidgetStateProperty.resolveWith((states) =>
+    states.contains(WidgetState.pressed) ? Colors.blue : Colors.grey);
+~~~
+## Material
+- أدوار ألوان جديدة في `ColorScheme`، زي `surfaceContainer` و`surfaceContainerHigh`.
+## Android
+- Android KitKat اتشال.
+## AI
+- Vertex AI for Firebase Dart SDK نزل preview.
+## Dart 3.4
+- الـ**macros** نزلت preview، زي `@JsonCodable`. (اتلغت بعد كده في 2025، وbuild_runner فضل هو الطريق.)
+- تحسينات في الـtype analysis للـconditional expressions.
+
+@@ 3.19 | فبراير 2024 | Dart 3.3
+H: Extension types، وGemini SDK، وKeyEvent الجديد
+## Dart 3.3: Extension types
+نوع جديد وقت الـcompile بس، من غير أي تكلفة وقت التشغيل. بيمنعك تخلط قيم ليها نفس النوع الأساسي:
+~~~dart
+extension type UserId(int value) {}
+extension type OrderId(int value) {}
+void cancel(OrderId id) {}
+cancel(UserId(5));   // compile error
+~~~
+## AI
+- Google AI Dart SDK نزل، علشان تستخدم Gemini من Flutter.
+## Framework
+- `AnimationStyle`: تغيّر مدة وcurve الـanimation في widgets زي `showModalBottomSheet`.
+- `SegmentedButton.expandedInsets`.
+## Rendering
+- Impeller على Android (Vulkan) بقى beta.
+## Platforms
+- Windows على Arm64.
+- DevTools بقى فيه **deep link validator** بيتأكد من إعدادات الـApp Links.
+## Breaking
+- `RawKeyEvent` و`RawKeyboard` بقوا deprecated، والبديل `KeyEvent` و`HardwareKeyboard`.
+- تطبيق الـFlutter Gradle plugin بالطريقة القديمة (`apply from:`) بقى deprecated، والبديل الـ`plugins {}` block.
+
+@@ 3.16 | نوفمبر 2023 | Dart 3.2 | key
+H: Material 3 بقى الـdefault، وPopScope بدل WillPopScope
+## Material 3 بقى الـdefault
+- `useMaterial3` بقى `true` لوحده. يعني أي app بيعمل upgrade، شكله بيتغير: الألوان والأزرار والـAppBar.
+- لو مش جاهز، تقدر ترجعه مؤقتًا بـ`ThemeData(useMaterial3: false)`.
+## Predictive back: PopScope
+Android بقى فيه predictive back، والنظام محتاج يعرف **قبل** الرجوع إذا كان مسموح. فـ`WillPopScope` (اللي كان بيسأل وقت الرجوع) بقى deprecated:
+~~~dart
+// قبل:
+WillPopScope(onWillPop: () async => !hasChanges, child: ...);
+// بعد:
+PopScope(canPop: !hasChanges, child: ...);
+~~~
+## Text scaling
+- `textScaleFactor` بقى deprecated، والبديل `TextScaler`، لأن Android 14 بقى بيكبّر الخط بشكل غير خطي (الخط الكبير بيكبر أقل من الصغير).
+~~~dart
+MediaQuery.textScalerOf(context).scale(16);
+~~~
+## Tooling
+- **DevTools extensions**: الـpackages تقدر تضيف tabs خاصة بيها في DevTools.
+- Impeller على Android نزل preview.
+## Dart 3.2
+- **Private field promotion**: الـprivate final fields بقت بتتعمل promotion بعد null check:
+~~~dart
+if (_user != null) print(_user.name);   // بقى شغال من غير !
+~~~
+
+@@ 3.13 | أغسطس 2023 | Dart 3.1
+H: AppLifecycleListener، والـscroll في الاتجاهين
+## AppLifecycleListener
+طريقة أسهل من `WidgetsBindingObserver` علشان تعرف الـapp راح الخلفية أو رجع:
+~~~dart
+late final _listener = AppLifecycleListener(
+  onResume: refresh,
+  onPause: saveDraft,
+);
+~~~
+- اتضافت حالة جديدة: `AppLifecycleState.hidden`.
+## 2D scrolling
+- `TwoDimensionalScrollView`: scroll أفقي ورأسي في نفس الوقت. والـpackage `two_dimensional_scrollables` فيها `TableView` لجداول كبيرة.
+## Platforms
+- دعم الـfoldables: تعرف مكان المفصّلة (display features) وتظبط الـlayout حواليها.
+- Impeller على Android (Vulkan) اتحسن.
+## Breaking
+- `dispose()` اتضاف لـobjects كانت ناقصاه، فلازم تقفلها.
+- `RouteInformation.location` بقى deprecated، والبديل `uri`.
+
+@@ 3.10 | مايو 2023 | Dart 3.0 | key
+H: Dart 3: Records، وPatterns، وsealed classes، وnull safety إجباري
+أكبر release في تاريخ Dart. اللغة نفسها اتغيرت بشكل كبير.
+## Null safety إجباري
+- Dart 3 بقى **100% sound null safety**. أي package أو مشروع لسه مش null-safe مش هيشتغل.
+## Records
+ترجّع أكتر من قيمة من غير ما تعمل class:
+~~~dart
+(String, int) user() => ('Ali', 30);
+final (name, age) = user();
+~~~
+## Patterns وswitch expressions وsealed
+~~~dart
+sealed class Result {}
+class Success extends Result { Success(this.data); final String data; }
+class Failure extends Result { Failure(this.error); final String error; }
+
+String show(Result r) => switch (r) {
+  Success(:final data) => data,
+  Failure(:final error) => 'خطأ: $error',
+};
+~~~
+الـcompiler بيتأكد إنك غطيت كل الحالات. ولو ضفت حالة جديدة ونسيتها، هيطلع compile error.
+## Class modifiers
+- `sealed` و`final` و`base` و`interface` و`mixin class`، علشان تتحكم مين يقدر يورث أو يعمل implement.
+## Rendering
+- **Impeller بقى الـdefault على iOS**. ودي كانت نهاية الـshader jank على iOS.
+## Web
+- Element embedding: تحط Flutter جوه div في صفحة موجودة.
+- WebAssembly نزل experimental.
+## Breaking
+- `window` singleton بقى deprecated، والبديل `View.of(context)`.
+
+@@ 3.7 | يناير 2023 | Dart 2.19
+H: Material 3 بقى أكمل، وقوائم وcontext menus جديدة
+## Material 3
+- widgets كتير بقت بتدعم Material 3، زي `NavigationBar` و`NavigationDrawer` والـChips والـButtons.
+## Menus
+- `MenuAnchor` و`MenuBar`: قوائم متداخلة (cascading)، زي قوائم برامج الـdesktop.
+## Context menus
+- تقدر تغيّر القائمة اللي بتظهر لما تعمل long press على نص:
+~~~dart
+TextField(
+  contextMenuBuilder: (context, state) => AdaptiveTextSelectionToolbar.buttonItems(
+    anchors: state.contextMenuAnchors,
+    buttonItems: [...state.contextMenuButtonItems, shareButton],
+  ),
+);
+~~~
+## iOS
+- Impeller نزل preview على iOS.
+- `flutter build ipa` بقى بيعمل validation قبل الرفع، وبيقولك لو فيه حاجة ناقصة.
+## Breaking
+- `Theme.of` و`MediaQuery.of` وغيرهم بقوا بيرجّعوا قيمة non-null، واتضاف `maybeOf` لو مش متأكد إن الـwidget موجود.
+
+@@ 3.3 | أغسطس 2022 | Dart 2.18
+H: SelectionArea، وgo_router الرسمي
+## SelectionArea
+قبل كده، النص في Flutter (خصوصًا على الويب) مكانش بيتحدد بالماوس. `SelectionArea` بيخلي كل النصوص اللي جواه قابلة للتحديد:
+~~~dart
+SelectionArea(child: Column(children: [Text('...'), Text('...')]));
+~~~
+## Navigation
+- **go_router** بقى فريق Flutter هو اللي بيصينه رسميًا.
+## Input
+- Trackpad gestures: الـpinch والـscroll بصباعين على اللابتوب.
+## Rendering
+- Impeller نزل preview أولي على iOS (بـflag).
+## Dart 2.18
+- Interop experimental مع Objective-C وSwift.
+- تحسينات في الـtype inference.
+
+@@ 3.0 | مايو 2022 | Dart 2.17
+H: الـ6 منصات بقوا stable
+## Platforms
+- **macOS وLinux** بقوا stable، فـFlutter بقى stable على 6 منصات: Android وiOS والويب وWindows وmacOS وLinux.
+- دعم Apple Silicon بشكل native.
+## Material 3
+- بداية دعم Material 3 بـ`useMaterial3: true` كـopt-in.
+## Firebase
+- Firebase بقى مدعوم رسميًا كجزء من منظومة Flutter، ومعاه Crashlytics.
+## Games
+- **Casual Games Toolkit**: template وأدوات لعمل ألعاب بسيطة.
+## Dart 2.17
+- **Enhanced enums**: enum فيه fields وmethods.
+- **Super parameters**: الـ`super.key` اللي بتكتبه في كل widget جاي من هنا:
+~~~dart
+// قبل:
+const MyWidget({Key? key}) : super(key: key);
+// بعد:
+const MyWidget({super.key});
+~~~
+- **Named arguments في أي مكان**: تقدر تحط الـnamed argument قبل الـpositional.
+## Breaking
+- الـpage transition الـdefault على Android بقى `ZoomPageTransitionsBuilder`.
+</script>
 
 <script type="text/plain" id="data">
 ### j | dart | hot
@@ -4152,6 +4723,7 @@ function setView(vw){
   else if(main.getBoundingClientRect().top<0)main.scrollIntoView({block:'start'});
 }
 function goTo(id,{openIt=false}={}){
+  if(document.body.classList.contains('page-v'))setPage('q',{scroll:false});
   if(ui.view==='single'){
     if(!visible().some(x=>x.id===id)){ui.level=null;ui.topic=null;ui.filter='all';ui.q='';$('search').value='';syncFilterChips()}
     ui.curId=id;render();
@@ -4343,10 +4915,78 @@ document.addEventListener('keydown',e=>{
   else if(e.key==='m'||e.key==='M'||e.key==='ة'){openMock()}
 });
 
+/* what's new */
+const V=[];
+document.getElementById('vdata').textContent.split(/\n(?=@@ )/).forEach(block=>{
+  block=block.trim();if(!block.startsWith('@@ '))return;
+  const lines=block.split('\n');
+  const [num,date,dart,flag]=lines[0].slice(3).split('|').map(x=>x.trim());
+  const item={num,date,dart,key:flag==='key',head:'',secs:[{title:'',lines:[]}],tips:[]};
+  let inCode=false;
+  for(const l of lines.slice(1)){
+    if(!inCode&&l.startsWith('H: ')){item.head=l.slice(3);continue}
+    if(!inCode&&l.startsWith('T: ')){item.tips.push(l.slice(3));continue}
+    if(!inCode&&l.startsWith('## ')){item.secs.push({title:l.slice(3),lines:[]});continue}
+    if(l.startsWith('~~~'))inCode=!inCode;
+    item.secs[item.secs.length-1].lines.push(l);
+  }
+  item.id='v'+num.replace(/\./g,'-');
+  V.push(item);
+});
+const vState={keyOnly:false};
+function vBody(x){
+  return x.secs.map(sec=>sec.title
+    ?`<div class="vsec"><h4>${inline(sec.title)}</h4>${renderBody(sec.lines)}</div>`
+    :renderBody(sec.lines)).join('')
+    +x.tips.map(t=>`<div class="note t"><b>للإنترفيو</b><span>${inline(t)}</span></div>`).join('');
+}
+function renderVersions(){
+  $('vIntro').innerHTML=`<p><b>Flutter بينزل release stable كل 3 شهور تقريبًا</b> (فبراير ومايو وأغسطس ونوفمبر)، وكل release معاه version جديد من Dart. هنا كل version من <b>${V[V.length-1].num}</b> لحد <b>${V[0].num}</b>: إيه اللي اتغير، وأمثلة كود قبل وبعد، والـbreaking changes اللي هتقابلها لو بتعمل upgrade.</p>
+    <p style="color:var(--muted);font-size:13.5px">⭐ = version اتغير فيه حاجات بتتسأل كتير في الإنترفيوهات. ولو وقفت عند version قديم، اقرأ من بعده لحد آخر واحد.</p>`;
+  const list=V.filter(x=>!vState.keyOnly||x.key);
+  $('vchips').innerHTML=list.map(x=>`<button class="chip vchip" data-vjump="${x.id}">${x.key?'⭐ ':''}${x.num}</button>`).join('');
+  $('vlist').innerHTML=list.map((x,i)=>`<details class="vcard${x.key?' key':''}" id="${x.id}"${i===0?' open':''}>
+    <summary><span class="vnum">${x.num}</span>
+      <span class="vmeta"><span class="tag">${esc(x.date)}</span><span class="tag">${esc(x.dart)}</span>${x.key?'<span class="tag lv" style="--c:var(--accent);--cs:var(--accent-soft)">⭐ مهم للإنترفيو</span>':''}</span>
+      <span class="vchev" aria-hidden="true">⌄</span>
+      <h3 class="vhead">${inline(x.head)}</h3></summary>
+    <div class="vbody">${vBody(x)}</div></details>`).join('');
+  $('vKeyOnly').setAttribute('aria-pressed',vState.keyOnly);
+}
+function setPage(p,{scroll=true}={}){
+  const isV=p==='v';
+  if(document.body.classList.contains('page-v')===isV)return;
+  document.body.classList.toggle('page-v',isV);
+  document.querySelectorAll('[data-page]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.page===p));
+  store.set('flutter-ladder-page',p);
+  if(isV&&!$('vlist').innerHTML)renderVersions();
+  if(scroll&&window.scrollY>$('whatsnew').offsetTop)window.scrollTo({top:0});
+}
+function vJump(id){
+  setPage('v',{scroll:false});
+  let el=$(id);
+  if(!el&&vState.keyOnly){vState.keyOnly=false;renderVersions();el=$(id)}
+  if(!el)return;
+  el.open=true;
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+  try{history.replaceState(null,'','#'+id)}catch(_){}
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t)return;
+  if(t.dataset.page){setPage(t.dataset.page);try{history.replaceState(null,'',location.pathname+location.search)}catch(_){}return}
+  if(t.dataset.vjump){vJump(t.dataset.vjump);return}
+},true);
+$('vKeyOnly').onclick=()=>{vState.keyOnly=!vState.keyOnly;renderVersions()};
+$('vOpenAll').onclick=()=>document.querySelectorAll('.vcard').forEach(d=>d.open=true);
+$('vCloseAll').onclick=()=>document.querySelectorAll('.vcard').forEach(d=>d.open=false);
+['bbSearch','bbRandom','bbMock'].forEach(id=>$(id).addEventListener('click',()=>setPage('q',{scroll:false}),true));
+
 render();
 /* deep link */
 const h=location.hash.slice(1);
 if(h&&byId.has(h))setTimeout(()=>goTo(h,{openIt:true}),60);
+else if(/^v\d/.test(h))setTimeout(()=>vJump(h),60);
+else if(store.get('flutter-ladder-page','q')==='v')setPage('v',{scroll:false});
 })();
 </script>
 
